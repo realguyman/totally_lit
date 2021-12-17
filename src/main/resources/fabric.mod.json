@@ -3,7 +3,7 @@
     "id": "totally_lit",
     "name": "Totally Lit",
     "version": "${version}",
-    "description": "Some light sources go out in the rain and burn to a crisp over time.",
+    "description": "Some light sources will extinguish under various conditions.",
     "depends": {
         "minecraft": "1.15.2",
         "fabricloader": ">=0.10.8",
