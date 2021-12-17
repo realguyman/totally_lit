@@ -19,5 +19,6 @@
     },
     "mixins": [
         "totally_lit.mixins.json"
-    ]
+    ],
+    "icon": "assets/totally_lit/icon.png"
 }
