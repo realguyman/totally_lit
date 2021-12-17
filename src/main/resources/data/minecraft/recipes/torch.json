@@ -1,19 +1,15 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#",
-        "|"
-    ],
-    "key": {
-        "#": {
-            "item": "minecraft:blaze_powder"
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "totally_lit:unlit_torch"
         },
-        "|": {
-            "item": "minecraft:stick"
+        {
+            "item": "minecraft:torch"
         }
-    },
+    ],
     "result": {
         "item": "minecraft:torch",
-        "count": 4
+        "count": 2
     }
 }
