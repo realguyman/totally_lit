@@ -6,7 +6,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.TickPriority;
+import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchBlock;
@@ -31,7 +31,7 @@ public abstract class TorchBlockMixin extends Block {
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
         // Schedule a tick for the torch if it hasn't been scheduled.
         if (!level.isClientSide() && isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.getBlockTicks().scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
+            level.scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
         }
 
         super.onPlace(state, level, pos, oldState, notify);
@@ -66,7 +66,7 @@ public abstract class TorchBlockMixin extends Block {
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         // Schedule a tick for the torch if it hasn't been scheduled.
         if (isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.getBlockTicks().scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
+            level.scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
         }
 
         // TODO: Make the chance torches extinguish in the rain configurable.
