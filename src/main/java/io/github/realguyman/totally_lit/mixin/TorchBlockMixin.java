@@ -1,17 +1,18 @@
 package io.github.realguyman.totally_lit.mixin;
 
+import io.github.realguyman.totally_lit.Configuration;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.ticks.TickPriority;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.ticks.TickPriority;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.Random;
@@ -31,7 +32,7 @@ public abstract class TorchBlockMixin extends Block {
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
         // Schedule a tick for the torch if it hasn't been scheduled.
         if (!level.isClientSide() && isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
+            level.scheduleTick(pos, state.getBlock(), Configuration.burnTime, TickPriority.EXTREMELY_LOW);
         }
 
         super.onPlace(state, level, pos, oldState, notify);
@@ -66,11 +67,10 @@ public abstract class TorchBlockMixin extends Block {
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
         // Schedule a tick for the torch if it hasn't been scheduled.
         if (isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), 24000, TickPriority.EXTREMELY_LOW);
+            level.scheduleTick(pos, state.getBlock(), Configuration.burnTime, TickPriority.EXTREMELY_LOW);
         }
 
-        // TODO: Make the chance torches extinguish in the rain configurable.
-        if (isExtinguishableTorch(state) && level.isRainingAt(pos) && random.nextInt(4) == 0) {
+        if (isExtinguishableTorch(state) && level.isRainingAt(pos) && random.nextFloat() < Configuration.extinguishInRainChance) {
             // TODO: If the scheduled tick replaces the lit torch with a dim, or burnt torch, this method must not call it.
             super.randomTick(state, level, pos, random);
         }
