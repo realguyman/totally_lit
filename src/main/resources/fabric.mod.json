@@ -22,7 +22,8 @@
     "depends": {
         "minecraft": "1.18.x",
         "fabricloader": ">=0.10.8",
-        "fabric": "*"
+        "fabric": "*",
+        "cloth-config": ">=6.1"
     },
     "entrypoints": {
         "main": [

@@ -9,7 +9,7 @@ public class Initializer implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        Configuration.load();
+        Configuration.initialize();
         BlockRegistry.register();
         ItemRegistry.register();
     }

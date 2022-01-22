@@ -5,11 +5,21 @@ plugins {
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
+repositories {
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.terraformersmc.com/" }
+}
+
 dependencies {
     minecraft "com.mojang:minecraft:${project.minecraft}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
+    modImplementation "com.terraformersmc:modmenu:3.0.1"
+
+    modApi("me.shedaniel.cloth:cloth-config-fabric:6.1.48") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
 }
 
 processResources {

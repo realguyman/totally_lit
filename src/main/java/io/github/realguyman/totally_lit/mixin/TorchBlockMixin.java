@@ -31,8 +31,8 @@ public abstract class TorchBlockMixin extends Block {
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
         // Schedule a tick for the torch if it hasn't been scheduled.
-        if (!level.isClientSide() && isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), Configuration.burnTime, TickPriority.EXTREMELY_LOW);
+        if (!level.isClientSide() && isExtinguishableTorch(state) && Configuration.INSTANCE.extinguish && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
+            level.scheduleTick(pos, state.getBlock(), Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
         }
 
         super.onPlace(state, level, pos, oldState, notify);
@@ -43,12 +43,12 @@ public abstract class TorchBlockMixin extends Block {
         // TODO: Replace with a burnt torch which drops charcoal chunks instead of an unlit torch.
         // TODO: Look into using Tags instead of comparing each block individually.
         // TODO: Refactor this method.
-        if (state.getBlock().equals(Blocks.TORCH)) {
+        if (state.getBlock().equals(Blocks.TORCH) && Configuration.INSTANCE.extinguish) {
             level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_TORCH.defaultBlockState());
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.75F, random.nextFloat() * 0.75F + 0.25F);
-        } else if (state.getBlock().equals(Blocks.WALL_TORCH)) {
+            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
+        } else if (state.getBlock().equals(Blocks.WALL_TORCH) && Configuration.INSTANCE.extinguish) {
             level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 1.0F, random.nextFloat() * 0.75F + 0.25F);
+            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
         }
 
         super.tick(state, level, pos, random);
@@ -56,7 +56,7 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        if (isExtinguishableTorch(state)) {
+        if (isExtinguishableTorch(state) && (Configuration.INSTANCE.extinguish || Configuration.INSTANCE.extinguishInRainChance > 0F)) {
             return true;
         }
 
@@ -65,12 +65,11 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-        // Schedule a tick for the torch if it hasn't been scheduled.
-        if (isExtinguishableTorch(state) && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), Configuration.burnTime, TickPriority.EXTREMELY_LOW);
+        if (isExtinguishableTorch(state) && Configuration.INSTANCE.extinguish && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
+            level.scheduleTick(pos, state.getBlock(), Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
         }
 
-        if (isExtinguishableTorch(state) && level.isRainingAt(pos) && random.nextFloat() < Configuration.extinguishInRainChance) {
+        if (isExtinguishableTorch(state) && level.isRainingAt(pos) && random.nextFloat() < Configuration.INSTANCE.extinguishInRainChance) {
             // TODO: If the scheduled tick replaces the lit torch with a dim, or burnt torch, this method must not call it.
             super.randomTick(state, level, pos, random);
         }
