@@ -20,6 +20,7 @@
         "issues": "https://github.com/realguyman/totally_lit/issues"
     },
     "depends": {
+        "java": ">=17",
         "minecraft": "1.18.x",
         "fabricloader": ">=0.12.12",
         "fabric": "*",
