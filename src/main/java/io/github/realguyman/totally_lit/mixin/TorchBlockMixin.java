@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.TorchBlock;
 import net.minecraft.world.level.block.WallTorchBlock;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.ticks.LevelTickAccess;
+import net.minecraft.world.ticks.LevelTicks;
 import net.minecraft.world.ticks.TickPriority;
 import org.spongepowered.asm.mixin.Mixin;
 
@@ -24,15 +26,24 @@ public abstract class TorchBlockMixin extends Block {
     }
 
     private boolean isExtinguishableTorch(BlockState state) {
-        Block block = state.getBlock();
-        return block == Blocks.TORCH || block == Blocks.WALL_TORCH;
+        // TODO: Consider using tags instead of checking each individual block.
+        return state.is(Blocks.TORCH) || state.is(Blocks.WALL_TORCH);
+    }
+
+    private void scheduleTorchToExtinguishOverTime(ServerLevel level, BlockPos pos, Block block) {
+        level.scheduleTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
     }
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
-        // Schedule a tick for the torch if it hasn't been scheduled.
-        if (!level.isClientSide() && isExtinguishableTorch(state) && Configuration.INSTANCE.extinguish && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
+        if (!level.isClientSide && Configuration.INSTANCE.extinguish && isExtinguishableTorch(state)) {
+            LevelTickAccess<Block> ticks = level.getBlockTicks();
+            Block block = state.getBlock();
+
+
+            if (!ticks.hasScheduledTick(pos, block) && !ticks.willTickThisTick(pos, block)) {
+                scheduleTorchToExtinguishOverTime((ServerLevel) level, pos, block);
+            }
         }
 
         super.onPlace(state, level, pos, oldState, notify);
@@ -40,15 +51,19 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-        // TODO: Replace with a burnt torch which drops charcoal chunks instead of an unlit torch.
-        // TODO: Look into using Tags instead of comparing each block individually.
-        // TODO: Refactor this method.
-        if (state.getBlock().equals(Blocks.TORCH) && Configuration.INSTANCE.extinguish) {
-            level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_TORCH.defaultBlockState());
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
-        } else if (state.getBlock().equals(Blocks.WALL_TORCH) && Configuration.INSTANCE.extinguish) {
-            level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
-            level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
+        if (Configuration.INSTANCE.extinguish) {
+            boolean updated = false;
+
+            // TODO: Consider using tags instead of checking each individual block.
+            if (state.is(Blocks.TORCH)) {
+                updated = level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_TORCH.defaultBlockState());
+            } else if (state.is(Blocks.WALL_TORCH)) {
+                updated = level.setBlockAndUpdate(pos, BlockRegistry.UNLIT_WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
+            }
+
+            if (updated) {
+                level.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
+            }
         }
 
         super.tick(state, level, pos, random);
@@ -56,22 +71,25 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        if (isExtinguishableTorch(state) && (Configuration.INSTANCE.extinguish || Configuration.INSTANCE.extinguishInRainChance > 0F)) {
-            return true;
-        }
-
-        return super.isRandomlyTicking(state);
+        return (Configuration.INSTANCE.extinguish || Configuration.INSTANCE.extinguishInRainChance > 0F) && isExtinguishableTorch(state);
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-        if (isExtinguishableTorch(state) && Configuration.INSTANCE.extinguish && !level.getBlockTicks().hasScheduledTick(pos, state.getBlock()) && !level.getBlockTicks().willTickThisTick(pos, state.getBlock())) {
-            level.scheduleTick(pos, state.getBlock(), Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
-        }
+        if (isExtinguishableTorch(state)) {
+            if (level.isRainingAt(pos) && random.nextFloat() < Configuration.INSTANCE.extinguishInRainChance) {
+                super.randomTick(state, level, pos, random);
+                return;
+            }
 
-        if (isExtinguishableTorch(state) && level.isRainingAt(pos) && random.nextFloat() < Configuration.INSTANCE.extinguishInRainChance) {
-            // TODO: If the scheduled tick replaces the lit torch with a dim, or burnt torch, this method must not call it.
-            super.randomTick(state, level, pos, random);
+            if (Configuration.INSTANCE.extinguish) {
+                LevelTicks<Block> ticks = level.getBlockTicks();
+                Block block = state.getBlock();
+
+                if (!ticks.hasScheduledTick(pos, block) && !ticks.willTickThisTick(pos, block)) {
+                    scheduleTorchToExtinguishOverTime(level, pos, block);
+                }
+            }
         }
     }
 }
