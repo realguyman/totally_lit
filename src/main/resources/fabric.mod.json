@@ -31,6 +31,9 @@
         ],
         "client": [
             "io.github.realguyman.totally_lit.ClientInitializer"
+        ],
+        "modmenu": [
+            "io.github.realguyman.totally_lit.ModMenuIntegration"
         ]
     },
     "mixins": [
