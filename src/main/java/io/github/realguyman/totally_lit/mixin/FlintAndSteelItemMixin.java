@@ -1,7 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.WallTorchBlock;
@@ -23,18 +22,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(FlintAndSteelItem.class)
 public class FlintAndSteelItemMixin {
     @Inject(at = @At("HEAD"), method = "useOnBlock", cancellable = true)
-    private void lightUnlitTorchBlock(ItemUsageContext useOnContext, CallbackInfoReturnable<ActionResult> cir) {
-        World world = useOnContext.getWorld();
-        BlockPos pos = useOnContext.getBlockPos();
+    private void lightUnlitTorchBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
+        World world = context.getWorld();
+        BlockPos pos = context.getBlockPos();
         BlockState state = world.getBlockState(pos);
-        Block block = state.getBlock();
-        PlayerEntity player = useOnContext.getPlayer();
-        Hand hand = useOnContext.getHand();
+        PlayerEntity player = context.getPlayer();
+        Hand hand = context.getHand();
         boolean updated = false;
 
-        if (block.equals(BlockRegistry.UNLIT_TORCH)) {
+        if (state.isOf(BlockRegistry.UNLIT_TORCH)) {
             updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());
-        } else if (block.equals(BlockRegistry.UNLIT_WALL_TORCH)) {
+        } else if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH)) {
             updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
@@ -47,7 +45,7 @@ public class FlintAndSteelItemMixin {
                 }
             }
 
-            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.75F + 0.25F);
+            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4f + 0.8f);
             cir.setReturnValue(ActionResult.SUCCESS);
         }
     }

@@ -17,8 +17,8 @@ import java.util.Random;
 
 @Mixin(TorchBlock.class)
 public abstract class TorchBlockMixin extends Block {
-    public TorchBlockMixin(Settings properties) {
-        super(properties);
+    public TorchBlockMixin(Settings settings) {
+        super(settings);
     }
 
     private boolean isExtinguishableTorch(BlockState state) {
@@ -26,42 +26,42 @@ public abstract class TorchBlockMixin extends Block {
         return state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH);
     }
 
-    private void scheduleTorchToExtinguishOverTime(ServerWorld level, BlockPos pos, Block block) {
-        level.createAndScheduleBlockTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
+    private void scheduleTorchToExtinguishOverTime(ServerWorld world, BlockPos pos, Block block) {
+        world.createAndScheduleBlockTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000, TickPriority.EXTREMELY_LOW);
     }
 
     @Override
-    public void onBlockAdded(BlockState state, World level, BlockPos pos, BlockState oldState, boolean notify) {
-        if (!level.isClient && Configuration.INSTANCE.extinguishOverTime && isExtinguishableTorch(state)) {
-            QueryableTickScheduler<Block> ticks = level.getBlockTickScheduler();
+    public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+        if (!world.isClient && Configuration.INSTANCE.extinguishOverTime && isExtinguishableTorch(state)) {
+            QueryableTickScheduler<Block> ticks = world.getBlockTickScheduler();
             Block block = state.getBlock();
 
             if (!ticks.isQueued(pos, block) && !ticks.isTicking(pos, block)) {
-                scheduleTorchToExtinguishOverTime((ServerWorld) level, pos, block);
+                scheduleTorchToExtinguishOverTime((ServerWorld) world, pos, block);
             }
         }
 
-        super.onBlockAdded(state, level, pos, oldState, notify);
+        super.onBlockAdded(state, world, pos, oldState, notify);
     }
 
     @Override
-    public void scheduledTick(BlockState state, ServerWorld level, BlockPos pos, Random random) {
+    public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
         if (Configuration.INSTANCE.extinguishOverTime) {
             boolean updated = false;
 
             // TODO: Consider using tags instead of checking each individual block.
             if (state.isOf(Blocks.TORCH)) {
-                updated = level.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
+                updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
             } else if (state.isOf(Blocks.WALL_TORCH)) {
-                updated = level.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+                updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
             }
 
             if (updated) {
-                level.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
+                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
             }
         }
 
-        super.scheduledTick(state, level, pos, random);
+        super.scheduledTick(state, world, pos, random);
     }
 
     @Override
