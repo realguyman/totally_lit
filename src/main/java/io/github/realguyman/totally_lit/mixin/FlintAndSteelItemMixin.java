@@ -1,20 +1,20 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.FlintAndSteelItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.WallTorchBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.FlintAndSteelItem;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemUsageContext;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,33 +22,33 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FlintAndSteelItem.class)
 public class FlintAndSteelItemMixin {
-    @Inject(at = @At("HEAD"), method = "useOn", cancellable = true)
-    private void lightUnlitTorchBlock(UseOnContext useOnContext, CallbackInfoReturnable<InteractionResult> cir) {
-        Level level = useOnContext.getLevel();
-        BlockPos pos = useOnContext.getClickedPos();
-        BlockState state = level.getBlockState(pos);
+    @Inject(at = @At("HEAD"), method = "useOnBlock", cancellable = true)
+    private void lightUnlitTorchBlock(ItemUsageContext useOnContext, CallbackInfoReturnable<ActionResult> cir) {
+        World world = useOnContext.getWorld();
+        BlockPos pos = useOnContext.getBlockPos();
+        BlockState state = world.getBlockState(pos);
         Block block = state.getBlock();
-        Player player = useOnContext.getPlayer();
-        InteractionHand hand = useOnContext.getHand();
+        PlayerEntity player = useOnContext.getPlayer();
+        Hand hand = useOnContext.getHand();
         boolean updated = false;
 
         if (block.equals(BlockRegistry.UNLIT_TORCH)) {
-            updated = level.setBlockAndUpdate(pos, Blocks.TORCH.defaultBlockState());
+            updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());
         } else if (block.equals(BlockRegistry.UNLIT_WALL_TORCH)) {
-            updated = level.setBlockAndUpdate(pos, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
+            updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
         if (updated) {
             if (player != null) {
-                ItemStack itemInHand = player.getItemInHand(hand);
+                ItemStack itemInHand = player.getStackInHand(hand);
 
                 if (itemInHand != null) {
-                    itemInHand.hurtAndBreak(1, player, (playerInScope) -> playerInScope.broadcastBreakEvent(hand));
+                    itemInHand.damage(1, player, (playerInScope) -> playerInScope.sendToolBreakStatus(hand));
                 }
             }
 
-            level.playSound(null, pos, SoundEvents.FLINTANDSTEEL_USE, SoundSource.BLOCKS, 1.0F, level.getRandom().nextFloat() * 0.75F + 0.25F);
-            cir.setReturnValue(InteractionResult.SUCCESS);
+            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.75F + 0.25F);
+            cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
 }

@@ -1,36 +1,36 @@
 package io.github.realguyman.totally_lit.block;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.WallTorchBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.WallTorchBlock;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Items;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 import java.util.Random;
 
 public class UnlitWallTorchBlock extends WallTorchBlock {
     public UnlitWallTorchBlock() {
-        super(Properties.copy(Blocks.WALL_TORCH).lightLevel(state -> 0), null);
+        super(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0), null);
     }
 
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+    public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
         boolean updated = false;
 
-        if (state.is(BlockRegistry.UNLIT_WALL_TORCH) && player.getItemInHand(hand).is(Items.TORCH)) {
-            updated = level.setBlockAndUpdate(pos, Blocks.WALL_TORCH.defaultBlockState().setValue(WallTorchBlock.FACING, state.getValue(WallTorchBlock.FACING)));
+        if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH) && player.getStackInHand(hand).isOf(Items.TORCH)) {
+            updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
             // TODO: Add a quiet yet flamey sound.
         }
 
-        return updated ? InteractionResult.SUCCESS : super.use(state, level, pos, player, hand, result);
+        return updated ? ActionResult.SUCCESS : super.onUse(state, world, pos, player, hand, result);
     }
 
     @Override
-    public void animateTick(BlockState state, Level level, BlockPos pos, Random random) {}
+    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {}
 }
