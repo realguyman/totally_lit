@@ -10,11 +10,15 @@ import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Excluded
     public static Configuration INSTANCE;
+
     @ConfigEntry.BoundedDiscrete(min = 1, max = 4 * 7)
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.Gui.Tooltip
     public int burnDuration = 4;
-    public boolean extinguish = true;
+
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    public boolean extinguishOverTime = true;
+
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.Gui.Tooltip
     public float extinguishInRainChance = 0.25F;

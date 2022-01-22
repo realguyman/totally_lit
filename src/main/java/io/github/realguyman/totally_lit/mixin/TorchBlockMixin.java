@@ -36,7 +36,7 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean notify) {
-        if (!level.isClientSide && Configuration.INSTANCE.extinguish && isExtinguishableTorch(state)) {
+        if (!level.isClientSide && Configuration.INSTANCE.extinguishOverTime && isExtinguishableTorch(state)) {
             LevelTickAccess<Block> ticks = level.getBlockTicks();
             Block block = state.getBlock();
 
@@ -51,7 +51,7 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos pos, Random random) {
-        if (Configuration.INSTANCE.extinguish) {
+        if (Configuration.INSTANCE.extinguishOverTime) {
             boolean updated = false;
 
             // TODO: Consider using tags instead of checking each individual block.
@@ -71,7 +71,7 @@ public abstract class TorchBlockMixin extends Block {
 
     @Override
     public boolean isRandomlyTicking(BlockState state) {
-        return (Configuration.INSTANCE.extinguish || Configuration.INSTANCE.extinguishInRainChance > 0F) && isExtinguishableTorch(state);
+        return (Configuration.INSTANCE.extinguishOverTime || Configuration.INSTANCE.extinguishInRainChance > 0F) && isExtinguishableTorch(state);
     }
 
     @Override
@@ -82,7 +82,7 @@ public abstract class TorchBlockMixin extends Block {
                 return;
             }
 
-            if (Configuration.INSTANCE.extinguish) {
+            if (Configuration.INSTANCE.extinguishOverTime) {
                 LevelTicks<Block> ticks = level.getBlockTicks();
                 Block block = state.getBlock();
 
