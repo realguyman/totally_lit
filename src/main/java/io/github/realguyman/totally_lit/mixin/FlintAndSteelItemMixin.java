@@ -36,17 +36,14 @@ public class FlintAndSteelItemMixin {
             updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
-        if (updated) {
-            if (player != null) {
-                ItemStack itemInHand = player.getStackInHand(hand);
+        if (updated && player != null) {
+            ItemStack itemInHand = player.getStackInHand(hand);
 
-                if (itemInHand != null) {
-                    itemInHand.damage(1, player, (playerInScope) -> playerInScope.sendToolBreakStatus(hand));
-                }
+            if (itemInHand != null) {
+                itemInHand.damage(1, player, (playerInScope) -> playerInScope.sendToolBreakStatus(hand));
+                world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4F + 0.8F);
+                cir.setReturnValue(ActionResult.SUCCESS);
             }
-
-            world.playSound(null, pos, SoundEvents.ITEM_FLINTANDSTEEL_USE, SoundCategory.BLOCKS, 1.0F, world.getRandom().nextFloat() * 0.4f + 0.8f);
-            cir.setReturnValue(ActionResult.SUCCESS);
         }
     }
 }
