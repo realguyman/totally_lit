@@ -21,14 +21,12 @@ public class UnlitWallTorchBlock extends WallTorchBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
-        boolean updated = false;
-
-        if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH) && player.getStackInHand(hand).isOf(Items.TORCH)) {
-            updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-            // TODO: Add a quiet yet flamey sound.
+        if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH) && player.getStackInHand(hand).isOf(Items.TORCH) && world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)))) {
+            // TODO: Add a quiet flame sound.
+            return ActionResult.SUCCESS;
         }
 
-        return updated ? ActionResult.SUCCESS : super.onUse(state, world, pos, player, hand, result);
+        return super.onUse(state, world, pos, player, hand, result);
     }
 
     @Override
