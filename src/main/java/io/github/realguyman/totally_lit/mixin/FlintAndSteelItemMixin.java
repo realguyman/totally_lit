@@ -26,7 +26,6 @@ public class FlintAndSteelItemMixin {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
         BlockState state = world.getBlockState(pos);
-        PlayerEntity player = context.getPlayer();
         Hand hand = context.getHand();
         boolean updated = false;
 
