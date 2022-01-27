@@ -4,8 +4,9 @@
     "package": "io.github.realguyman.totally_lit.mixin",
     "compatibilityLevel": "JAVA_16",
     "mixins": [
-        "FlintAndSteelItemMixin",
-        "TorchBlockMixin"
+        "AbstractBlockMixin",
+        "BlockMixin",
+        "FlintAndSteelItemMixin"
     ],
     "injectors": {
         "defaultRequire": 1
