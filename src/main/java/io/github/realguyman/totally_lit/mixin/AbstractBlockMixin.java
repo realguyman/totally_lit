@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.Configuration;
+import io.github.realguyman.totally_lit.Initializer;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
@@ -23,14 +23,14 @@ public abstract class AbstractBlockMixin {
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
-            if (world.hasRain(pos) && random.nextFloat() < Configuration.INSTANCE.extinguishInRainChance) {
+            if (world.hasRain(pos) && random.nextFloat() < Initializer.configuration.torchConfiguration.extinguishInRainChance) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (Configuration.INSTANCE.extinguishOverTime) {
+            } else if (Initializer.configuration.torchConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000);
+                    world.createAndScheduleBlockTick(pos, block, Initializer.configuration.torchConfiguration.burnDuration * 6_000);
                 }
             }
 
