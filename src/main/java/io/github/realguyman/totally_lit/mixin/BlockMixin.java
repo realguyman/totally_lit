@@ -27,18 +27,6 @@ public class BlockMixin {
         }
     }
 
-    @Inject(method = "onPlaced", at = @At("HEAD"))
-    private void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
-        if (!world.isClient() && Configuration.INSTANCE.extinguishOverTime && (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
-            QueryableTickScheduler<Block> scheduler = world.getBlockTickScheduler();
-            Block block = state.getBlock();
-
-            if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.createAndScheduleBlockTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000);
-            }
-        }
-    }
-
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient() && (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
