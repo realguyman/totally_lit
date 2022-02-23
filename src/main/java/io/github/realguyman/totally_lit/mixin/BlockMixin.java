@@ -22,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Configuration.INSTANCE.extinguishOverTime || Configuration.INSTANCE.extinguishInRainChance > 0F)) {
+        if ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Configuration.INSTANCE.extinguishInRainChance > 0F || Configuration.INSTANCE.extinguishOverTime)) {
             cir.setReturnValue(true);
         }
     }

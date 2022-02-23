@@ -16,12 +16,12 @@ public class Configuration implements ConfigData {
     @ConfigEntry.Gui.Tooltip
     public int burnDuration = 4;
 
-    @ConfigEntry.Gui.Tooltip(count = 2)
-    public boolean extinguishOverTime = true;
-
     @ConfigEntry.Gui.PrefixText
     @ConfigEntry.Gui.Tooltip
     public float extinguishInRainChance = 0.25F;
+
+    @ConfigEntry.Gui.Tooltip(count = 2)
+    public boolean extinguishOverTime = true;
 
     public static void initialize() {
         AutoConfig.register(Configuration.class, JanksonConfigSerializer::new);
