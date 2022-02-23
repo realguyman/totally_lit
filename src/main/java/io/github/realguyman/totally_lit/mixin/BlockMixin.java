@@ -33,7 +33,7 @@ public class BlockMixin {
             QueryableTickScheduler<Block> scheduler = world.getBlockTickScheduler();
             Block block = state.getBlock();
 
-            if (!scheduler.isQueued(pos, block) || !scheduler.isTicking(pos, block)) {
+            if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
                 world.createAndScheduleBlockTick(pos, block, Configuration.INSTANCE.burnDuration * 6_000);
             }
         }
