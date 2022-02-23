@@ -1,14 +1,9 @@
 {
   "block.totally_lit.unlit_torch": "Unlit Torch",
   "text.autoconfig.totally_lit.option.burnDuration": "Burn Duration",
-  "text.autoconfig.totally_lit.option.burnDuration.@PrefixText": "The burn duration in quarter Minecraft days:",
-  "text.autoconfig.totally_lit.option.burnDuration.@Tooltip": "E.g: 4 = 1 Minecraft day",
+  "text.autoconfig.totally_lit.option.burnDuration.@Tooltip": "Multiplied by 6,000 ticks",
   "text.autoconfig.totally_lit.option.extinguishInRain": "Extinguish in Rain",
   "text.autoconfig.totally_lit.option.extinguishInRainChance": "Extinguish in Rain Chance",
-  "text.autoconfig.totally_lit.option.extinguishInRainChance.@PrefixText": "Extinguish torches when rained on during random ticks:",
-  "text.autoconfig.totally_lit.option.extinguishInRainChance.@Tooltip": "0.0 or 0% will disable extinguishing in rain.",
   "text.autoconfig.totally_lit.option.extinguishOverTime": "Extinguish Over Time",
-  "text.autoconfig.totally_lit.option.extinguishOverTime.@Tooltip[0]": "This doesn't effect whether or not rain will",
-  "text.autoconfig.totally_lit.option.extinguishOverTime.@Tooltip[1]": "extinguish torches.",
   "text.autoconfig.totally_lit.title": "Totally Lit"
 }

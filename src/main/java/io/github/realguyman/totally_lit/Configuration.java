@@ -12,15 +12,11 @@ public class Configuration implements ConfigData {
     public static Configuration INSTANCE;
 
     @ConfigEntry.BoundedDiscrete(min = 1, max = 4 * 7)
-    @ConfigEntry.Gui.PrefixText
     @ConfigEntry.Gui.Tooltip
     public int burnDuration = 4;
 
-    @ConfigEntry.Gui.PrefixText
-    @ConfigEntry.Gui.Tooltip
     public float extinguishInRainChance = 0.25F;
 
-    @ConfigEntry.Gui.Tooltip(count = 2)
     public boolean extinguishOverTime = true;
 
     public static void initialize() {
