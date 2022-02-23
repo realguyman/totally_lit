@@ -40,19 +40,17 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (Configuration.INSTANCE.extinguishOverTime) {
-            boolean updated = false;
+        boolean updated = false;
 
-            // TODO: Consider using tags instead of checking each individual block.
-            if (state.isOf(Blocks.TORCH)) {
-                updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
-            } else if (state.isOf(Blocks.WALL_TORCH)) {
-                updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-            }
+        // TODO: Consider using tags instead of checking each individual block.
+        if (state.isOf(Blocks.TORCH)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
+        } else if (state.isOf(Blocks.WALL_TORCH)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+        }
 
-            if (updated) {
-                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
-            }
+        if (updated) {
+            world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
         }
     }
 }
