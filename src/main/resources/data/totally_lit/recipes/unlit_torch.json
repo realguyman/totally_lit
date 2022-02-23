@@ -1,24 +1,24 @@
 {
-    "type": "minecraft:crafting_shaped",
-    "pattern": [
-        "#",
-        "|"
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
     ],
-    "key": {
-        "#": [
-            {
-                "item": "minecraft:coal"
-            },
-            {
-                "item": "minecraft:charcoal"
-            }
-        ],
-        "|": {
-            "item": "minecraft:stick"
-        }
-    },
-    "result": {
-        "item": "totally_lit:unlit_torch",
-        "count": 4
+    "|": {
+      "item": "minecraft:stick"
     }
+  },
+  "result": {
+    "item": "totally_lit:unlit_torch",
+    "count": 4
+  }
 }

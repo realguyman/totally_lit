@@ -1,6 +1,6 @@
 {
-    "parent": "minecraft:item/generated",
-    "textures": {
-        "layer0": "totally_lit:block/unlit_torch"
-    }
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "totally_lit:block/unlit_torch"
+  }
 }

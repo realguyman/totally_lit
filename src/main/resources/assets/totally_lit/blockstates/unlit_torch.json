@@ -1,7 +1,7 @@
 {
-    "variants": {
-        "": {
-            "model": "totally_lit:block/unlit_torch"
-        }
+  "variants": {
+    "": {
+      "model": "totally_lit:block/unlit_torch"
     }
+  }
 }

@@ -1,44 +1,44 @@
 {
-    "schemaVersion": 1,
-    "id": "totally_lit",
-    "name": "Totally Lit",
-    "version": "${version}",
-    "description": "Some light sources will extinguish under various conditions.",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "realguyman",
-            "contact": {
-                "homepage": "https://github.com/realguyman",
-                "email": "realguyman@protonmail.com"
-            }
-        }
+  "schemaVersion": 1,
+  "id": "totally_lit",
+  "name": "Totally Lit",
+  "version": "${version}",
+  "description": "Some light sources will extinguish under various conditions.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "realguyman",
+      "contact": {
+        "homepage": "https://github.com/realguyman",
+        "email": "realguyman@protonmail.com"
+      }
+    }
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/totally-lit",
+    "sources": "https://github.com/realguyman/totally_lit",
+    "issues": "https://github.com/realguyman/totally_lit/issues"
+  },
+  "depends": {
+    "java": ">=17",
+    "minecraft": "1.18.x",
+    "fabricloader": ">=0.12.12",
+    "fabric": "*",
+    "cloth-config": "^6.1"
+  },
+  "entrypoints": {
+    "main": [
+      "io.github.realguyman.totally_lit.Initializer"
     ],
-    "contact": {
-        "homepage": "https://www.curseforge.com/minecraft/mc-mods/totally-lit",
-        "sources": "https://github.com/realguyman/totally_lit",
-        "issues": "https://github.com/realguyman/totally_lit/issues"
-    },
-    "depends": {
-        "java": ">=17",
-        "minecraft": "1.18.x",
-        "fabricloader": ">=0.12.12",
-        "fabric": "*",
-        "cloth-config": "^6.1"
-    },
-    "entrypoints": {
-        "main": [
-            "io.github.realguyman.totally_lit.Initializer"
-        ],
-        "client": [
-            "io.github.realguyman.totally_lit.ClientInitializer"
-        ],
-        "modmenu": [
-            "io.github.realguyman.totally_lit.ModMenuIntegration"
-        ]
-    },
-    "mixins": [
-        "totally_lit.mixins.json"
+    "client": [
+      "io.github.realguyman.totally_lit.ClientInitializer"
     ],
-    "icon": "assets/totally_lit/icon.png"
+    "modmenu": [
+      "io.github.realguyman.totally_lit.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+    "totally_lit.mixins.json"
+  ],
+  "icon": "assets/totally_lit/icon.png"
 }
