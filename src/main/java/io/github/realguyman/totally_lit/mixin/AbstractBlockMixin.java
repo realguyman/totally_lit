@@ -35,6 +35,19 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
+        } else if (state.isOf(Blocks.LANTERN)) {
+            if ((world.hasRain(pos) && random.nextFloat() < Initializer.configuration.lanternConfiguration.extinguishInRainChance) || state.get(LanternBlock.WATERLOGGED)) {
+                this.scheduledTick(state, world, pos, random);
+            } else if (Initializer.configuration.lanternConfiguration.extinguishOverTime) {
+                WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
+                Block block = state.getBlock();
+
+                if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
+                    world.createAndScheduleBlockTick(pos, block, Initializer.configuration.lanternConfiguration.burnDuration * 6_000);
+                }
+            }
+
+            ci.cancel();
         }
     }
 
@@ -43,7 +56,9 @@ public abstract class AbstractBlockMixin {
         boolean updated = false;
 
         // TODO: Consider using tags instead of checking each individual block.
-        if (state.isOf(Blocks.TORCH)) {
+        if(state.isOf(Blocks.LANTERN)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
+        } else if (state.isOf(Blocks.TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
         } else if (state.isOf(Blocks.WALL_TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));

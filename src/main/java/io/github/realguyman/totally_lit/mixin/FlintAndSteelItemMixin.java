@@ -3,6 +3,7 @@ package io.github.realguyman.totally_lit.mixin;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.LanternBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.FlintAndSteelItem;
@@ -29,7 +30,9 @@ public class FlintAndSteelItemMixin {
         Hand hand = context.getHand();
         boolean updated = false;
 
-        if (state.isOf(BlockRegistry.UNLIT_TORCH)) {
+        if(state.isOf(BlockRegistry.UNLIT_LANTERN) && !state.get(LanternBlock.WATERLOGGED)) {
+            updated = world.setBlockState(pos, Blocks.LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
+        } else if (state.isOf(BlockRegistry.UNLIT_TORCH)) {
             updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());
         } else if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH)) {
             updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));

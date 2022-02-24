@@ -1,6 +1,7 @@
 package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.block.UnlitLanternBlock;
 import io.github.realguyman.totally_lit.block.UnlitTorchBlock;
 import io.github.realguyman.totally_lit.block.UnlitWallTorchBlock;
 import net.minecraft.block.Block;
@@ -8,6 +9,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
+    public static final Block UNLIT_LANTERN = new UnlitLanternBlock();
     public static final Block UNLIT_TORCH = new UnlitTorchBlock();
     public static final Block UNLIT_WALL_TORCH = new UnlitWallTorchBlock();
 
@@ -16,6 +18,7 @@ public class BlockRegistry {
     }
 
     public static void register() {
+        add("unlit_lantern", UNLIT_LANTERN);
         add("unlit_torch", UNLIT_TORCH);
         add("unlit_wall_torch", UNLIT_WALL_TORCH);
     }
