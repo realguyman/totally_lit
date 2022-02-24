@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Initializer.configuration.torchConfiguration.extinguishInRainChance > 0F || Initializer.configuration.torchConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (Initializer.configuration.lanternConfiguration.extinguishInRainChance > 0F || Initializer.configuration.lanternConfiguration.extinguishOverTime))) {
+        if (((state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) && (Initializer.configuration.candleConfiguration.extinguishInRainChance > 0F || Initializer.configuration.candleConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Initializer.configuration.torchConfiguration.extinguishInRainChance > 0F || Initializer.configuration.torchConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (Initializer.configuration.lanternConfiguration.extinguishInRainChance > 0F || Initializer.configuration.lanternConfiguration.extinguishOverTime))) {
             cir.setReturnValue(true);
         }
     }
@@ -38,10 +39,9 @@ public class BlockMixin {
         }
     }
 
-
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
-        if (!world.isClient() && (state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
+        if (!world.isClient() && (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }
