@@ -30,7 +30,7 @@ public class FlintAndSteelItemMixin {
         Hand hand = context.getHand();
         boolean updated = false;
 
-        if(state.isOf(BlockRegistry.UNLIT_LANTERN) && !state.get(LanternBlock.WATERLOGGED)) {
+        if(state.isOf(BlockRegistry.UNLIT_LANTERN) && Boolean.TRUE.equals(!state.get(LanternBlock.WATERLOGGED))) {
             updated = world.setBlockState(pos, Blocks.LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
         } else if (state.isOf(BlockRegistry.UNLIT_TORCH)) {
             updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());

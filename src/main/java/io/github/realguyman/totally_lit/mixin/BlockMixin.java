@@ -34,7 +34,7 @@ public class BlockMixin {
 
     @Inject(method = "onPlaced", at = @At("HEAD"))
     private void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
-        if (!world.isClient() && state.isOf(Blocks.LANTERN) && state.get(LanternBlock.WATERLOGGED) && world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, true))) {
+        if (Boolean.TRUE.equals(!world.isClient() && state.isOf(Blocks.LANTERN) && state.get(LanternBlock.WATERLOGGED)) && world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, true))) {
             world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, world.getRandom().nextFloat() * 0.5F + 0.125F);
         }
     }
