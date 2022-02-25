@@ -7,6 +7,10 @@ import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 
 @Config(name = Initializer.IDENTIFIER)
 public class Configuration extends PartitioningSerializer.GlobalData {
+    @ConfigEntry.Category("campfires")
+    @ConfigEntry.Gui.TransitiveObject
+    public CampfireConfiguration campfireConfiguration = new CampfireConfiguration();
+
     @ConfigEntry.Category("candles")
     @ConfigEntry.Gui.TransitiveObject
     public CandleConfiguration candleConfiguration = new CandleConfiguration();
