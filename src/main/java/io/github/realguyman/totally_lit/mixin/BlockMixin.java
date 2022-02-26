@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (((state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) && (Initializer.configuration.candleConfiguration.extinguishInRainChance > 0F || Initializer.configuration.candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (Initializer.configuration.lanternConfiguration.extinguishInRainChance > 0F || Initializer.configuration.lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Initializer.configuration.torchConfiguration.extinguishInRainChance > 0F || Initializer.configuration.torchConfiguration.extinguishOverTime))) {
+        if (((state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) && (Initializer.configuration.candleConfiguration.extinguishInRainChance > 0F || Initializer.configuration.candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.JACK_O_LANTERN) && (Initializer.configuration.jackOLanternConfiguration.extinguishInRainChance > 0F || Initializer.configuration.jackOLanternConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (Initializer.configuration.lanternConfiguration.extinguishInRainChance > 0F || Initializer.configuration.lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Initializer.configuration.torchConfiguration.extinguishInRainChance > 0F || Initializer.configuration.torchConfiguration.extinguishOverTime))) {
             cir.setReturnValue(true);
         }
     }
@@ -41,7 +41,7 @@ public class BlockMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
-        if (!world.isClient() && (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
+        if (!world.isClient() && (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES) || state.isOf(Blocks.JACK_O_LANTERN) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH))) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

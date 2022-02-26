@@ -15,6 +15,10 @@ public class Configuration extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Gui.TransitiveObject
     public CandleConfiguration candleConfiguration = new CandleConfiguration();
 
+    @ConfigEntry.Category("jack_o_lanterns")
+    @ConfigEntry.Gui.TransitiveObject
+    public JackOLanternConfiguration jackOLanternConfiguration = new JackOLanternConfiguration();
+
     @ConfigEntry.Category("lanterns")
     @ConfigEntry.Gui.TransitiveObject
     public LanternConfiguration lanternConfiguration = new LanternConfiguration();
