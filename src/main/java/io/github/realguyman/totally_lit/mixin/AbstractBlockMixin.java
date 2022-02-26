@@ -85,6 +85,8 @@ public abstract class AbstractBlockMixin {
         // TODO: Consider using tags instead of checking each individual block.
         if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
+        } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
+            updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
         } else if(state.isOf(Blocks.LANTERN)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
         } else if (state.isOf(Blocks.TORCH)) {
