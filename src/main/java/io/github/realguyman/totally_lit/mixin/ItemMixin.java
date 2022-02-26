@@ -27,7 +27,10 @@ public class ItemMixin {
             Float chance = null;
             Item item = null;
 
-            if (stack.isOf(Items.LANTERN)) {
+            if(stack.isOf(Items.JACK_O_LANTERN)) {
+                chance = Initializer.configuration.jackOLanternConfiguration.extinguishInRainChance;
+                item = Items.CARVED_PUMPKIN;
+            } else if (stack.isOf(Items.LANTERN)) {
                 chance = Initializer.configuration.lanternConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
