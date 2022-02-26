@@ -8,7 +8,8 @@
     "BlockMixin",
     "CampfireBlockEntityMixin",
     "CampfireBlockMixin",
-    "FlintAndSteelItemMixin"
+    "FlintAndSteelItemMixin",
+    "ItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
