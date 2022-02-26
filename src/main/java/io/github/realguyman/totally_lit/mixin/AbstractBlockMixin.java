@@ -36,6 +36,19 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
+        } else if (state.isOf(Blocks.LANTERN)) {
+            if ((world.hasRain(pos) && random.nextFloat() < Initializer.configuration.lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
+                this.scheduledTick(state, world, pos, random);
+            } else if (Initializer.configuration.lanternConfiguration.extinguishOverTime) {
+                WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
+                Block block = state.getBlock();
+
+                if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
+                    world.createAndScheduleBlockTick(pos, block, Initializer.configuration.lanternConfiguration.burnDuration * 6_000);
+                }
+            }
+
+            ci.cancel();
         } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
             if (world.hasRain(pos) && random.nextFloat() < Initializer.configuration.torchConfiguration.extinguishInRainChance) {
                 this.scheduledTick(state, world, pos, random);
