@@ -50,7 +50,7 @@ public abstract class AbstractBlockMixin {
 
             ci.cancel();
         } else if (state.isOf(Blocks.LANTERN)) {
-            if ((world.hasRain(pos) && random.nextFloat() < Initializer.configuration.lanternConfiguration.extinguishInRainChance) || state.get(LanternBlock.WATERLOGGED)) {
+            if ((world.hasRain(pos) && random.nextFloat() < Initializer.configuration.lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
                 this.scheduledTick(state, world, pos, random);
             } else if (Initializer.configuration.lanternConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
