@@ -26,6 +26,10 @@
     "fabric": "*",
     "cloth-config": "^6.1"
   },
+  "breaks": {
+    "fading": "*",
+    "hardcore_torches": "*"
+  },
   "entrypoints": {
     "main": [
       "io.github.realguyman.totally_lit.Initializer"
