@@ -7,7 +7,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.item.WallStandingBlockItem;
-import net.minecraft.tag.FluidTags;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,7 +25,7 @@ public class UnlitTorchItem extends WallStandingBlockItem {
         World world = context.getWorld();
         BlockPos pos = context.getBlockPos();
 
-        if (pos != null && (world.getBlockState(pos).isIn(TagRegistry.TORCH_IGNITERS) || world.getFluidState(pos.offset(context.getSide())).isIn(FluidTags.LAVA))) {
+        if (pos != null && (world.getBlockState(pos).isIn(TagRegistry.TORCH_IGNITER_BLOCKS) || world.getFluidState(pos.offset(context.getSide())).isIn(TagRegistry.TORCH_IGNITER_FLUIDS))) {
             PlayerEntity player = context.getPlayer();
 
             if (player != null && !player.isSneaking() && player.giveItemStack(new ItemStack(this.litTorch))) {
