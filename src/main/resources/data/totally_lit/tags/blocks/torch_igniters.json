@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:fire",
+    "minecraft:lava_cauldron",
+    "minecraft:soul_torch",
+    "minecraft:soul_wall_torch",
+    "minecraft:torch",
+    "minecraft:wall_torch"
+  ]
+}
