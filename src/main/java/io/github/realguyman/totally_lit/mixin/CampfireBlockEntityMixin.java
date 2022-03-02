@@ -22,12 +22,12 @@ public class CampfireBlockEntityMixin implements CampfireBlockEntityAccess {
 
     @Override
     public int getBurningTicks() {
-        return this.burningTicks;
+        return burningTicks;
     }
 
     @Override
     public void setBurningTicks(int value) {
-        this.burningTicks = value;
+        burningTicks = value;
     }
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
@@ -52,12 +52,12 @@ public class CampfireBlockEntityMixin implements CampfireBlockEntityAccess {
     @Inject(method = "readNbt", at = @At("RETURN"))
     private void readNbt(NbtCompound nbt, CallbackInfo ci) {
         if (nbt.contains("burningTicks")) {
-            this.burningTicks = nbt.getInt("burningTicks");
+            burningTicks = nbt.getInt("burningTicks");
         }
     }
 
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void writeNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putInt("burningTicks", this.burningTicks);
+        nbt.putInt("burningTicks", burningTicks);
     }
 }
