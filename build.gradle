@@ -22,6 +22,10 @@ dependencies {
     }
 }
 
+java {
+    withSourcesJar()
+}
+
 jar {
     from("LICENSE")
 }
