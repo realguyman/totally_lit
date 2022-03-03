@@ -24,7 +24,7 @@ public abstract class AbstractBlockMixin {
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
-            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.add(state.isIn(BlockTags.CANDLE_CAKES) ? 1 : 0, 0, 0)) && world.isSkyVisible(pos) && random.nextFloat() < Initializer.configuration.candleConfiguration.extinguishInRainChance) || state.get(CandleBlock.WATERLOGGED))) {
+            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.add(state.isIn(BlockTags.CANDLE_CAKES) ? 1 : 0, 0, 0)) && world.isSkyVisible(pos) && random.nextFloat() < Initializer.configuration.candleConfiguration.extinguishInRainChance) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
                 this.scheduledTick(state, world, pos, random);
             } else if (!AbstractCandleBlock.isLitCandle(state) && Initializer.configuration.candleConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
