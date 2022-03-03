@@ -22,6 +22,10 @@ dependencies {
     }
 }
 
+jar {
+    from("LICENSE")
+}
+
 processResources {
     inputs.property "version", project.version
 
