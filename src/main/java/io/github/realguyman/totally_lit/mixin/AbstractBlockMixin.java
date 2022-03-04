@@ -1,8 +1,11 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -23,7 +26,17 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
+        if (state.isIn(BlockTags.CAMPFIRES)) {
+            final BlockEntity blockEntity = world.getBlockEntity(pos);
+
+            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < Initializer.configuration.campfireConfiguration.extinguishInRainChance && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
+                ((CampfireBlockEntityAccess) blockEntity).setBurningTicks(0);
+                CampfireBlock.extinguish(null, world, pos, state);
+                world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            }
+
+            ci.cancel();
+        } else if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
             if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < Initializer.configuration.candleConfiguration.extinguishInRainChance) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
                 this.scheduledTick(state, world, pos, random);
             } else if (!AbstractCandleBlock.isLitCandle(state) && Initializer.configuration.candleConfiguration.extinguishOverTime) {
