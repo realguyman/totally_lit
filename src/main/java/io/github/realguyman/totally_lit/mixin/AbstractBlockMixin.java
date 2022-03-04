@@ -83,7 +83,7 @@ public abstract class AbstractBlockMixin {
         boolean updated = false;
 
         // TODO: Consider using tags instead of checking each individual block.
-        if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
+        if (AbstractCandleBlock.isLitCandle(state)) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
         } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
             updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
