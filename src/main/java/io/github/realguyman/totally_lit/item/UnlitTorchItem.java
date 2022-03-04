@@ -28,7 +28,7 @@ public class UnlitTorchItem extends WallStandingBlockItem {
         if (pos != null && (world.getBlockState(pos).isIn(TagRegistry.TORCH_IGNITER_BLOCKS) || world.getFluidState(pos.offset(context.getSide())).isIn(TagRegistry.TORCH_IGNITER_FLUIDS))) {
             PlayerEntity player = context.getPlayer();
 
-            if (player != null && !player.isSneaking() && player.giveItemStack(new ItemStack(this.litTorch))) {
+            if (player != null && !player.isSneaking() && player.giveItemStack(new ItemStack(litTorch))) {
                 player.getStackInHand(context.getHand()).decrement(1);
                 return ActionResult.SUCCESS;
             }
