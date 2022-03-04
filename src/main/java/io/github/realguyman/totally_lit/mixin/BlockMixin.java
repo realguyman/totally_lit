@@ -2,10 +2,7 @@ package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.Initializer;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LanternBlock;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
