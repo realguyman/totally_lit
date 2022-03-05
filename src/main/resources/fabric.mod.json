@@ -3,7 +3,7 @@
   "id": "totally_lit",
   "name": "Totally Lit",
   "version": "${version}",
-  "description": "Some light sources will extinguish under various conditions.",
+  "description": "Some light sources can extinguish under various conditions.",
   "license": "LGPL-3.0-or-later",
   "authors": [
     {
