@@ -44,5 +44,13 @@
   "mixins": [
     "totally_lit.mixins.json"
   ],
-  "icon": "assets/totally_lit/icon.png"
+  "icon": "assets/totally_lit/icon.png",
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.discord": "https://discord.gg/JkEe8aMJUD",
+        "modmenu.modrinth": "https://modrinth.com/mod/totally-lit"
+      }
+    }
+  }
 }
