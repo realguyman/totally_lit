@@ -26,7 +26,7 @@
     "fabric": "*",
     "cloth-config": "^6.1"
   },
-  "breaks": {
+  "conflicts": {
     "fading": "*",
     "hardcore_torches": "*"
   },
