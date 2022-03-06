@@ -50,7 +50,8 @@
       "links": {
         "modmenu.discord": "https://discord.gg/JkEe8aMJUD",
         "modmenu.modrinth": "https://modrinth.com/mod/totally-lit",
-        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/totally-lit"
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/totally-lit",
+        "modmenu.wiki": "https://github.com/realguyman/totally_lit/wiki"
       }
     }
   }
