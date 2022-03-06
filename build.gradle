@@ -27,7 +27,7 @@ java {
 }
 
 jar {
-    from("LICENSE")
+    from "LICENSE"
 }
 
 processResources {
