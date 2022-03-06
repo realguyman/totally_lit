@@ -16,7 +16,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
     modImplementation "com.terraformersmc:modmenu:${project.mod_menu}"
-    modLocalRuntime "com.terraformersmc:modmenu:${project.mod_menu}"
 
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config}") {
         exclude(group: "net.fabricmc.fabric-api")
