@@ -1,6 +1,6 @@
 # Totally Lit
 
-![](https://cf.way2muchnoise.eu/full_totally-lit_downloads.svg?badge_style=for_the_badge) ![](https://cf.way2muchnoise.eu/versions/totally-lit.svg?badge_style=for_the_badge)
+![](https://img.shields.io/github/license/realguyman/totally_lit) ![](https://github.com/realguyman/totally_lit/workflows/build/badge.svg) ![](https://cf.way2muchnoise.eu/full_totally-lit_downloads.svg)
 
 Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Mod Loader](https://fabricmc.net/use). Requires [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config). Integrates with [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu).
 
