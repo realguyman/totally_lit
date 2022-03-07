@@ -1,7 +1,6 @@
 package io.github.realguyman.totally_lit;
 
 import io.github.realguyman.totally_lit.configuration.Configuration;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
@@ -17,7 +16,6 @@ public class Initializer implements ModInitializer {
         AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new));
         configuration = AutoConfig.getConfigHolder(Configuration.class).getConfig();
 
-        BlockRegistry.register();
         ItemRegistry.register();
     }
 }
