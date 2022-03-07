@@ -10,14 +10,17 @@ import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 public class UnlitTorchItem extends WallStandingBlockItem {
-    private final Item litTorch;
+    private final Item litItem;
 
-    public UnlitTorchItem(Block standing, Block wall, @NotNull Item litTorch, Settings settings) {
+    public UnlitTorchItem(Block standing, Block wall, Item litItem, Settings settings) {
         super(standing, wall, settings);
-        this.litTorch = litTorch;
+        this.litItem = litItem;
+    }
+
+    public Item getLitItem() {
+        return litItem;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class UnlitTorchItem extends WallStandingBlockItem {
         if (pos != null && (world.getBlockState(pos).isIn(TagRegistry.TORCH_IGNITER_BLOCKS) || world.getFluidState(pos.offset(context.getSide())).isIn(TagRegistry.TORCH_IGNITER_FLUIDS))) {
             PlayerEntity player = context.getPlayer();
 
-            if (player != null && !player.isSneaking() && player.giveItemStack(new ItemStack(litTorch))) {
+            if (player != null && !player.isSneaking() && player.giveItemStack(new ItemStack(litItem))) {
                 player.getStackInHand(context.getHand()).decrement(1);
                 return ActionResult.SUCCESS;
             }
