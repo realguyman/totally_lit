@@ -32,7 +32,7 @@ public class CampfireBlockEntityMixin implements CampfireBlockEntityAccess {
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
     private static void litServerTick(World world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, CallbackInfo ci) {
-        if (!Initializer.configuration.campfireConfiguration.extinguishOverTime || state.isOf(Blocks.SOUL_CAMPFIRE)) {
+        if (!Initializer.getConfiguration().campfireConfiguration.extinguishOverTime || state.isOf(Blocks.SOUL_CAMPFIRE)) {
             return;
         }
 
@@ -40,7 +40,7 @@ public class CampfireBlockEntityMixin implements CampfireBlockEntityAccess {
         final int burntFor = campfireAccessed.getBurningTicks() + 1;
         campfireAccessed.setBurningTicks(burntFor);
 
-        if (burntFor > Initializer.configuration.campfireConfiguration.burnDuration * 6_000 && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
+        if (burntFor > Initializer.getConfiguration().campfireConfiguration.burnDuration * 6_000 && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
             campfireAccessed.setBurningTicks(0);
             CampfireBlock.extinguish(null, world, pos, state);
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);

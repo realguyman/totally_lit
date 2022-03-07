@@ -8,8 +8,12 @@ import net.fabricmc.api.ModInitializer;
 
 public class Initializer implements ModInitializer {
     public static final String IDENTIFIER = "totally_lit";
-    public static final Configuration configuration = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new)).getConfig();
+    private static final Configuration CONFIGURATION = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new)).getConfig();
 
     @Override
     public void onInitialize() {}
+
+    public static Configuration getConfiguration() {
+        return CONFIGURATION;
+    }
 }

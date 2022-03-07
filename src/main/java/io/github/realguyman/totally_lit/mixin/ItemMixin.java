@@ -28,13 +28,13 @@ public class ItemMixin {
             Item item = null;
 
             if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = Initializer.configuration.jackOLanternConfiguration.extinguishInRainChance;
+                chance = Initializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
                 item = Items.CARVED_PUMPKIN;
             } else if (stack.isOf(Items.LANTERN)) {
-                chance = Initializer.configuration.lanternConfiguration.extinguishInRainChance;
+                chance = Initializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
-                chance = Initializer.configuration.torchConfiguration.extinguishInRainChance;
+                chance = Initializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_TORCH;
             }
 
