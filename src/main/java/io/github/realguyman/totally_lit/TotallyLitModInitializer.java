@@ -1,6 +1,8 @@
 package io.github.realguyman.totally_lit;
 
 import io.github.realguyman.totally_lit.configuration.Configuration;
+import io.github.realguyman.totally_lit.registry.BlockRegistry;
+import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.JanksonConfigSerializer;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
@@ -11,7 +13,10 @@ public class TotallyLitModInitializer implements ModInitializer {
     private static final Configuration CONFIGURATION = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(JanksonConfigSerializer::new)).getConfig();
 
     @Override
-    public void onInitialize() {}
+    public void onInitialize() {
+        new BlockRegistry();
+        new ItemRegistry();
+    }
 
     public static Configuration getConfiguration() {
         return CONFIGURATION;
