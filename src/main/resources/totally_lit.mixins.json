@@ -9,6 +9,7 @@
     "CampfireBlockEntityMixin",
     "CampfireBlockMixin",
     "FlintAndSteelItemMixin",
+    "ItemEntityMixin",
     "ItemMixin"
   ],
   "injectors": {
