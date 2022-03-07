@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.registry;
 
-import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.block.UnlitLanternBlock;
 import io.github.realguyman.totally_lit.block.UnlitTorchBlock;
 import io.github.realguyman.totally_lit.block.UnlitWallTorchBlock;
@@ -14,6 +14,6 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH = add("unlit_wall_torch", new UnlitWallTorchBlock());
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(Initializer.IDENTIFIER, path), block);
+        return Registry.register(Registry.BLOCK, new Identifier(TotallyLitModInitializer.IDENTIFIER, path), block);
     }
 }

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if ((CampfireBlock.isLitCampfire(state) && (Initializer.getConfiguration().campfireConfiguration.extinguishInRainChance > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (Initializer.getConfiguration().candleConfiguration.extinguishInRainChance > 0F || Initializer.getConfiguration().candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.JACK_O_LANTERN) && (Initializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance > 0F || Initializer.getConfiguration().jackOLanternConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (Initializer.getConfiguration().lanternConfiguration.extinguishInRainChance > 0F || Initializer.getConfiguration().lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (Initializer.getConfiguration().torchConfiguration.extinguishInRainChance > 0F || Initializer.getConfiguration().torchConfiguration.extinguishOverTime))) {
+        if ((CampfireBlock.isLitCampfire(state) && (TotallyLitModInitializer.getConfiguration().campfireConfiguration.extinguishInRainChance > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishOverTime)) || (state.isOf(Blocks.LANTERN) && (TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) && (TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishOverTime))) {
             cir.setReturnValue(true);
         }
     }

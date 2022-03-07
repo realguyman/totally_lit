@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
@@ -29,7 +29,7 @@ public abstract class AbstractBlockMixin {
         if (state.isIn(BlockTags.CAMPFIRES)) {
             final BlockEntity blockEntity = world.getBlockEntity(pos);
 
-            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < Initializer.getConfiguration().campfireConfiguration.extinguishInRainChance && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
+            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < TotallyLitModInitializer.getConfiguration().campfireConfiguration.extinguishInRainChance && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
                 ((CampfireBlockEntityAccess) blockEntity).setBurningTicks(0);
                 CampfireBlock.extinguish(null, world, pos, state);
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -37,53 +37,53 @@ public abstract class AbstractBlockMixin {
 
             ci.cancel();
         } else if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
-            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < Initializer.getConfiguration().candleConfiguration.extinguishInRainChance) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
+            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishInRainChance) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (!AbstractCandleBlock.isLitCandle(state) && Initializer.getConfiguration().candleConfiguration.extinguishOverTime) {
+            } else if (!AbstractCandleBlock.isLitCandle(state) && TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, Initializer.getConfiguration().candleConfiguration.burnDuration * 6_000);
+                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().candleConfiguration.burnDuration * 6_000);
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
-            if ((world.hasRain(pos) && random.nextFloat() < Initializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance)) {
+            if ((world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance)) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (Initializer.getConfiguration().jackOLanternConfiguration.extinguishOverTime) {
+            } else if (TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, Initializer.getConfiguration().jackOLanternConfiguration.burnDuration * 6_000);
+                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.burnDuration * 6_000);
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.LANTERN)) {
-            if ((world.hasRain(pos) && random.nextFloat() < Initializer.getConfiguration().lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
+            if ((world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (Initializer.getConfiguration().lanternConfiguration.extinguishOverTime) {
+            } else if (TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, Initializer.getConfiguration().lanternConfiguration.burnDuration * 6_000);
+                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().lanternConfiguration.burnDuration * 6_000);
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
-            if (world.hasRain(pos) && random.nextFloat() < Initializer.getConfiguration().torchConfiguration.extinguishInRainChance) {
+            if (world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (Initializer.getConfiguration().torchConfiguration.extinguishOverTime) {
+            } else if (TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishOverTime) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, Initializer.getConfiguration().torchConfiguration.burnDuration * 6_000);
+                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().torchConfiguration.burnDuration * 6_000);
                 }
             }
 

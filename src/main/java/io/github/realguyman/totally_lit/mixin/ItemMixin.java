@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -28,13 +28,13 @@ public class ItemMixin {
             Item item = null;
 
             if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = Initializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
+                chance = TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
                 item = Items.CARVED_PUMPKIN;
             } else if (stack.isOf(Items.LANTERN)) {
-                chance = Initializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                chance = TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
-                chance = Initializer.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_TORCH;
             }
 

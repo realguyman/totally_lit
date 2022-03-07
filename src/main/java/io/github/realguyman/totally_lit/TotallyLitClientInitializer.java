@@ -6,7 +6,7 @@ import net.minecraft.client.render.RenderLayer;
 
 import static io.github.realguyman.totally_lit.registry.BlockRegistry.*;
 
-public class ClientInitializer implements ClientModInitializer {
+public class TotallyLitClientInitializer implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderLayer.getCutout(), UNLIT_LANTERN, UNLIT_TORCH, UNLIT_WALL_TORCH);

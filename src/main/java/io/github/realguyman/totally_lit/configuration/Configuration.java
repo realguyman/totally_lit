@@ -1,11 +1,11 @@
 package io.github.realguyman.totally_lit.configuration;
 
-import io.github.realguyman.totally_lit.Initializer;
+import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 
-@Config(name = Initializer.IDENTIFIER)
+@Config(name = TotallyLitModInitializer.IDENTIFIER)
 public class Configuration extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Category("campfires")
     @ConfigEntry.Gui.TransitiveObject
