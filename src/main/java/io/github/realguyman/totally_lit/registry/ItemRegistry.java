@@ -10,15 +10,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public class ItemRegistry {
-    public static final Item UNLIT_LANTERN = new BlockItem(BlockRegistry.UNLIT_LANTERN, new Item.Settings().group(ItemGroup.DECORATIONS));
-    public static final Item UNLIT_TORCH = new UnlitTorchItem(BlockRegistry.UNLIT_TORCH, BlockRegistry.UNLIT_WALL_TORCH, Items.TORCH, new Item.Settings().group(ItemGroup.DECORATIONS));
+    public static final Item UNLIT_LANTERN = add("unlit_lantern", new BlockItem(BlockRegistry.UNLIT_LANTERN, new Item.Settings().group(ItemGroup.DECORATIONS)));
+    public static final Item UNLIT_TORCH = add("unlit_torch", new UnlitTorchItem(BlockRegistry.UNLIT_TORCH, BlockRegistry.UNLIT_WALL_TORCH, Items.TORCH, new Item.Settings().group(ItemGroup.DECORATIONS)));
 
-    private static void add(String path, Item item) {
-        Registry.register(Registry.ITEM, new Identifier(Initializer.IDENTIFIER, path), item);
-    }
-
-    public static void register() {
-        add("unlit_lantern", UNLIT_LANTERN);
-        add("unlit_torch", UNLIT_TORCH);
+    private static Item add(String path, Item item) {
+        return Registry.register(Registry.ITEM, new Identifier(Initializer.IDENTIFIER, path), item);
     }
 }
