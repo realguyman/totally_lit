@@ -46,9 +46,9 @@ tasks.withType(JavaCompile).configureEach {
 import com.modrinth.minotaur.dependencies.ModDependency
 
 modrinth {
-    if (project.version.contains("alpha")) {
+    if (project.version.contains("-alpha")) {
         versionType = "alpha"
-    } else if (project.version.contains("beta")) {
+    } else if (project.version.contains("-beta")) {
         versionType = "beta"
     }
 
