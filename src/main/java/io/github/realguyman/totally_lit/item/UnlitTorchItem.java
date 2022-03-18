@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class UnlitTorchItem extends WallStandingBlockItem {
     private final Item litItem;
 
-    public UnlitTorchItem(Block standing, Block wall, Item litItem, Settings settings) {
+    public UnlitTorchItem(Block standing, Block wall, Settings settings, Item litItem) {
         super(standing, wall, settings);
         this.litItem = litItem;
     }
