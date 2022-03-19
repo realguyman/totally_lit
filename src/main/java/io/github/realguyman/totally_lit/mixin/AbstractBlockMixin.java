@@ -2,13 +2,17 @@ package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
+import io.github.realguyman.totally_lit.block.LitTorchBlock;
+import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
+import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.tick.WorldTickScheduler;
@@ -75,7 +79,7 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
+        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
             if (world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance) {
                 this.scheduledTick(state, world, pos, random);
             } else if (TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishOverTime) {
@@ -106,6 +110,12 @@ public abstract class AbstractBlockMixin {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
         } else if (state.isOf(Blocks.WALL_TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS)) {
+            if (state.getBlock() instanceof LitTorchBlock litTorch) {
+                updated = world.setBlockState(pos, litTorch.getDefaultState());
+            } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
+                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+            }
         }
 
         if (updated) {
