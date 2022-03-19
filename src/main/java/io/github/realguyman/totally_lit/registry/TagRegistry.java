@@ -12,4 +12,6 @@ public class TagRegistry {
     public static final TagKey<Block> TORCH_IGNITER_BLOCKS = TagKey.of(Registry.BLOCK_KEY, new Identifier(TotallyLitModInitializer.IDENTIFIER, "torch_igniters"));
     public static final TagKey<Fluid> TORCH_IGNITER_FLUIDS = TagKey.of(Registry.FLUID_KEY, new Identifier(TotallyLitModInitializer.IDENTIFIER, "torch_igniters"));
     public static final TagKey<Item> TORCH_IGNITER_ITEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(TotallyLitModInitializer.IDENTIFIER, "torch_igniters"));
+    public static final TagKey<Block> EXTINGUISHABLE_TORCH_BLOCKS = TagKey.of(Registry.BLOCK_KEY, new Identifier(TotallyLitModInitializer.IDENTIFIER, "extinguishable_torches"));
+    public static final TagKey<Item> EXTINGUISHABLE_TORCH_ITEMS = TagKey.of(Registry.ITEM_KEY, new Identifier(TotallyLitModInitializer.IDENTIFIER, "extinguishable_torches"));
 }
