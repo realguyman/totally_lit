@@ -1,6 +1,9 @@
 package io.github.realguyman.totally_lit.mixin;
 
+import io.github.realguyman.totally_lit.block.LitTorchBlock;
+import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
+import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LanternBlock;
@@ -11,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -36,6 +40,12 @@ public class FlintAndSteelItemMixin {
             updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());
         } else if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH)) {
             updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS)) {
+            if (state.getBlock() instanceof LitTorchBlock litTorch) {
+                updated = world.setBlockState(pos, litTorch.getDefaultState());
+            } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
+                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+            }
         }
 
         if (updated) {
