@@ -6,7 +6,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleEffect;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -29,7 +28,7 @@ public class UnlitWallTorchBlock extends WallTorchBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
-        if (player.getStackInHand(hand).isIn(TagRegistry.TORCH_IGNITER_ITEMS) && world.setBlockState(pos, litBlock.getDefaultState().with(Properties.FACING, state.get(Properties.FACING)))) {
+        if (player.getStackInHand(hand).isIn(TagRegistry.TORCH_IGNITER_ITEMS) && world.setBlockState(pos, litBlock.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)))) {
             // TODO: Add a quiet flame sound.
             return ActionResult.SUCCESS;
         }
