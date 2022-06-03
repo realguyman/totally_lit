@@ -12,7 +12,6 @@ import net.minecraft.block.entity.CampfireBlockEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.tick.WorldTickScheduler;
@@ -114,7 +113,7 @@ public abstract class AbstractBlockMixin {
             if (state.getBlock() instanceof LitTorchBlock litTorch) {
                 updated = world.setBlockState(pos, litTorch.getDefaultState());
             } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
-                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
             }
         }
 

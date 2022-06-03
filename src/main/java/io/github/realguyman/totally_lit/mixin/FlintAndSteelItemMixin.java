@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.state.property.Properties;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
@@ -44,7 +43,7 @@ public class FlintAndSteelItemMixin {
             if (state.getBlock() instanceof LitTorchBlock litTorch) {
                 updated = world.setBlockState(pos, litTorch.getDefaultState());
             } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
-                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(Properties.FACING, state.get(Properties.FACING)));
+                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
             }
         }
 
