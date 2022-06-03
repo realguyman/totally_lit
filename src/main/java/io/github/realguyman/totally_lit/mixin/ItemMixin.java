@@ -43,7 +43,13 @@ public class ItemMixin {
             }
 
             if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getCameraBlockPos()) && world.getRandom().nextFloat() < chance))) {
-                player.getInventory().setStack(slot, new ItemStack(item, stack.getCount()));
+                ItemStack offhandStack = player.getOffHandStack();
+
+                if (offhandStack.isOf(Items.JACK_O_LANTERN) || offhandStack.isOf(Items.LANTERN) || offhandStack.isOf(Items.TORCH) || offhandStack.getItem() instanceof LitTorchItem) {
+                    player.getInventory().offHand.set(0, new ItemStack(item, offhandStack.getCount()));
+                } else {
+                    player.getInventory().setStack(slot, new ItemStack(item, stack.getCount()));
+                }
             }
         }
     }
