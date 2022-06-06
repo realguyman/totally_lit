@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "totally_lit:glowstone_lantern",
     "totally_lit:unlit_lantern"
   ]
 }
