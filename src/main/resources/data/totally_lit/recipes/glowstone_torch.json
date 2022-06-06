@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:glowstone_dust"
+      }
+    ],
+    "|": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "totally_lit:glowstone_torch",
+    "count": 4
+  }
+}
