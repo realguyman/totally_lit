@@ -5,20 +5,17 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
-public class UnlitWallTorchBlock extends WallTorchBlock {
+public class UnlitWallTorchBlock extends NoParticleWallTorchBlock {
     private final Block litBlock;
 
-    public UnlitWallTorchBlock(Settings settings, ParticleEffect particleEffect, Block litBlock) {
-        super(settings, particleEffect);
+    public UnlitWallTorchBlock(Settings settings, Block litBlock) {
+        super(settings);
         this.litBlock = litBlock;
     }
 
@@ -35,7 +32,4 @@ public class UnlitWallTorchBlock extends WallTorchBlock {
 
         return super.onUse(state, world, pos, player, hand, result);
     }
-
-    @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {}
 }

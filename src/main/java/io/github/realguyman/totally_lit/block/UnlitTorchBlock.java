@@ -3,22 +3,18 @@ package io.github.realguyman.totally_lit.block;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.TorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particle.ParticleEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.Random;
-
-public class UnlitTorchBlock extends TorchBlock {
+public class UnlitTorchBlock extends NoParticleTorchBlock {
     private final Block litBlock;
 
-    public UnlitTorchBlock(Settings settings, ParticleEffect particleEffect, Block litBlock) {
-        super(settings, particleEffect);
+    public UnlitTorchBlock(Settings settings, Block litBlock) {
+        super(settings);
         this.litBlock = litBlock;
     }
 
@@ -35,7 +31,4 @@ public class UnlitTorchBlock extends TorchBlock {
 
         return super.onUse(state, world, pos, player, hand, result);
     }
-
-    @Override
-    public void randomDisplayTick(BlockState state, World world, BlockPos pos, Random random) {}
 }
