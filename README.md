@@ -20,6 +20,10 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 - Add configuration settings for soul variants.
 - Expand wiki to include important information for general users, modpack creators, datapack wizards, and mod developers.
 
+## Downloads
+
+Officially available at [GitHub](https://github.com/realguyman/totally_lit/releases), [Modrinth](https://modrinth.com/mod/totally-lit), and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit).
+
 ## License
 
 Copyright (C) 2022 Dale E. Wingard Jr.
