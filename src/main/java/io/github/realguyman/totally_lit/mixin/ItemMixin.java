@@ -8,6 +8,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -42,7 +43,7 @@ public class ItemMixin {
                 item = ((LitTorchItem) stack.getItem()).getUnlitItem();
             }
 
-            if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getCameraBlockPos()) && world.getRandom().nextFloat() < chance))) {
+            if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getBlockPos()) && world.getRandom().nextFloat() < chance))) {
                 ItemStack offhandStack = player.getOffHandStack();
 
                 if (offhandStack.isOf(Items.JACK_O_LANTERN) || offhandStack.isOf(Items.LANTERN) || offhandStack.isOf(Items.TORCH) || offhandStack.getItem() instanceof LitTorchItem) {
