@@ -12,6 +12,7 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 - Wading, swimming, fully submerging in water, or getting rained on can cause jack o'lanterns, lanterns, and torches to extinguish.
 - Fully configurable through files or an easy-to-use settings menu provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 - API for other mod authors to easily add support for Totally Lit.
+- Mid/late game lanterns and torches which are waterproof and never die out.
 
 ## License
 
