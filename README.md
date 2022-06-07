@@ -14,6 +14,11 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 - API for other mod authors to easily add support for Totally Lit.
 - Mid/late game lanterns and torches which are waterproof and never die out.
 
+### Planned
+
+- Add unlit soul lanterns and unlit soul torches.
+- Add configuration settings for soul variants.
+
 ## License
 
 Copyright (C) 2022 Dale E. Wingard Jr.
