@@ -1,11 +1,7 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.block.LitTorchBlock;
-import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import io.github.realguyman.totally_lit.registry.TagRegistry;
+import io.github.realguyman.totally_lit.block.*;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.block.WallTorchBlock;
 import net.minecraft.entity.player.PlayerEntity;
@@ -33,18 +29,12 @@ public class FlintAndSteelItemMixin {
         Hand hand = context.getHand();
         boolean updated = false;
 
-        if(state.isOf(BlockRegistry.UNLIT_LANTERN) && Boolean.TRUE.equals(!state.get(LanternBlock.WATERLOGGED))) {
-            updated = world.setBlockState(pos, Blocks.LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
-        } else if (state.isOf(BlockRegistry.UNLIT_TORCH)) {
-            updated = world.setBlockState(pos, Blocks.TORCH.getDefaultState());
-        } else if (state.isOf(BlockRegistry.UNLIT_WALL_TORCH)) {
-            updated = world.setBlockState(pos, Blocks.WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS)) {
-            if (state.getBlock() instanceof LitTorchBlock litTorch) {
-                updated = world.setBlockState(pos, litTorch.getDefaultState());
-            } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
-                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-            }
+        if(state.getBlock() instanceof UnlitLanternBlock && Boolean.TRUE.equals(!state.get(LanternBlock.WATERLOGGED))) {
+            updated = world.setBlockState(pos, ((UnlitLanternBlock) state.getBlock()).getLitBlock().getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
+        } else if (state.getBlock() instanceof UnlitTorchBlock) {
+            updated = world.setBlockState(pos, ((UnlitTorchBlock) state.getBlock()).getLitBlock().getDefaultState());
+        } else if (state.getBlock() instanceof UnlitWallTorchBlock) {
+            updated = world.setBlockState(pos, ((UnlitWallTorchBlock) state.getBlock()).getLitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
         if (updated) {
