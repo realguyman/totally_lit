@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/github/license/realguyman/totally_lit) ![](https://github.com/realguyman/totally_lit/workflows/build/badge.svg) ![](https://cf.way2muchnoise.eu/full_totally-lit_downloads.svg)
 
-Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Mod Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config API](https://modrinth.com/mod/cloth-config). Integrates with [Mod Menu](https://modrinth.com/mod/modmenu).
+Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config API](https://modrinth.com/mod/cloth-config).
 
 ## Features
 
