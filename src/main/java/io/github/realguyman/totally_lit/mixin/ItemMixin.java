@@ -38,6 +38,9 @@ public class ItemMixin {
             } else if (stack.isOf(Items.TORCH)) {
                 chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_TORCH;
+            } else if (stack.isOf(Items.SOUL_TORCH)) {
+                chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
+                item = ItemRegistry.UNLIT_SOUL_TORCH;
             } else if (stack.getItem() instanceof LitTorchItem) {
                 chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ((LitTorchItem) stack.getItem()).getUnlitItem();

@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#",
+    "|",
+    "S"
+  ],
+  "key": {
+    "#": [
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:charcoal"
+      }
+    ],
+    "|": {
+      "item": "minecraft:stick"
+    },
+    "S": [
+      {
+        "item": "minecraft:soul_soil"
+      },
+      {
+        "item": "minecraft:soul_sand"
+      }
+    ]
+  },
+  "result": {
+    "item": "totally_lit:unlit_soul_torch",
+    "count": 4
+  }
+}
