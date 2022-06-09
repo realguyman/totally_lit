@@ -1,6 +1,7 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLitModInitializer;
+import io.github.realguyman.totally_lit.item.LitLanternItem;
 import io.github.realguyman.totally_lit.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -44,6 +45,9 @@ public class ItemMixin {
             } else if (stack.getItem() instanceof LitTorchItem) {
                 chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ((LitTorchItem) stack.getItem()).getUnlitItem();
+            } else if (stack.getItem() instanceof LitLanternItem) {
+                chance = TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                item = ((LitLanternItem) stack.getItem()).getUnlitItem();
             }
 
             if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getBlockPos()) && world.getRandom().nextFloat() < chance))) {

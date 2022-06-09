@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
+import io.github.realguyman.totally_lit.item.LitLanternItem;
 import io.github.realguyman.totally_lit.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -35,6 +36,8 @@ public abstract class ItemEntityMixin extends Entity {
                 unlitVariant = ItemRegistry.UNLIT_TORCH;
             } else if (itemStack.getItem() instanceof LitTorchItem) {
                 unlitVariant = ((LitTorchItem) itemStack.getItem()).getUnlitItem();
+            } else if (itemStack.getItem() instanceof LitLanternItem) {
+                unlitVariant = ((LitLanternItem) itemStack.getItem()).getUnlitItem();
             } else if (itemStack.isOf(Items.LANTERN)) {
                 unlitVariant = ItemRegistry.UNLIT_LANTERN;
             } else if (itemStack.isOf(Items.JACK_O_LANTERN)) {
