@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
+import io.github.realguyman.totally_lit.item.LitTorchItem;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
@@ -36,7 +37,8 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
 
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
     private void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if ((player.getStackInHand(hand).isOf(Items.TORCH) || player.getStackInHand(hand).isOf(Items.SOUL_TORCH)) && CampfireBlock.canBeLit(state) && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
+        // TODO: Use tag instead for finding items that ignite campfires.
+        if ((player.getStackInHand(hand).isOf(Items.TORCH) || player.getStackInHand(hand).isOf(Items.SOUL_TORCH) || player.getStackInHand(hand).getItem() instanceof LitTorchItem) && CampfireBlock.canBeLit(state) && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
             player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
             cir.setReturnValue(ActionResult.SUCCESS);
         }

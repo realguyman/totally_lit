@@ -2,10 +2,10 @@ package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
+import io.github.realguyman.totally_lit.block.LitLanternBlock;
 import io.github.realguyman.totally_lit.block.LitTorchBlock;
 import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
@@ -64,7 +64,7 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isOf(Blocks.LANTERN)) {
+        } else if (state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) {
             if ((world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
                 this.scheduledTick(state, world, pos, random);
             } else if (TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishOverTime) {
@@ -77,7 +77,7 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH)) {
+        } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) {
             if (world.hasRain(pos) && random.nextFloat() < TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance) {
                 this.scheduledTick(state, world, pos, random);
             } else if (TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishOverTime) {
@@ -97,7 +97,6 @@ public abstract class AbstractBlockMixin {
     private void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         boolean updated = false;
 
-        // TODO: Consider using tags instead of checking each individual block.
         if (AbstractCandleBlock.isLitCandle(state)) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
         } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
@@ -108,12 +107,10 @@ public abstract class AbstractBlockMixin {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
         } else if (state.isOf(Blocks.WALL_TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.isIn(TagRegistry.EXTINGUISHABLE_TORCH_BLOCKS)) {
-            if (state.getBlock() instanceof LitTorchBlock litTorch) {
-                updated = world.setBlockState(pos, litTorch.getDefaultState());
-            } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorchBlock) {
-                updated = world.setBlockState(pos, litWallTorchBlock.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-            }
+        } else if (state.getBlock() instanceof LitTorchBlock litTorch) {
+            updated = world.setBlockState(pos, litTorch.getDefaultState());
+        } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorch) {
+            updated = world.setBlockState(pos, litWallTorch.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
         if (updated) {
