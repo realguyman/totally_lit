@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iui",
+    "iii"
+  ],
+  "key": {
+    "i": [
+      {
+        "item": "minecraft:iron_nugget"
+      }
+    ],
+    "u": [
+      {
+        "item": "totally_lit:unlit_soul_torch"
+      }
+    ]
+  },
+  "result": {
+    "item": "totally_lit:unlit_soul_lantern"
+  }
+}
