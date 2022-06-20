@@ -7,10 +7,7 @@
   "key": {
     "#": [
       {
-        "item": "minecraft:coal"
-      },
-      {
-        "item": "minecraft:charcoal"
+        "tag": "c:coal"
       }
     ],
     "|": {

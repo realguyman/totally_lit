@@ -8,10 +8,7 @@
   "key": {
     "#": [
       {
-        "item": "minecraft:coal"
-      },
-      {
-        "item": "minecraft:charcoal"
+        "tag": "c:coal"
       }
     ],
     "|": {
@@ -19,10 +16,7 @@
     },
     "S": [
       {
-        "item": "minecraft:soul_soil"
-      },
-      {
-        "item": "minecraft:soul_sand"
+        "tag": "minecraft:soul_fire_base_blocks"
       }
     ]
   },
