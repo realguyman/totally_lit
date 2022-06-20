@@ -2,9 +2,9 @@ package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLitModInitializer;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
-import io.github.realguyman.totally_lit.block.LitLanternBlock;
-import io.github.realguyman.totally_lit.block.LitTorchBlock;
-import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
+import io.github.realguyman.totally_lit.api.block.LitLanternBlock;
+import io.github.realguyman.totally_lit.api.block.LitTorchBlock;
+import io.github.realguyman.totally_lit.api.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
