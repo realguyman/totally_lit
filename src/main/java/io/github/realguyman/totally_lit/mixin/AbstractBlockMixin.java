@@ -108,7 +108,7 @@ public abstract class AbstractBlockMixin {
         } else if (state.isOf(Blocks.WALL_TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         } else if (state.getBlock() instanceof LitTorchBlock litTorch) {
-            updated = world.setBlockState(pos, litTorch.getDefaultState());
+            updated = world.setBlockState(pos, litTorch.getUnlitBlock().getDefaultState());
         } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorch) {
             updated = world.setBlockState(pos, litWallTorch.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
