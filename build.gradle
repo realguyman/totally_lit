@@ -1,6 +1,7 @@
 plugins {
     id "fabric-loom" version "0.12-SNAPSHOT"
     id "com.modrinth.minotaur" version "2.+"
+    id "maven-publish"
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -60,4 +61,12 @@ modrinth {
             new ModDependency("P7dR8mSH", "required"),
             new ModDependency("mOgUt4GM", "optional")
     ]
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+        }
+    }
 }
