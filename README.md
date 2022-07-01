@@ -16,7 +16,6 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 
 ### Planned
 
-- Add unlit soul lanterns and unlit soul torches.
 - Add configuration settings for soul variants.
 - Expand wiki to include important information for general users, modpack creators, datapack wizards, and mod developers.
 
