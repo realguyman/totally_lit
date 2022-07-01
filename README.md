@@ -10,9 +10,9 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 - Campfires, candles, jack o'lanterns, lanterns, and torches will extinguish over time.
 - Bring unlit torches to life during your adventures with fire, lava (flowing, standing, or even in a cauldron!), or flint and steel.
 - Wading, swimming, fully submerging in water, or getting rained on can cause jack o'lanterns, lanterns, and torches to extinguish.
-- Fully configurable through files or an easy-to-use settings menu provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
-- API for other mod authors to easily add support for Totally Lit.
-- Mid/late game lanterns and torches which are waterproof and never die out.
+- Configurable through files or the settings page provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
+- API for modders to add support for lanterns and torches.
+- Glowstone lanterns and torches for mid/late-game which are waterproof and never die out.
 
 ### Planned
 
