@@ -25,7 +25,7 @@ Officially available at [GitHub](https://github.com/realguyman/totally_lit/relea
 
 ## License
 
-Copyright (C) 2022 Dale E. Wingard Jr.
+Copyright (C) 2022 Dale E. Wingard, Jr.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
