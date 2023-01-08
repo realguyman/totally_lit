@@ -6,8 +6,9 @@ import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.LanternBlock;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
     public static final Block GLOWSTONE_TORCH = add("glowstone_torch", new NoParticleTorchBlock(Settings.copy(Blocks.TORCH)));
@@ -21,6 +22,6 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH = add("unlit_wall_torch", new UnlitWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_TORCH), Blocks.WALL_TORCH));
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registry.BLOCK, new Identifier(TotallyLitModInitializer.IDENTIFIER, path), block);
+        return Registry.register(Registries.BLOCK, new Identifier(TotallyLitModInitializer.IDENTIFIER, path), block);
     }
 }

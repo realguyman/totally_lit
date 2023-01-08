@@ -6,16 +6,17 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
-import net.minecraft.item.WallStandingBlockItem;
+import net.minecraft.item.VerticallyAttachableBlockItem;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 
-public class UnlitTorchItem extends WallStandingBlockItem {
+public class UnlitTorchItem extends VerticallyAttachableBlockItem {
     private final Item litItem;
 
-    public UnlitTorchItem(Block standing, Block wall, Settings settings, Item litItem) {
-        super(standing, wall, settings);
+    public UnlitTorchItem(Block standing, Block wall, Settings settings, Direction verticalAttachmentDirection, Item litItem) {
+        super(standing, wall, settings, verticalAttachmentDirection);
         this.litItem = litItem;
     }
 

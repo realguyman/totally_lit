@@ -2,13 +2,14 @@ package io.github.realguyman.totally_lit.api.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.item.WallStandingBlockItem;
+import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.util.math.Direction;
 
-public class LitTorchItem extends WallStandingBlockItem {
+public class LitTorchItem extends VerticallyAttachableBlockItem {
     private final Item unlitItem;
 
-    public LitTorchItem(Block standingBlock, Block wallBlock, Settings settings, Item unlitItem) {
-        super(standingBlock, wallBlock, settings);
+    public LitTorchItem(Block standingBlock, Block wallBlock, Settings settings, Direction verticalAttachmentDirection, Item unlitItem) {
+        super(standingBlock, wallBlock, settings, verticalAttachmentDirection);
         this.unlitItem = unlitItem;
     }
 

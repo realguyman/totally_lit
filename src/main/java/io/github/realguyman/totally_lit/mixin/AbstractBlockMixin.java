@@ -9,10 +9,10 @@ import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.tag.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.tick.WorldTickScheduler;
@@ -46,7 +46,7 @@ public abstract class AbstractBlockMixin {
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().candleConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().candleConfiguration.burnDuration * 6_000);
                 }
             }
 
@@ -59,7 +59,7 @@ public abstract class AbstractBlockMixin {
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.burnDuration * 6_000);
                 }
             }
 
@@ -72,7 +72,7 @@ public abstract class AbstractBlockMixin {
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().lanternConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().lanternConfiguration.burnDuration * 6_000);
                 }
             }
 
@@ -85,7 +85,7 @@ public abstract class AbstractBlockMixin {
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.createAndScheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().torchConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLitModInitializer.getConfiguration().torchConfiguration.burnDuration * 6_000);
                 }
             }
 
