@@ -34,10 +34,10 @@ public abstract class ItemEntityMixin extends Entity {
 
             if (itemStack.isOf(Items.TORCH)) {
                 unlitVariant = ItemRegistry.UNLIT_TORCH;
-            } else if (itemStack.getItem() instanceof LitTorchItem) {
-                unlitVariant = ((LitTorchItem) itemStack.getItem()).getUnlitItem();
-            } else if (itemStack.getItem() instanceof LitLanternItem) {
-                unlitVariant = ((LitLanternItem) itemStack.getItem()).getUnlitItem();
+            } else if (itemStack.getItem() instanceof LitTorchItem litTorchItem) {
+                unlitVariant = litTorchItem.getUnlitItem();
+            } else if (itemStack.getItem() instanceof LitLanternItem litLanternItem) {
+                unlitVariant = litLanternItem.getUnlitItem();
             } else if (itemStack.isOf(Items.LANTERN)) {
                 unlitVariant = ItemRegistry.UNLIT_LANTERN;
             } else if (itemStack.isOf(Items.JACK_O_LANTERN)) {

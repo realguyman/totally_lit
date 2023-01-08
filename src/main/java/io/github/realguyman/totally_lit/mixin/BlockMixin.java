@@ -38,8 +38,8 @@ public class BlockMixin {
 
         if (state.isOf(Blocks.LANTERN)) {
             unlitBlock = BlockRegistry.UNLIT_LANTERN;
-        } else if (state.getBlock() instanceof LitLanternBlock) {
-            unlitBlock = ((LitLanternBlock) state.getBlock()).getUnlitBlock();
+        } else if (state.getBlock() instanceof LitLanternBlock litLanternBlock) {
+            unlitBlock = litLanternBlock.getUnlitBlock();
         }
 
         if (Boolean.TRUE.equals(!world.isClient() && unlitBlock != null && state.get(LanternBlock.WATERLOGGED)) && world.setBlockState(pos, unlitBlock.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, true))) {

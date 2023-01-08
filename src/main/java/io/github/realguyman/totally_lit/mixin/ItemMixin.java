@@ -41,12 +41,12 @@ public class ItemMixin {
             } else if (stack.isOf(Items.SOUL_TORCH)) {
                 chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_SOUL_TORCH;
-            } else if (stack.getItem() instanceof LitTorchItem) {
+            } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
                 chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
-                item = ((LitTorchItem) stack.getItem()).getUnlitItem();
-            } else if (stack.getItem() instanceof LitLanternItem) {
+                item = litTorchItem.getUnlitItem();
+            } else if (stack.getItem() instanceof LitLanternItem litLanternItem) {
                 chance = TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
-                item = ((LitLanternItem) stack.getItem()).getUnlitItem();
+                item = litLanternItem.getUnlitItem();
             }
 
             if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getBlockPos()) && world.getRandom().nextFloat() < chance))) {

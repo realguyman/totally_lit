@@ -29,12 +29,12 @@ public class FlintAndSteelItemMixin {
         Hand hand = context.getHand();
         boolean updated = false;
 
-        if(state.getBlock() instanceof UnlitLanternBlock && Boolean.TRUE.equals(!state.get(LanternBlock.WATERLOGGED))) {
-            updated = world.setBlockState(pos, ((UnlitLanternBlock) state.getBlock()).getLitBlock().getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
-        } else if (state.getBlock() instanceof UnlitTorchBlock) {
-            updated = world.setBlockState(pos, ((UnlitTorchBlock) state.getBlock()).getLitBlock().getDefaultState());
-        } else if (state.getBlock() instanceof UnlitWallTorchBlock) {
-            updated = world.setBlockState(pos, ((UnlitWallTorchBlock) state.getBlock()).getLitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+        if(state.getBlock() instanceof UnlitLanternBlock unlitLanternBlock && Boolean.TRUE.equals(!state.get(LanternBlock.WATERLOGGED))) {
+            updated = world.setBlockState(pos, unlitLanternBlock.getLitBlock().getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)));
+        } else if (state.getBlock() instanceof UnlitTorchBlock unlitTorchBlock) {
+            updated = world.setBlockState(pos, unlitTorchBlock.getLitBlock().getDefaultState());
+        } else if (state.getBlock() instanceof UnlitWallTorchBlock unlitWallTorchBlock) {
+            updated = world.setBlockState(pos, unlitWallTorchBlock.getLitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
         if (updated) {
