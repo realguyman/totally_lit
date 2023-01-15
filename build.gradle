@@ -24,6 +24,17 @@ dependencies {
     }
 }
 
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        totally_lit {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+}
+
 java {
     withSourcesJar()
 }
