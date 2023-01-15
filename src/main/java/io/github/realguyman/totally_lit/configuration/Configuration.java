@@ -5,7 +5,7 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry;
 import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
 
-@Config(name = TotallyLit.IDENTIFIER)
+@Config(name = TotallyLit.MOD_ID)
 public class Configuration extends PartitioningSerializer.GlobalData {
     @ConfigEntry.Category("campfires")
     @ConfigEntry.Gui.TransitiveObject

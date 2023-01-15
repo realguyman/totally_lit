@@ -12,7 +12,7 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 
 public class TotallyLit implements ModInitializer {
-    public static final String IDENTIFIER = "totally_lit";
+    public static final String MOD_ID = "totally_lit";
     private static final Configuration CONFIGURATION = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(GsonConfigSerializer::new)).getConfig();
 
     @Override

@@ -22,6 +22,6 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH = add("unlit_wall_torch", new UnlitWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_TORCH), Blocks.WALL_TORCH));
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier(TotallyLit.IDENTIFIER, path), block);
+        return Registry.register(Registries.BLOCK, new Identifier(TotallyLit.MOD_ID, path), block);
     }
 }

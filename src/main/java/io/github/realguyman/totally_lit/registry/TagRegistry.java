@@ -9,7 +9,7 @@ import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class TagRegistry {
-    public static final TagKey<Block> TORCH_IGNITER_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TotallyLit.IDENTIFIER, "torch_igniters"));
-    public static final TagKey<Fluid> TORCH_IGNITER_FLUIDS = TagKey.of(RegistryKeys.FLUID, new Identifier(TotallyLit.IDENTIFIER, "torch_igniters"));
-    public static final TagKey<Item> TORCH_IGNITER_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TotallyLit.IDENTIFIER, "torch_igniters"));
+    public static final TagKey<Block> TORCH_IGNITER_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier(TotallyLit.MOD_ID, "torch_igniters"));
+    public static final TagKey<Fluid> TORCH_IGNITER_FLUIDS = TagKey.of(RegistryKeys.FLUID, new Identifier(TotallyLit.MOD_ID, "torch_igniters"));
+    public static final TagKey<Item> TORCH_IGNITER_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TotallyLit.MOD_ID, "torch_igniters"));
 }
