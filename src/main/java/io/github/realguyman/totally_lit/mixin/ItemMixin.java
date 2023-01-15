@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.TotallyLitModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.api.item.LitLanternItem;
 import io.github.realguyman.totally_lit.api.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
@@ -30,22 +30,22 @@ public class ItemMixin {
             Item item = null;
 
             if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
                 item = Items.CARVED_PUMPKIN;
             } else if (stack.isOf(Items.LANTERN)) {
-                chance = TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
-                chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_TORCH;
             } else if (stack.isOf(Items.SOUL_TORCH)) {
-                chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = ItemRegistry.UNLIT_SOUL_TORCH;
             } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
-                chance = TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
                 item = litTorchItem.getUnlitItem();
             } else if (stack.getItem() instanceof LitLanternItem litLanternItem) {
-                chance = TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance;
                 item = litLanternItem.getUnlitItem();
             }
 

@@ -32,10 +32,10 @@
   },
   "entrypoints": {
     "main": [
-      "io.github.realguyman.totally_lit.TotallyLitModInitializer"
+      "io.github.realguyman.totally_lit.TotallyLit"
     ],
     "client": [
-      "io.github.realguyman.totally_lit.TotallyLitClientInitializer"
+      "io.github.realguyman.totally_lit.TotallyLitClient"
     ],
     "modmenu": [
       "io.github.realguyman.totally_lit.ModMenuIntegration"

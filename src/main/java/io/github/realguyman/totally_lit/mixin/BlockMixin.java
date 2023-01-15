@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.TotallyLitModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.api.block.LitLanternBlock;
 import io.github.realguyman.totally_lit.api.block.LitTorchBlock;
 import io.github.realguyman.totally_lit.api.block.LitWallTorchBlock;
@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if ((CampfireBlock.isLitCampfire(state) && (TotallyLitModInitializer.getConfiguration().campfireConfiguration.extinguishInRainChance > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().jackOLanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) && (TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) && (TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishInRainChance > 0F || TotallyLitModInitializer.getConfiguration().torchConfiguration.extinguishOverTime))) {
+        if ((CampfireBlock.isLitCampfire(state) && (TotallyLit.getConfiguration().campfireConfiguration.extinguishInRainChance > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (TotallyLit.getConfiguration().candleConfiguration.extinguishInRainChance > 0F || TotallyLit.getConfiguration().candleConfiguration.extinguishOverTime)) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishInRainChance > 0F || TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) && (TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance > 0F || TotallyLit.getConfiguration().lanternConfiguration.extinguishOverTime)) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) && (TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance > 0F || TotallyLit.getConfiguration().torchConfiguration.extinguishOverTime))) {
             cir.setReturnValue(true);
         }
     }

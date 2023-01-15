@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.registry;
 
-import io.github.realguyman.totally_lit.TotallyLitModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.api.block.*;
 import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.Block;
@@ -22,6 +22,6 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH = add("unlit_wall_torch", new UnlitWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_TORCH), Blocks.WALL_TORCH));
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier(TotallyLitModInitializer.IDENTIFIER, path), block);
+        return Registry.register(Registries.BLOCK, new Identifier(TotallyLit.IDENTIFIER, path), block);
     }
 }

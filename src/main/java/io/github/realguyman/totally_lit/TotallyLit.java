@@ -11,7 +11,7 @@ import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
 
-public class TotallyLitModInitializer implements ModInitializer {
+public class TotallyLit implements ModInitializer {
     public static final String IDENTIFIER = "totally_lit";
     private static final Configuration CONFIGURATION = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(GsonConfigSerializer::new)).getConfig();
 
