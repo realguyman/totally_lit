@@ -17,8 +17,8 @@ public class TotallyLit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        new BlockRegistry();
-        new ItemRegistry();
+        BlockRegistry.register();
+        ItemRegistry.register();
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(listener -> {
             listener.addAfter(Items.TORCH, ItemRegistry.UNLIT_TORCH);
