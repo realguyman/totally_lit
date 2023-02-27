@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Item.class)
-public class ItemMixin {
+public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
         PlayerEntity player = null;

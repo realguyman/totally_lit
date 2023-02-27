@@ -24,7 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
-public class BlockMixin {
+public abstract class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if ((CampfireBlock.isLitCampfire(state) && (TotallyLit.CONFIG.campfires.extinguishInRainChance() > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (TotallyLit.CONFIG.candles.extinguishInRainChance() > 0F || TotallyLit.CONFIG.candles.extinguishOverTime())) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.jackOLanterns.extinguishOverTime())) || ((state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) && (TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.lanterns.extinguishOverTime())) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) && (TotallyLit.CONFIG.torches.extinguishInRainChance() > 0F || TotallyLit.CONFIG.torches.extinguishOverTime()))) {

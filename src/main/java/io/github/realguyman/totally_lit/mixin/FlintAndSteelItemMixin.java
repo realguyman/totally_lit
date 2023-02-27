@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(FlintAndSteelItem.class)
-public class FlintAndSteelItemMixin {
+public abstract class FlintAndSteelItemMixin {
     @Inject(method = "useOnBlock", at = @At("HEAD"), cancellable = true)
     private void lightUnlitTorchBlock(ItemUsageContext context, CallbackInfoReturnable<ActionResult> cir) {
         World world = context.getWorld();
