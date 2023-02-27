@@ -31,7 +31,7 @@ public abstract class AbstractBlockMixin {
         if (state.isIn(BlockTags.CAMPFIRES)) {
             final BlockEntity blockEntity = world.getBlockEntity(pos);
 
-            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < TotallyLit.getConfiguration().campfireConfiguration.extinguishInRainChance && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
+            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance() && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
                 ((CampfireBlockEntityAccess) blockEntity).setBurningTicks(0);
                 CampfireBlock.extinguish(null, world, pos, state);
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -39,53 +39,53 @@ public abstract class AbstractBlockMixin {
 
             ci.cancel();
         } else if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
-            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < TotallyLit.getConfiguration().candleConfiguration.extinguishInRainChance) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
+            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < TotallyLit.CONFIG.candles.extinguishInRainChance()) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (!AbstractCandleBlock.isLitCandle(state) && TotallyLit.getConfiguration().candleConfiguration.extinguishOverTime) {
+            } else if (!AbstractCandleBlock.isLitCandle(state) && TotallyLit.CONFIG.candles.extinguishOverTime()) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.getConfiguration().candleConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.candles.burnDuration());
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
-            if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishInRainChance)) {
+            if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance())) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishOverTime) {
+            } else if (TotallyLit.CONFIG.jackOLanterns.extinguishOverTime()) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.getConfiguration().jackOLanternConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.jackOLanterns.burnDuration());
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) {
-            if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
+            if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.lanterns.extinguishInRainChance()) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.getConfiguration().lanternConfiguration.extinguishOverTime) {
+            } else if (TotallyLit.CONFIG.lanterns.extinguishOverTime()) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.getConfiguration().lanternConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.lanterns.burnDuration());
                 }
             }
 
             ci.cancel();
         } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) {
-            if (world.hasRain(pos) && random.nextFloat() < TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance) {
+            if (world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.torches.extinguishInRainChance()) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.getConfiguration().torchConfiguration.extinguishOverTime) {
+            } else if (TotallyLit.CONFIG.torches.extinguishOverTime()) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
                 if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.getConfiguration().torchConfiguration.burnDuration * 6_000);
+                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
                 }
             }
 

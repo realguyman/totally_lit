@@ -24,7 +24,7 @@
     "minecraft": "1.19.3",
     "fabricloader": ">=0.14.12",
     "fabric-api": "*",
-    "cloth-config": "^9.0.0"
+    "owo-lib": ">=0.10.2"
   },
   "conflicts": {
     "fading": "*",
@@ -36,9 +36,6 @@
     ],
     "client": [
       "io.github.realguyman.totally_lit.TotallyLitClient"
-    ],
-    "modmenu": [
-      "io.github.realguyman.totally_lit.ModMenuIntegration"
     ]
   },
   "mixins": [

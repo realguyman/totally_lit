@@ -1,11 +1,8 @@
 package io.github.realguyman.totally_lit;
 
-import io.github.realguyman.totally_lit.configuration.Configuration;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
-import me.shedaniel.autoconfig.serializer.PartitioningSerializer;
+import io.github.realguyman.totally_lit.TotallyLitConfig;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroups;
@@ -13,7 +10,7 @@ import net.minecraft.item.Items;
 
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
-    private static final Configuration CONFIGURATION = AutoConfig.register(Configuration.class, PartitioningSerializer.wrap(GsonConfigSerializer::new)).getConfig();
+    public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
 
     @Override
     public void onInitialize() {
@@ -26,9 +23,5 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
             listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
         });
-    }
-
-    public static Configuration getConfiguration() {
-        return CONFIGURATION;
     }
 }

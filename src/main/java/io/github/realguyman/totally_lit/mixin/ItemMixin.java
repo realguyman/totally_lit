@@ -30,22 +30,22 @@ public class ItemMixin {
             Item item = null;
 
             if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = TotallyLit.getConfiguration().jackOLanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance();
                 item = Items.CARVED_PUMPKIN;
             } else if (stack.isOf(Items.LANTERN)) {
-                chance = TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
-                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_TORCH;
             } else if (stack.isOf(Items.SOUL_TORCH)) {
-                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_SOUL_TORCH;
             } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
-                chance = TotallyLit.getConfiguration().torchConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
                 item = litTorchItem.getUnlitItem();
             } else if (stack.getItem() instanceof LitLanternItem litLanternItem) {
-                chance = TotallyLit.getConfiguration().lanternConfiguration.extinguishInRainChance;
+                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
                 item = litLanternItem.getUnlitItem();
             }
 

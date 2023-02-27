@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -26,12 +27,12 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void construct(boolean emitsParticles, int fireDamage, Settings settings, CallbackInfo ci) {
-        setDefaultState(getDefaultState().with(CampfireBlock.LIT, false));
+        setDefaultState(getDefaultState().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
     private void getPlacementState(ItemPlacementContext context, CallbackInfoReturnable<BlockState> cir) {
-        cir.setReturnValue(cir.getReturnValue().with(CampfireBlock.LIT, false));
+        cir.setReturnValue(cir.getReturnValue().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
