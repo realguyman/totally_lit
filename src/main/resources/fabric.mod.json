@@ -32,7 +32,14 @@
   },
   "entrypoints": {
     "fabric-gametest": [
-      "io.github.realguyman.totally_lit.gametest.TotallyLitTestSuite"
+      "io.github.realguyman.totally_lit.gametest.CampfireTestSuite",
+      "io.github.realguyman.totally_lit.gametest.CandleCakeTestSuite",
+      "io.github.realguyman.totally_lit.gametest.CandleTestSuite",
+      "io.github.realguyman.totally_lit.gametest.JackOLanternTestSuite",
+      "io.github.realguyman.totally_lit.gametest.LanternTestSuite",
+      "io.github.realguyman.totally_lit.gametest.SoulLanternTestSuite",
+      "io.github.realguyman.totally_lit.gametest.SoulTorchTestSuite",
+      "io.github.realguyman.totally_lit.gametest.TorchTestSuite"
     ],
     "main": [
       "io.github.realguyman.totally_lit.TotallyLit"

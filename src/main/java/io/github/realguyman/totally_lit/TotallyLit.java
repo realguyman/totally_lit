@@ -14,6 +14,7 @@ public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
+    public static final int MAX_TICKS_TO_BURN_FOR = 168_000;
 
     @Override
     public void onInitialize() {
