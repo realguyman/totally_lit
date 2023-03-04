@@ -7,10 +7,13 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
+    public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
     public void onInitialize() {
