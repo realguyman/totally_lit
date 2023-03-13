@@ -41,7 +41,7 @@ public abstract class AbstractBlockMixin {
         } else if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
             if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < TotallyLit.CONFIG.candles.extinguishInRainChance()) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (!AbstractCandleBlock.isLitCandle(state) && TotallyLit.CONFIG.candles.extinguishOverTime()) {
+            } else if (AbstractCandleBlock.isLitCandle(state) && TotallyLit.CONFIG.candles.extinguishOverTime()) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
