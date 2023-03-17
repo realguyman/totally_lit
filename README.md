@@ -2,7 +2,7 @@
 
 ![](https://img.shields.io/github/license/realguyman/totally_lit) ![](https://github.com/realguyman/totally_lit/workflows/build/badge.svg) ![](https://cf.way2muchnoise.eu/full_totally-lit_downloads.svg)
 
-Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [Cloth Config API](https://modrinth.com/mod/cloth-config).
+Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
 ## Features
 
@@ -16,6 +16,7 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 
 ### Planned
 
+- Implement Minecraft's logic for igniting sources to torches and lanterns. (E.g, any item enchanted with Fire Aspect can ignite campfires or candles.)
 - Add configuration settings for soul variants.
 - Expand wiki to include important information for general users, modpack creators, datapack wizards, and mod developers.
 
