@@ -1,4 +1,4 @@
-package io.github.realguyman.totally_lit.api.item;
+package io.github.realguyman.totally_lit.item;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;

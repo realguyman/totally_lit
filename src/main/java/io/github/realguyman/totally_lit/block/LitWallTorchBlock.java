@@ -1,4 +1,4 @@
-package io.github.realguyman.totally_lit.api.block;
+package io.github.realguyman.totally_lit.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.WallTorchBlock;

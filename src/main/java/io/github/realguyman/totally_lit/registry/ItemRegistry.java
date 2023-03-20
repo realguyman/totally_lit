@@ -1,8 +1,8 @@
 package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.api.item.UnlitLanternItem;
-import io.github.realguyman.totally_lit.api.item.UnlitTorchItem;
+import io.github.realguyman.totally_lit.item.UnlitLanternItem;
+import io.github.realguyman.totally_lit.item.UnlitTorchItem;
 import net.minecraft.item.*;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;

@@ -1,8 +1,8 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.api.item.LitLanternItem;
-import io.github.realguyman.totally_lit.api.item.LitTorchItem;
+import io.github.realguyman.totally_lit.item.LitLanternItem;
+import io.github.realguyman.totally_lit.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;

@@ -1,6 +1,8 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.api.block.*;
+import io.github.realguyman.totally_lit.block.UnlitLanternBlock;
+import io.github.realguyman.totally_lit.block.UnlitTorchBlock;
+import io.github.realguyman.totally_lit.block.UnlitWallTorchBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.block.WallTorchBlock;

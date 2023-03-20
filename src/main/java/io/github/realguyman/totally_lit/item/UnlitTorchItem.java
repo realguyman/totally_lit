@@ -1,4 +1,4 @@
-package io.github.realguyman.totally_lit.api.item;
+package io.github.realguyman.totally_lit.item;
 
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.Block;

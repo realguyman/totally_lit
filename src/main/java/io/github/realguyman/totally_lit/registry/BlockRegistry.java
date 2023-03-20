@@ -1,7 +1,7 @@
 package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.api.block.*;
+import io.github.realguyman.totally_lit.block.*;
 import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
