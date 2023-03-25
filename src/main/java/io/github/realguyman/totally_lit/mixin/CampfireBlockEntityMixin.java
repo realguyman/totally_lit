@@ -18,16 +18,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CampfireBlockEntity.class)
 public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAccess {
-    private int burningTicks = 0;
+    private int ticksBurntFor = 0;
 
     @Override
-    public int getBurningTicks() {
-        return burningTicks;
+    public int getTicksBurntFor() {
+        return ticksBurntFor;
     }
 
     @Override
-    public void setBurningTicks(int value) {
-        burningTicks = value;
+    public void setTicksBurntFor(int value) {
+        ticksBurntFor = value;
     }
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
@@ -37,11 +37,11 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
         }
 
         CampfireBlockEntityAccess campfireAccessed = (CampfireBlockEntityAccess) campfire;
-        final int burntFor = campfireAccessed.getBurningTicks() + 1;
-        campfireAccessed.setBurningTicks(burntFor);
+        final int burntFor = campfireAccessed.getTicksBurntFor() + 1;
+        campfireAccessed.setTicksBurntFor(burntFor);
 
         if (burntFor > TotallyLit.CONFIG.campfires.burnDuration() && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
-            campfireAccessed.setBurningTicks(0);
+            campfireAccessed.setTicksBurntFor(0);
             CampfireBlock.extinguish(null, world, pos, state);
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
         } else if (burntFor % 300 == 0) {
@@ -51,13 +51,13 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
 
     @Inject(method = "readNbt", at = @At("RETURN"))
     private void readNbt(NbtCompound nbt, CallbackInfo ci) {
-        if (nbt.contains("burningTicks")) {
-            burningTicks = nbt.getInt("burningTicks");
+        if (nbt.contains("ticksBurntFor")) {
+            ticksBurntFor = nbt.getInt("ticksBurntFor");
         }
     }
 
     @Inject(method = "writeNbt", at = @At("RETURN"))
     private void writeNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putInt("burningTicks", burningTicks);
+        nbt.putInt("ticksBurntFor", ticksBurntFor);
     }
 }

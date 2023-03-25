@@ -32,7 +32,7 @@ public abstract class AbstractBlockMixin {
             final BlockEntity blockEntity = world.getBlockEntity(pos);
 
             if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance() && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
-                ((CampfireBlockEntityAccess) blockEntity).setBurningTicks(0);
+                ((CampfireBlockEntityAccess) blockEntity).setTicksBurntFor(0);
                 CampfireBlock.extinguish(null, world, pos, state);
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             }
