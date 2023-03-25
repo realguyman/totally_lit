@@ -87,7 +87,13 @@ modrinth {
     additionalFiles = [remapSourcesJar]
     gameVersions = [project.minecraft]
     dependencies = [
+            // Fabric API
             new ModDependency("P7dR8mSH", "required"),
+
+            // owo-lib
+            new ModDependency("ccKDOlHs", "required"),
+
+            // Mod Menu
             new ModDependency("mOgUt4GM", "optional")
     ]
 }
