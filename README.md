@@ -14,11 +14,6 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 - API for modders to add support for lanterns and torches.
 - Glowstone lanterns and torches for mid/late-game which are waterproof and never die out.
 
-### Planned
-
-- Add configuration settings for soul variants.
-- Expand wiki to include important information for general users, modpack creators, datapack wizards, and mod developers.
-
 ## Downloads
 
 Officially available at [GitHub](https://github.com/realguyman/totally_lit/releases), [Modrinth](https://modrinth.com/mod/totally-lit), and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit).
