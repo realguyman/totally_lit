@@ -4,6 +4,8 @@
 
 Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
+For more information regarding the project, [read the wiki](https://github.com/realguyman/totally_lit/wiki).
+
 ## Features
 
 - Candles and torches will extinguish when rained on.
