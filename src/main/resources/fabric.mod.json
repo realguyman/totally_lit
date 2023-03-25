@@ -59,6 +59,9 @@
         "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/totally-lit",
         "modmenu.wiki": "https://github.com/realguyman/totally_lit/wiki"
       }
+    },
+    "lithium:options": {
+      "mixin.world.block_entity_ticking.sleeping.campfire": false
     }
   }
 }
