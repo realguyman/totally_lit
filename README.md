@@ -16,7 +16,6 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 
 ### Planned
 
-- Implement Minecraft's logic for igniting sources to torches and lanterns. (E.g, any item enchanted with Fire Aspect can ignite campfires or candles.)
 - Add configuration settings for soul variants.
 - Expand wiki to include important information for general users, modpack creators, datapack wizards, and mod developers.
 
