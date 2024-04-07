@@ -6,6 +6,7 @@
     "minecraft:soul_torch",
     "minecraft:soul_wall_torch",
     "minecraft:torch",
-    "minecraft:wall_torch"
+    "minecraft:wall_torch",
+    "minecraft:magma_block"
   ]
 }

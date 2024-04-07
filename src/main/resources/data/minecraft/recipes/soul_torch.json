@@ -13,6 +13,9 @@
       },
       {
         "item": "minecraft:lava_bucket"
+      },
+      {
+        "item": "minecraft:magma_block"
       }
     ]
   ],
@@ -22,6 +25,7 @@
   "owo:remainders": {
     "minecraft:torch": "minecraft:torch",
     "minecraft:soul_torch": "minecraft:soul_torch",
-    "minecraft:lava_bucket": "minecraft:lava_bucket"
+    "minecraft:lava_bucket": "minecraft:lava_bucket",
+    "minecraft:magma_block": "minecraft:magma_block"
   }
 }

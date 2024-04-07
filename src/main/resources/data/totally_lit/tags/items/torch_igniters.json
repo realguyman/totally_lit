@@ -3,6 +3,7 @@
   "values": [
     "minecraft:torch",
     "minecraft:soul_torch",
-    "minecraft:lava_bucket"
+    "minecraft:lava_bucket",
+    "minecraft:magma_block"
   ]
 }
