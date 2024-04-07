@@ -16,6 +16,12 @@
       },
       {
         "item": "minecraft:magma_block"
+      },
+      {
+        "item": "minecraft:lantern"
+      },
+      {
+        "item": "minecraft:soul_lantern"
       }
     ]
   ],
@@ -26,6 +32,8 @@
     "minecraft:torch": "minecraft:torch",
     "minecraft:soul_torch": "minecraft:soul_torch",
     "minecraft:lava_bucket": "minecraft:lava_bucket",
-    "minecraft:magma_block": "minecraft:magma_block"
+    "minecraft:magma_block": "minecraft:magma_block",
+    "minecraft:lantern": "minecraft:lantern",
+    "minecraft:soul_lantern": "minecraft:soul_lantern"
   }
 }

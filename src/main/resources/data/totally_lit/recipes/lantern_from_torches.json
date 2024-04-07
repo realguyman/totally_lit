@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "totally_lit:unlit_lantern"
+    },
+    [
+      {
+        "item": "minecraft:torch"
+      },
+      {
+        "item": "minecraft:soul_torch"
+      }
+    ]
+  ],
+  "result": {
+    "item": "minecraft:lantern"
+  },
+  "owo:remainders": {
+    "minecraft:torch": "minecraft:torch",
+    "minecraft:soul_torch": "minecraft:soul_torch"
+  }
+}
