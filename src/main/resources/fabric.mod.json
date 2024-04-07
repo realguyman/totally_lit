@@ -55,8 +55,6 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/JkEe8aMJUD",
-        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/totally-lit",
         "modmenu.wiki": "https://github.com/realguyman/totally_lit/wiki"
       }
     },
