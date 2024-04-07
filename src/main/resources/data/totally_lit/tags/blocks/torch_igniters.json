@@ -7,6 +7,8 @@
     "minecraft:soul_wall_torch",
     "minecraft:torch",
     "minecraft:wall_torch",
-    "minecraft:magma_block"
+    "minecraft:magma_block",
+    "minecraft:lantern",
+    "minecraft:soul_lantern"
   ]
 }

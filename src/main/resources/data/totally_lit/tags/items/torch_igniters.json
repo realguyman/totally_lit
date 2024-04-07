@@ -4,6 +4,8 @@
     "minecraft:torch",
     "minecraft:soul_torch",
     "minecraft:lava_bucket",
-    "minecraft:magma_block"
+    "minecraft:magma_block",
+    "minecraft:lantern",
+    "minecraft:soul_lantern"
   ]
 }
