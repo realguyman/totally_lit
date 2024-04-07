@@ -13,4 +13,5 @@ public class TagRegistry {
     public static final TagKey<Fluid> TORCH_IGNITER_FLUIDS = TagKey.of(RegistryKeys.FLUID, new Identifier(TotallyLit.MOD_ID, "torch_igniters"));
     public static final TagKey<Item> TORCH_IGNITER_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TotallyLit.MOD_ID, "torch_igniters"));
     public static final TagKey<Item> CAMPFIRE_IGNITER_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TotallyLit.MOD_ID, "campfire_igniters"));
+    public static final TagKey<Item> LANTERN_IGNITER_ITEMS = TagKey.of(RegistryKeys.ITEM, new Identifier(TotallyLit.MOD_ID, "lantern_igniters"));
 }
