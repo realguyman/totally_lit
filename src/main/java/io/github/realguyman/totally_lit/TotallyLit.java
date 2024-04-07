@@ -1,6 +1,5 @@
 package io.github.realguyman.totally_lit;
 
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.TotallyLitConfig;
 import net.fabricmc.api.ModInitializer;
@@ -18,7 +17,6 @@ public class TotallyLit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        BlockRegistry.register();
         ItemRegistry.register();
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(listener -> {
