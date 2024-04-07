@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public class NoParticleWallTorchBlock extends WallTorchBlock {
     public NoParticleWallTorchBlock(Settings settings) {
-        super(settings, null);
+        super(null, settings);
     }
 
     @Override

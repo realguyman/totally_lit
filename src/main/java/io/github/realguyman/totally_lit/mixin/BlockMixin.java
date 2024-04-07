@@ -48,7 +48,7 @@ public abstract class BlockMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
+    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES) || state.isOf(Blocks.JACK_O_LANTERN) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitLanternBlock || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock)) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
