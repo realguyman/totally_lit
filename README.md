@@ -1,7 +1,5 @@
 # Totally Lit
 
-![](https://img.shields.io/github/license/realguyman/totally_lit) ![](https://github.com/realguyman/totally_lit/workflows/build/badge.svg) ![](https://cf.way2muchnoise.eu/full_totally-lit_downloads.svg)
-
 Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
 For more information regarding the project, [read the wiki](https://github.com/realguyman/totally_lit/wiki).
@@ -18,7 +16,7 @@ For more information regarding the project, [read the wiki](https://github.com/r
 
 ## Downloads
 
-Officially available at [GitHub](https://github.com/realguyman/totally_lit/releases), [Modrinth](https://modrinth.com/mod/totally-lit), and [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit).
+Officially available at [Modrinth](https://modrinth.com/mod/totally-lit) and [GitHub](https://github.com/realguyman/totally_lit/releases).
 
 ## License
 
