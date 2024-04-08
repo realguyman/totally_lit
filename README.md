@@ -2,19 +2,19 @@
 
 Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric Loader](https://fabricmc.net/use/installer/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
-For more information regarding the project, [read the wiki](https://github.com/realguyman/totally_lit/wiki).
+For more information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
-## Features
+## ✅ Features
 
-- Candles and torches will extinguish when rained on.
-- Campfires, candles, jack o'lanterns, lanterns, and torches will extinguish over time.
-- Bring unlit torches to life during your adventures with fire, lava (flowing, standing, or even in a cauldron!), or flint and steel.
-- Wading, swimming, fully submerging in water, or getting rained on can cause jack o'lanterns, lanterns, and torches to extinguish.
-- Configurable through files or the settings page provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
-- API for modders to add support for lanterns and torches.
-- Glowstone lanterns and torches for mid/late-game which are waterproof and never die out.
+- 💡 **Dynamic lighting is fully supported** with [LambdaDynamicLights](https://modrinth.com/mod/lambdynamiclights).
+- 🌧 Candles and torches will **extinguish when rained on**.
+- ⏳ Campfires, candles, jack o'lanterns, lanterns, and torches will **extinguish over time**.
+- 🔥 **Bring unlit torches to life during your adventures with fire**, lava (flowing, standing, or even in a cauldron!), or flint and steel.
+- 🏊 **Wading, swimming, fully submerging in water, or getting rained on** can cause jack o'lanterns, lanterns, and torches to extinguish.
+- 💪 **Glowstone lanterns and torches for mid/late-game** which are waterproof and never die out.
+- 📄 **Configurable with files or the settings page** provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 
-## Downloads
+## 🔽 Downloads
 
 Officially available at [Modrinth](https://modrinth.com/mod/totally-lit) and [GitHub](https://github.com/realguyman/totally_lit/releases).
 
