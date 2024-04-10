@@ -16,7 +16,7 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 ## 🔽 Downloads
 
-Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit), [Modrinth](https://modrinth.com/mod/totally-lit), and [GitHub](https://github.com/realguyman/totally_lit/releases).
+Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit/files/all?page=1&pageSize=20), [Modrinth](https://modrinth.com/mod/totally-lit/versions), and [GitHub](https://github.com/realguyman/totally_lit/releases).
 
 ## 🖼 Gallery
 
