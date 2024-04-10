@@ -55,7 +55,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.wiki": "https://github.com/realguyman/totally_lit/wiki"
+        "modmenu.wiki": "https://github.com/realguyman/totally_lit/wiki",
+        "modmenu.curseforge": "https://www.curseforge.com/minecraft/mc-mods/totally-lit"
       }
     },
     "lithium:options": {
