@@ -14,6 +14,15 @@ For more information regarding the project, [read the wiki 📖](https://github.
 - 💪 **Glowstone lanterns and torches for mid/late-game** which are waterproof and never die out.
 - 📄 **Configurable with files or the settings page** provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 
+### Compatibility
+
+Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack O' lanterns in an intrusive way.
+
+- [x] [Quilt](https://quiltmc.org/)
+- [x] [Lithium](https://modrinth.com/mods/lithium) is tested when building releases
+- [ ] [Fading](https://modrinth.com/mods/fading) will crash your game
+- [ ] [Hardcore Torches](https://modrinth.com/mods/hardcore-torches) will crash your game
+
 ## 🔽 Downloads
 
 Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit/files/all?page=1&pageSize=20), [Modrinth](https://modrinth.com/mod/totally-lit/versions), and [GitHub](https://github.com/realguyman/totally_lit/releases).
