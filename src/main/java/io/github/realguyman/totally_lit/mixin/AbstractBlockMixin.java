@@ -64,10 +64,10 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock) {
+        } else if (state.isOf(Blocks.LANTERN) || state.isOf(Blocks.SOUL_LANTERN) || state.getBlock() instanceof LitLanternBlock) {
             if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.lanterns.extinguishInRainChance()) || Boolean.TRUE.equals(state.get(LanternBlock.WATERLOGGED))) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.CONFIG.lanterns.extinguishOverTime()) {
+            } else if (TotallyLit.CONFIG.lanterns.extinguishOverTime() && !state.isOf(Blocks.SOUL_LANTERN)) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
@@ -77,10 +77,10 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) {
+        } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.isOf(Blocks.SOUL_TORCH) || state.isOf(Blocks.SOUL_WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) {
             if (world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.torches.extinguishInRainChance()) {
                 this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.CONFIG.torches.extinguishOverTime()) {
+            } else if (TotallyLit.CONFIG.torches.extinguishOverTime() && !state.isOf(Blocks.SOUL_TORCH) && !state.isOf(Blocks.SOUL_WALL_TORCH)) {
                 WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
                 Block block = state.getBlock();
 
@@ -103,10 +103,16 @@ public abstract class AbstractBlockMixin {
             updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
         } else if(state.isOf(Blocks.LANTERN)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
+        } else if (state.isOf(Blocks.SOUL_LANTERN)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
         } else if (state.isOf(Blocks.TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
         } else if (state.isOf(Blocks.WALL_TORCH)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
+        } else if (state.isOf(Blocks.SOUL_TORCH)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_TORCH.getDefaultState());
+        } else if (state.isOf(Blocks.SOUL_WALL_TORCH)) {
+            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         } else if (state.getBlock() instanceof LitTorchBlock litTorch) {
             updated = world.setBlockState(pos, litTorch.getUnlitBlock().getDefaultState());
         } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorch) {

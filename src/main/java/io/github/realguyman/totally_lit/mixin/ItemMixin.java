@@ -41,6 +41,9 @@ public abstract class ItemMixin {
             } else if (stack.isOf(Items.SOUL_TORCH)) {
                 chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_SOUL_TORCH;
+            } else if (stack.isOf(Items.SOUL_LANTERN)) {
+                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
+                item = ItemRegistry.UNLIT_SOUL_LANTERN;
             } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
                 chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
                 item = litTorchItem.getUnlitItem();
@@ -52,7 +55,7 @@ public abstract class ItemMixin {
             if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getBlockPos()) && world.getRandom().nextFloat() < chance))) {
                 ItemStack offhandStack = player.getOffHandStack();
 
-                if (offhandStack.isOf(Items.JACK_O_LANTERN) || offhandStack.isOf(Items.LANTERN) || offhandStack.isOf(Items.TORCH) || offhandStack.getItem() instanceof LitTorchItem) {
+                if (offhandStack.isOf(Items.JACK_O_LANTERN) || offhandStack.isOf(Items.LANTERN) || offhandStack.isOf(Items.SOUL_LANTERN) || offhandStack.isOf(Items.TORCH) || offhandStack.isOf(Items.SOUL_TORCH) || offhandStack.getItem() instanceof LitTorchItem) {
                     player.getInventory().offHand.set(0, new ItemStack(item, offhandStack.getCount()));
                 } else {
                     player.getInventory().setStack(slot, new ItemStack(item, stack.getCount()));

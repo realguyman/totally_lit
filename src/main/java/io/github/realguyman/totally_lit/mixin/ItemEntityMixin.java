@@ -45,6 +45,8 @@ public abstract class ItemEntityMixin extends Entity {
                 unlitVariant = Items.CARVED_PUMPKIN;
             } else if (itemStack.isOf(Items.SOUL_TORCH)) {
                 unlitVariant = ItemRegistry.UNLIT_SOUL_TORCH;
+            } else if (itemStack.isOf(Items.SOUL_LANTERN)) {
+                unlitVariant = ItemRegistry.UNLIT_SOUL_LANTERN;
             }
 
             if (unlitVariant != null) {
