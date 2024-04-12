@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:soul_lantern"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
+  ],
+  "result": {
+    "item": "totally_lit:unlit_soul_lantern"
+  },
+  "owo:remainders": {
+    "minecraft:water_bucket": "minecraft:water_bucket"
+  }
+}
