@@ -6,7 +6,7 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 ## ✅ Features
 
-- 💡 **Dynamic lighting is fully supported** with [LambdaDynamicLights](https://modrinth.com/mod/lambdynamiclights).
+- 💡 **Dynamic lighting is fully supported** with [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights).
 - 🌧 Candles and torches will **extinguish when rained on**.
 - ⏳ Campfires, candles, jack o'lanterns, lanterns, and torches will **extinguish over time**.
 - 🔥 **Bring unlit torches to life during your adventures with fire**, lava (flowing, standing, or even in a cauldron!), or flint and steel.
