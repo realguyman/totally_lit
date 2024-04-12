@@ -23,6 +23,7 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
     annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib}")
     modLocalRuntime "com.terraformersmc:modmenu:${project.mod_menu}"
+    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
 //    modLocalRuntime "maven.modrinth:c2me-fabric:${project.c2me}"
 //    modLocalRuntime "maven.modrinth:starlight:${project.starlight}"
 //    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
