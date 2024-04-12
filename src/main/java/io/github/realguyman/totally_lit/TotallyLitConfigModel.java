@@ -27,7 +27,7 @@ public class TotallyLitConfigModel {
 
     public static class Campfires {
         @RangeConstraint(min = 6_000, max = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-        public int burnDuration = 24_000;
+        public int burnDuration = 12_000;
 
         @Sync(Option.SyncMode.OVERRIDE_CLIENT)
         public boolean defaultLitStateWhenPlaced = false;
@@ -40,7 +40,7 @@ public class TotallyLitConfigModel {
 
     public static class Candles {
         @RangeConstraint(min = 6_000, max = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-        public int burnDuration = 24_000;
+        public int burnDuration = 16_000;
 
         @RangeConstraint(min = 0F, max = 1F)
         public float extinguishInRainChance = 1F;
@@ -50,7 +50,7 @@ public class TotallyLitConfigModel {
 
     public static class JackOLanterns {
         @RangeConstraint(min = 6_000, max = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-        public int burnDuration = 24_000;
+        public int burnDuration = 16_000;
 
         @RangeConstraint(min = 0F, max = 1F)
         public float extinguishInRainChance = 0F;
@@ -60,7 +60,7 @@ public class TotallyLitConfigModel {
 
     public static class Lanterns {
         @RangeConstraint(min = 6_000, max = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-        public int burnDuration = 24_000;
+        public int burnDuration = 16_000;
 
         @RangeConstraint(min = 0F, max = 1F)
         public float extinguishInRainChance = 0F;
@@ -70,7 +70,7 @@ public class TotallyLitConfigModel {
 
     public static class Torches {
         @RangeConstraint(min = 6_000, max = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-        public int burnDuration = 24_000;
+        public int burnDuration = 16_000;
 
         @RangeConstraint(min = 0F, max = 1F)
         public float extinguishInRainChance = 0.25F;
