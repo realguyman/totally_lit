@@ -23,7 +23,9 @@ public abstract class ClearAndCanScheduleMixin {
         boolean extinguishOverTime = TotallyLit.CONFIG.candles.extinguishOverTime();
         boolean extinguishInRain = TotallyLit.CONFIG.candles.extinguishInRainChance() > 0F;
 
-        cir.setReturnValue(extinguishOverTime || extinguishInRain);
+        if (extinguishOverTime || extinguishInRain) {
+            cir.setReturnValue(true);
+        }
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
