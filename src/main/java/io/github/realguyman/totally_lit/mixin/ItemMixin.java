@@ -19,6 +19,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
+        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory()) {
+            return;
+        }
+
         PlayerEntity player = null;
 
         if (entity.isPlayer()) {

@@ -8,6 +8,7 @@ import io.wispforest.owo.config.annotation.*;
 public class TotallyLitConfigModel {
     @SectionHeader("behaviors")
     public boolean itemEntitiesExtinguishWhenSubmerged = true;
+    public boolean itemsCanExtinguishInPlayerInventory = true;
 
     @SectionHeader("extinguishables")
     @Nest

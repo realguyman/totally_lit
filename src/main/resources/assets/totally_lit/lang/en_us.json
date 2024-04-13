@@ -18,6 +18,7 @@
   "text.config.totally_lit.option.candles.extinguishInRainChance":  "Extinguish in Rain Chance",
   "text.config.totally_lit.option.candles.extinguishOverTime":  "Extinguish Over Time",
   "text.config.totally_lit.option.itemEntitiesExtinguishWhenSubmerged": "Item Entities Extinguish when Submerged",
+  "text.config.totally_lit.option.itemsCanExtinguishInPlayerInventory": "Items Can Extinguish in Player Inventory",
   "text.config.totally_lit.option.jackOLanterns.burnDuration":  "Burn Duration",
   "text.config.totally_lit.option.jackOLanterns.extinguishInRainChance":  "Extinguish in Rain Chance",
   "text.config.totally_lit.option.jackOLanterns.extinguishOverTime":  "Extinguish Over Time",
