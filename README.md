@@ -4,7 +4,7 @@ Some of Minecraft's light sources will extinguish under various conditions. A mo
 
 For more information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
-## ✅ Features
+## ✨ Features
 
 - 💡 **Dynamic lighting is fully supported** with [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights).
 - 🌧 Candles and torches will **extinguish when rained on**.
@@ -14,16 +14,30 @@ For more information regarding the project, [read the wiki 📖](https://github.
 - 💪 **Glowstone lanterns and torches for mid/late-game** which are waterproof and never die out.
 - 📄 **Configurable with files or the settings page** provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 
-### Compatibility
+### ❗ Compatibility
 
 Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack O' lanterns in an intrusive way.
 
 - [x] [Quilt](https://quiltmc.org/)
-- [x] [Lithium](https://modrinth.com/mods/lithium) is tested when building releases
-- [ ] [Fading](https://modrinth.com/mods/fading) will crash your game
-- [ ] [Hardcore Torches](https://modrinth.com/mods/hardcore-torches) will crash your game
+- [x] [Lithium](https://modrinth.com/mods/lithium)
+- [x] [Danger Close](https://modrinth.com/mod/danger-close)
+- [x] [Torch hit!](https://modrinth.com/mod/torch-hit)
+- [ ] [Fading](https://modrinth.com/mods/fading)
+- [ ] [Hardcore Torches](https://modrinth.com/mods/hardcore-torches)
 
-## 🔽 Downloads
+### 📝 Todo
+
+- [ ] Add ability for villagers to ignite extinguished light sources
+- [ ] Implement crafting grid functionality for flint and steel
+- [ ] Build a proper API for developers (i.e., api package, events, javadoc, etc.)
+- [ ] Organize, clean, and otherwise re-design the codebase for better maintainability
+- [ ] Implement more gametests and add testmods
+- [ ] Extend inventory behaviours to mobs as well (i.e., a zombie holding a torch while in water should extinguish)
+- [ ] Integrate with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Jade](https://modrinth.com/mod/jade), and [Lanterns Belong on Walls](https://modrinth.com/mod/lanterns-bow)
+- [ ] Attempt to find a method that doesn't impact the game in an overly negative way to extinguish light sources over time in inventories
+- [ ] Finish wiki
+
+## 📥 Downloads
 
 Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit/files/all?page=1&pageSize=20), [Modrinth](https://modrinth.com/mod/totally-lit/versions), and [GitHub](https://github.com/realguyman/totally_lit/releases).
 
