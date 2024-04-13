@@ -38,19 +38,6 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES)) {
-            if (AbstractCandleBlock.isLitCandle(state) && ((world.hasRain(pos.up()) && random.nextFloat() < TotallyLit.CONFIG.candles.extinguishInRainChance()) || (state.contains(CandleBlock.WATERLOGGED) && state.get(CandleBlock.WATERLOGGED)))) {
-                this.scheduledTick(state, world, pos, random);
-            } else if (AbstractCandleBlock.isLitCandle(state) && TotallyLit.CONFIG.candles.extinguishOverTime()) {
-                WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
-                Block block = state.getBlock();
-
-                if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.candles.burnDuration());
-                }
-            }
-
-            ci.cancel();
         } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
             if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance())) {
                 this.scheduledTick(state, world, pos, random);
@@ -97,9 +84,7 @@ public abstract class AbstractBlockMixin {
     private void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         boolean updated = false;
 
-        if (AbstractCandleBlock.isLitCandle(state)) {
-            AbstractCandleBlock.extinguish(null, state, world, pos);
-        } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
+        if (state.isOf(Blocks.JACK_O_LANTERN)) {
             updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
         } else if(state.isOf(Blocks.LANTERN)) {
             updated = world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));

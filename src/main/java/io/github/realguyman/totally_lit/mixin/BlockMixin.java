@@ -9,7 +9,6 @@ import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -27,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class BlockMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if ((CampfireBlock.isLitCampfire(state) && (TotallyLit.CONFIG.campfires.extinguishInRainChance() > 0F)) || (AbstractCandleBlock.isLitCandle(state) && (TotallyLit.CONFIG.candles.extinguishInRainChance() > 0F || TotallyLit.CONFIG.candles.extinguishOverTime())) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.jackOLanterns.extinguishOverTime())) || ((state.isOf(Blocks.LANTERN) || state.isOf(Blocks.SOUL_LANTERN) || state.getBlock() instanceof LitLanternBlock) && (TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.lanterns.extinguishOverTime())) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.isOf(Blocks.SOUL_TORCH) || state.isOf(Blocks.SOUL_WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) && (TotallyLit.CONFIG.torches.extinguishInRainChance() > 0F || TotallyLit.CONFIG.torches.extinguishOverTime()))) {
+        if ((CampfireBlock.isLitCampfire(state) && (TotallyLit.CONFIG.campfires.extinguishInRainChance() > 0F)) || (state.isOf(Blocks.JACK_O_LANTERN) && (TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.jackOLanterns.extinguishOverTime())) || ((state.isOf(Blocks.LANTERN) || state.isOf(Blocks.SOUL_LANTERN) || state.getBlock() instanceof LitLanternBlock) && (TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0F || TotallyLit.CONFIG.lanterns.extinguishOverTime())) || ((state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.isOf(Blocks.SOUL_TORCH) || state.isOf(Blocks.SOUL_WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) && (TotallyLit.CONFIG.torches.extinguishInRainChance() > 0F || TotallyLit.CONFIG.torches.extinguishOverTime()))) {
             cir.setReturnValue(true);
         }
     }
@@ -51,7 +50,7 @@ public abstract class BlockMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && (state.isIn(BlockTags.CANDLES) || state.isIn(BlockTags.CANDLE_CAKES) || state.isOf(Blocks.JACK_O_LANTERN) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitLanternBlock || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock)) {
+        if (!world.isClient() && (state.isOf(Blocks.JACK_O_LANTERN) || state.isOf(Blocks.LANTERN) || state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.getBlock() instanceof LitLanternBlock || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock)) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

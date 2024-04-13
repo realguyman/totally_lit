@@ -8,6 +8,8 @@
     "BlockMixin",
     "CampfireBlockEntityMixin",
     "CampfireBlockMixin",
+    "candle.ClearAndCanScheduleMixin",
+    "candle.ScheduleMixin",
     "FlintAndSteelItemMixin",
     "ItemEntityMixin",
     "ItemMixin"
