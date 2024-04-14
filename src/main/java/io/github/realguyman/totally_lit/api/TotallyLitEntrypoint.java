@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.api;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
@@ -11,10 +11,10 @@ public interface TotallyLitEntrypoint {
     void buildMap();
 
     default void put(Block lit, Block unlit) {
-        TotallyLit.BLOCK_MAP.put(lit, unlit);
+        MyModInitializer.BLOCK_MAP.put(lit, unlit);
     }
 
     default void put(Item lit, Item unlit) {
-        TotallyLit.ITEM_MAP.put(lit, unlit);
+        MyModInitializer.ITEM_MAP.put(lit, unlit);
     }
 }
