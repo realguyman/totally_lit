@@ -1,9 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.block.LitTorchBlock;
-import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -36,19 +33,6 @@ public abstract class AbstractBlockMixin {
             }
 
             ci.cancel();
-        } else if (state.isOf(Blocks.TORCH) || state.isOf(Blocks.WALL_TORCH) || state.isOf(Blocks.SOUL_TORCH) || state.isOf(Blocks.SOUL_WALL_TORCH) || state.getBlock() instanceof LitTorchBlock || state.getBlock() instanceof LitWallTorchBlock) {
-            if (world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.torches.extinguishInRainChance()) {
-                this.scheduledTick(state, world, pos, random);
-            } else if (TotallyLit.CONFIG.torches.extinguishOverTime() && !state.isOf(Blocks.SOUL_TORCH) && !state.isOf(Blocks.SOUL_WALL_TORCH)) {
-                WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
-                Block block = state.getBlock();
-
-                if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                    world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
-                }
-            }
-
-            ci.cancel();
         }
     }
 
@@ -58,18 +42,6 @@ public abstract class AbstractBlockMixin {
 
         if (state.isOf(Blocks.JACK_O_LANTERN)) {
             updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
-        } else if (state.isOf(Blocks.TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
-        } else if (state.isOf(Blocks.WALL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.isOf(Blocks.SOUL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_TORCH.getDefaultState());
-        } else if (state.isOf(Blocks.SOUL_WALL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.getBlock() instanceof LitTorchBlock litTorch) {
-            updated = world.setBlockState(pos, litTorch.getUnlitBlock().getDefaultState());
-        } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorch) {
-            updated = world.setBlockState(pos, litWallTorch.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
         }
 
         if (updated) {

@@ -16,7 +16,9 @@
     "ItemEntityMixin",
     "ItemMixin",
     "lantern.ClearAndCanScheduleMixin",
-    "lantern.ScheduleMixin"
+    "lantern.ScheduleMixin",
+    "torch.ClearAndCanScheduleMixin",
+    "torch.ScheduleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
