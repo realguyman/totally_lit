@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.block.LitTorchBlock;
 import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import net.minecraft.block.Block;
@@ -31,8 +31,8 @@ public abstract class ClearAndCanScheduleMixin {
             return;
         }
 
-        final boolean canExtinguishOverTime = TotallyLit.CONFIG.torches.extinguishOverTime();
-        final boolean canExtinguishInRain = TotallyLit.CONFIG.torches.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.torches.extinguishOverTime();
+        final boolean canExtinguishInRain = MyModInitializer.CONFIG.torches.extinguishInRainChance() > 0F;
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.campfire;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -27,7 +27,7 @@ public class ExtinguishInRainMixin {
             final boolean isRaining = world.hasRain(pos.up());
             final boolean isCampfireBlockEntity = blockEntity instanceof CampfireBlockEntity;
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
-            final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
+            final boolean isChanceInFavor = random.nextFloat() < MyModInitializer.CONFIG.campfires.extinguishInRainChance();
 
 
             if (isRaining && isLitCampfire && isCampfireBlockEntity && isChanceInFavor && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {

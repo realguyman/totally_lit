@@ -41,10 +41,10 @@
       "io.github.realguyman.totally_lit.gametest.TorchTestSuite"
     ],
     "main": [
-      "io.github.realguyman.totally_lit.TotallyLit"
+      "io.github.realguyman.totally_lit.MyModInitializer"
     ],
     "client": [
-      "io.github.realguyman.totally_lit.TotallyLitClient"
+      "io.github.realguyman.totally_lit.MyClientModInitializer"
     ]
   },
   "mixins": [

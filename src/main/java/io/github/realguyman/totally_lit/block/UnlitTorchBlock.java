@@ -1,6 +1,5 @@
 package io.github.realguyman.totally_lit.block;
 
-import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.block.LitTorchBlock;
 import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
@@ -35,8 +35,8 @@ public abstract class ScheduleMixin {
         }
 
         final boolean isRaining = world.hasRain(pos.up());
-        final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.torches.extinguishInRainChance();
-        final boolean canExtinguishOverTime = TotallyLit.CONFIG.torches.extinguishOverTime();
+        final boolean isChanceInFavor = random.nextFloat() < MyModInitializer.CONFIG.torches.extinguishInRainChance();
+        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.torches.extinguishOverTime();
 
         if (isRaining && isChanceInFavor) {
             this.scheduledTick(state, world, pos, random);
@@ -45,7 +45,7 @@ public abstract class ScheduleMixin {
             Block block = state.getBlock();
 
             if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
+                world.scheduleBlockTick(pos, block, MyModInitializer.CONFIG.torches.burnDuration());
             }
         }
     }

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.gametest;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
@@ -11,7 +11,7 @@ import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
 
 public class TorchTestSuite {
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, tickLimit = MyModInitializer.MAX_TICKS_TO_BURN_FOR)
     public void torchBlockDoesExtinguishOverTime(TestContext context) {
         TestUtil.blockDoesExtinguishOverTime(context, Blocks.TORCH, BlockRegistry.UNLIT_TORCH);
     }

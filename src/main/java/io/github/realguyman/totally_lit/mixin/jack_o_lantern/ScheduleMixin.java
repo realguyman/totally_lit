@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.jack_o_lantern;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -25,8 +25,8 @@ public abstract class ScheduleMixin {
         }
 
         final boolean isRaining = world.hasRain(pos.up());
-        final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance();
-        final boolean canExtinguishOverTime = TotallyLit.CONFIG.jackOLanterns.extinguishOverTime();
+        final boolean isChanceInFavor = random.nextFloat() < MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance();
+        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.jackOLanterns.extinguishOverTime();
 
         if (isRaining && isChanceInFavor) {
             this.scheduledTick(state, world, pos, random);
@@ -35,7 +35,7 @@ public abstract class ScheduleMixin {
             Block block = state.getBlock();
 
             if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.jackOLanterns.burnDuration());
+                world.scheduleBlockTick(pos, block, MyModInitializer.CONFIG.jackOLanterns.burnDuration());
             }
         }
     }

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.item.LitLanternItem;
 import io.github.realguyman.totally_lit.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
@@ -29,7 +29,7 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (isSubmergedInWater() && TotallyLit.CONFIG.itemEntitiesExtinguishWhenSubmerged()) {
+        if (isSubmergedInWater() && MyModInitializer.CONFIG.itemEntitiesExtinguishWhenSubmerged()) {
             Item unlitVariant = null;
             final ItemStack itemStack = getStack();
 

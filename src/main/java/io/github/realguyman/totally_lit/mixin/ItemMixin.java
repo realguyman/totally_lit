@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.item.LitLanternItem;
 import io.github.realguyman.totally_lit.item.LitTorchItem;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory()) {
+        if (!MyModInitializer.CONFIG.itemsCanExtinguishInPlayerInventory()) {
             return;
         }
 
@@ -34,25 +34,25 @@ public abstract class ItemMixin {
             Item item = null;
 
             if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance();
                 item = Items.CARVED_PUMPKIN;
             } else if (stack.isOf(Items.LANTERN)) {
-                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_LANTERN;
             } else if (stack.isOf(Items.TORCH)) {
-                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_TORCH;
             } else if (stack.isOf(Items.SOUL_TORCH)) {
-                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_SOUL_TORCH;
             } else if (stack.isOf(Items.SOUL_LANTERN)) {
-                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
                 item = ItemRegistry.UNLIT_SOUL_LANTERN;
             } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
-                chance = TotallyLit.CONFIG.torches.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
                 item = litTorchItem.getUnlitItem();
             } else if (stack.getItem() instanceof LitLanternItem litLanternItem) {
-                chance = TotallyLit.CONFIG.lanterns.extinguishInRainChance();
+                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
                 item = litLanternItem.getUnlitItem();
             }
 

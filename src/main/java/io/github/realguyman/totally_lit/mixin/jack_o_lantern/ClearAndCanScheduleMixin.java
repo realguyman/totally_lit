@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.jack_o_lantern;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -20,8 +20,8 @@ public abstract class ClearAndCanScheduleMixin {
             return;
         }
 
-        final boolean canExtinguishOverTime = TotallyLit.CONFIG.jackOLanterns.extinguishOverTime();
-        final boolean canExtinguishInRain = TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.jackOLanterns.extinguishOverTime();
+        final boolean canExtinguishInRain = MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance() > 0F;
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);

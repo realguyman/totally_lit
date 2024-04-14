@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.lantern;
 
-import io.github.realguyman.totally_lit.TotallyLit;
+import io.github.realguyman.totally_lit.MyModInitializer;
 import io.github.realguyman.totally_lit.block.LitLanternBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.Block;
@@ -35,8 +35,8 @@ public abstract class ClearAndCanScheduleMixin {
             return;
         }
 
-        final boolean canExtinguishInRain = TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0F;
-        final boolean canExtinguishOverTime = TotallyLit.CONFIG.lanterns.extinguishOverTime();
+        final boolean canExtinguishInRain = MyModInitializer.CONFIG.lanterns.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.lanterns.extinguishOverTime();
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);
