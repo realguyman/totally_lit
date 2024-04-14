@@ -4,6 +4,7 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
@@ -24,7 +25,15 @@ public class UnlitTorchBlock extends NoParticleTorchBlock {
 
     @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult result) {
-        if (player.getStackInHand(hand).isIn(TagRegistry.TORCH_IGNITER_ITEMS) && world.setBlockState(pos, litBlock.getDefaultState())) {
+        final ItemStack itemInHand = player.getStackInHand(hand);
+
+        if (itemInHand.isIn(TagRegistry.TORCH_IGNITER_ITEMS) && world.setBlockState(pos, litBlock.getDefaultState())) {
+            if (itemInHand.isDamageable()) {
+                itemInHand.damage(1, player, playerInScope ->
+                        playerInScope.sendToolBreakStatus(hand)
+                );
+            }
+
             // TODO: Add a quiet flame sound.
             return ActionResult.SUCCESS;
         }

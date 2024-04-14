@@ -42,6 +42,12 @@ public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
 
         if (itemInHand.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && canBeIgnited && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
+            if (itemInHand.isDamageable()) {
+                itemInHand.damage(1, player, playerInScope ->
+                    playerInScope.sendToolBreakStatus(hand)
+                );
+            }
+
             player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
             cir.setReturnValue(ActionResult.SUCCESS);
         }
