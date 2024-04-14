@@ -27,7 +27,6 @@
     "owo-lib": ">=0.12.0"
   },
   "breaks": {
-    "fading": "*",
     "hardcore_torches": "*"
   },
   "entrypoints": {
