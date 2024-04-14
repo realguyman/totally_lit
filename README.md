@@ -1,6 +1,6 @@
 # Totally Lit
 
-Some of Minecraft's light sources will extinguish under various conditions. A mod built for [Fabric](https://fabricmc.net/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
+Some of Minecraft's light sources will extinguish under various conditions. An open source mod built for [Fabric](https://fabricmc.net/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
 For more information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
@@ -22,7 +22,6 @@ Should work with most mods if not all mods that don't modify torches, lanterns, 
 - [x] [Lithium](https://modrinth.com/mods/lithium)
 - [x] [Danger Close](https://modrinth.com/mod/danger-close)
 - [x] [Torch hit!](https://modrinth.com/mod/torch-hit)
-- [ ] [Fading](https://modrinth.com/mods/fading)
 - [ ] [Hardcore Torches](https://modrinth.com/mods/hardcore-torches)
 
 ### 📝 Todo
