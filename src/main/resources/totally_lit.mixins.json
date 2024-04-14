@@ -4,8 +4,6 @@
   "package": "io.github.realguyman.totally_lit.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractBlockMixin",
-    "BlockMixin",
     "campfire.CanExtinguishInRainMixin",
     "campfire.DefaultStateAndIgnitionMixin",
     "campfire.ExtinguishInRainMixin",
@@ -15,6 +13,8 @@
     "FlintAndSteelItemMixin",
     "ItemEntityMixin",
     "ItemMixin",
+    "jack_o_lantern.ScheduleMixin",
+    "jack_o_lantern.ClearAndCanScheduleMixin",
     "lantern.ClearAndCanScheduleMixin",
     "lantern.ScheduleMixin",
     "torch.ClearAndCanScheduleMixin",
