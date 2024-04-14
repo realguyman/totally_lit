@@ -8,7 +8,7 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 - 💡 **Dynamic lighting is fully supported** with [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights).
 - 🌧 Candles and torches will **extinguish when rained on**.
-- ⏳ Campfires, candles, jack o'lanterns, lanterns, and torches will **extinguish over time**.
+- ⏳ Campfires, candles, jack o' lanterns, lanterns, and torches will **extinguish over time**.
 - 🔥 **Bring unlit torches to life during your adventures with fire**, lava (flowing, standing, or even in a cauldron!), or flint and steel.
 - 🏊 **Wading, swimming, fully submerging in water, or getting rained on** can cause jack o'lanterns, lanterns, and torches to extinguish.
 - 💪 **Glowstone lanterns and torches for mid/late-game** which are waterproof and never die out.
@@ -16,7 +16,7 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 ### ❗ Compatibility
 
-Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack O' lanterns in an intrusive way.
+Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
 
 - [x] [Quilt](https://quiltmc.org/)
 - [x] [Lithium](https://modrinth.com/mods/lithium)
