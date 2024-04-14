@@ -14,7 +14,9 @@
     "candle.ScheduleMixin",
     "FlintAndSteelItemMixin",
     "ItemEntityMixin",
-    "ItemMixin"
+    "ItemMixin",
+    "lantern.ClearAndCanScheduleMixin",
+    "lantern.ScheduleMixin"
   ],
   "injectors": {
     "defaultRequire": 1
