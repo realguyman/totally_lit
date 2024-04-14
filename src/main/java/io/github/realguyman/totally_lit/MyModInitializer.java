@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MyModInitializer implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
@@ -22,8 +23,8 @@ public class MyModInitializer implements ModInitializer {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final int MAX_TICKS_TO_BURN_FOR = 168_000;
 
-    public static final HashMap<Block, Block> BLOCK_MAP = new HashMap<>();
-    public static final HashMap<Item, Item> ITEM_MAP = new HashMap<>();
+    public static final Map<Block, Block> BLOCK_MAP = new HashMap<>();
+    public static final Map<Item, Item> ITEM_MAP = new HashMap<>();
 
     @Override
     public void onInitialize() {
