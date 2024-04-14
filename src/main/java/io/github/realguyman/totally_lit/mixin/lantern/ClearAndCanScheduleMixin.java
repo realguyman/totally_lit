@@ -26,7 +26,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Block.class)
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
-    private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         final boolean isLantern = state.isOf(Blocks.LANTERN);
         final boolean isSoulLantern = state.isOf(Blocks.SOUL_LANTERN);
         final boolean isLitLantern = state.getBlock() instanceof LitLanternBlock;
@@ -44,7 +44,7 @@ public abstract class ClearAndCanScheduleMixin {
     }
 
     @Inject(method = "onPlaced", at = @At("HEAD"))
-    private void onPlaced(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
+    private void extinguishWhenPlacedInWater(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
         Block unlitBlock = null;
 
         if (state.isOf(Blocks.LANTERN)) {
@@ -61,7 +61,7 @@ public abstract class ClearAndCanScheduleMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
+    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && (state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock)) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
