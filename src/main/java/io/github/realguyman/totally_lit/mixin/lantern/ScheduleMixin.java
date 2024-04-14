@@ -28,11 +28,11 @@ public abstract class ScheduleMixin {
 
         final boolean isRaining = world.hasRain(pos.up());
         final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.lanterns.extinguishInRainChance();
-        final boolean extinguishOverTime = TotallyLit.CONFIG.lanterns.extinguishOverTime();
+        final boolean canExtinguishOverTime = TotallyLit.CONFIG.lanterns.extinguishOverTime();
 
         if ((isRaining && isChanceInFavor) || state.get(LanternBlock.WATERLOGGED)) {
             this.scheduledTick(state, world, pos, random);
-        } else if (extinguishOverTime && !state.isOf(Blocks.SOUL_LANTERN)) {
+        } else if (canExtinguishOverTime && !state.isOf(Blocks.SOUL_LANTERN)) {
             WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
             Block block = state.getBlock();
 
