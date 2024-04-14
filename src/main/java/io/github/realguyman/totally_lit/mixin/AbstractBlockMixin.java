@@ -1,15 +1,11 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
 import io.github.realguyman.totally_lit.block.LitLanternBlock;
 import io.github.realguyman.totally_lit.block.LitTorchBlock;
 import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.*;
-import net.minecraft.block.entity.BlockEntity;
-import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -28,17 +24,7 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (state.isIn(BlockTags.CAMPFIRES)) {
-            final BlockEntity blockEntity = world.getBlockEntity(pos);
-
-            if (world.hasRain(pos.up()) && CampfireBlock.isLitCampfire(state) && blockEntity instanceof CampfireBlockEntity && random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance() && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
-                ((CampfireBlockEntityAccess) blockEntity).setTicksBurntFor(0);
-                CampfireBlock.extinguish(null, world, pos, state);
-                world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
-            }
-
-            ci.cancel();
-        } else if (state.isOf(Blocks.JACK_O_LANTERN)) {
+        if (state.isOf(Blocks.JACK_O_LANTERN)) {
             if ((world.hasRain(pos) && random.nextFloat() < TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance())) {
                 this.scheduledTick(state, world, pos, random);
             } else if (TotallyLit.CONFIG.jackOLanterns.extinguishOverTime()) {

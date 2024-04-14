@@ -6,8 +6,10 @@
   "mixins": [
     "AbstractBlockMixin",
     "BlockMixin",
-    "CampfireBlockEntityMixin",
-    "CampfireBlockMixin",
+    "campfire.CanExtinguishInRainMixin",
+    "campfire.DefaultStateAndIgnitionMixin",
+    "campfire.ExtinguishInRainMixin",
+    "campfire.TrackTicksBurntForMixin",
     "candle.ClearAndCanScheduleMixin",
     "candle.ScheduleMixin",
     "FlintAndSteelItemMixin",

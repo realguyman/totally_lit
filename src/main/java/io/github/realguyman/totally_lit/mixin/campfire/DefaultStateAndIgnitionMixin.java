@@ -1,4 +1,4 @@
-package io.github.realguyman.totally_lit.mixin;
+package io.github.realguyman.totally_lit.mixin.campfire;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
@@ -7,6 +7,7 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
+import net.minecraft.item.ItemStack;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -20,24 +21,27 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CampfireBlock.class)
-public abstract class CampfireBlockMixin extends BlockWithEntity {
-    protected CampfireBlockMixin(Settings settings) {
+public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
+    protected DefaultStateAndIgnitionMixin(Settings settings) {
         super(settings);
     }
 
     @Inject(method = "<init>", at = @At("RETURN"))
-    private void construct(boolean emitsParticles, int fireDamage, Settings settings, CallbackInfo ci) {
+    private void setDefaultLitState(boolean emitsParticles, int fireDamage, Settings settings, CallbackInfo ci) {
         setDefaultState(getDefaultState().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
-    private void getPlacementState(ItemPlacementContext context, CallbackInfoReturnable<BlockState> cir) {
+    private void setDefaultLitStateWhenPlacing(ItemPlacementContext context, CallbackInfoReturnable<BlockState> cir) {
         cir.setReturnValue(cir.getReturnValue().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
-    private void onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        if (player.getStackInHand(hand).isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && CampfireBlock.canBeLit(state) && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
+    private void ignite(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+        final ItemStack itemInHand = player.getStackInHand(hand);
+        final boolean canBeIgnited = CampfireBlock.canBeLit(state);
+
+        if (itemInHand.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && canBeIgnited && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
             player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
             cir.setReturnValue(ActionResult.SUCCESS);
         }

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.access;
 
 public interface CampfireBlockEntityAccess {
-    int getTicksBurntFor();
-    void setTicksBurntFor(int value);
+    int totally_lit$getTicksBurntFor();
+    void totally_lit$setTicksBurntFor(int value);
 }
