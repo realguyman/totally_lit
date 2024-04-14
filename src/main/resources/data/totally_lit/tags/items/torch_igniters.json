@@ -6,6 +6,7 @@
     "minecraft:lava_bucket",
     "minecraft:magma_block",
     "minecraft:lantern",
-    "minecraft:soul_lantern"
+    "minecraft:soul_lantern",
+    "minecraft:flint_and_steel"
   ]
 }
