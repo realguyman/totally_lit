@@ -52,24 +52,10 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        boolean updated = false;
-
-        if (state.isOf(Blocks.TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
-        } else if (state.isOf(Blocks.WALL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.isOf(Blocks.SOUL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_TORCH.getDefaultState());
-        } else if (state.isOf(Blocks.SOUL_WALL_TORCH)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_WALL_TORCH.getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        } else if (state.getBlock() instanceof LitTorchBlock litTorch) {
-            updated = world.setBlockState(pos, litTorch.getUnlitBlock().getDefaultState());
-        } else if (state.getBlock() instanceof LitWallTorchBlock litWallTorch) {
-            updated = world.setBlockState(pos, litWallTorch.getUnlitBlock().getDefaultState().with(WallTorchBlock.FACING, state.get(WallTorchBlock.FACING)));
-        }
-
-        if (updated) {
-            world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
-        }
+        MyModInitializer.TORCH_MAP.forEach((lit, unlit) -> {
+            if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
+                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
+            }
+        });
     }
 }

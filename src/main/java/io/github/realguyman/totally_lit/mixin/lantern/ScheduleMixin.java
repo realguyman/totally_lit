@@ -44,16 +44,10 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        boolean updated = false;
-
-        if(state.isOf(Blocks.LANTERN)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
-        } else if (state.isOf(Blocks.SOUL_LANTERN)) {
-            updated = world.setBlockState(pos, BlockRegistry.UNLIT_SOUL_LANTERN.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, state.get(LanternBlock.WATERLOGGED)));
-        }
-
-        if (updated) {
-            world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
-        }
+        MyModInitializer.LANTERN_MAP.forEach((lit, unlit) -> {
+            if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
+                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
+            }
+        });
     }
 }

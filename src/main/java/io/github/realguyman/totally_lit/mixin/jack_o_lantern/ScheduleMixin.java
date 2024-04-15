@@ -42,14 +42,10 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        boolean updated = false;
-
-        if (state.isOf(Blocks.JACK_O_LANTERN)) {
-            updated = world.setBlockState(pos, Blocks.CARVED_PUMPKIN.getDefaultState().with(CarvedPumpkinBlock.FACING, state.get(CarvedPumpkinBlock.FACING)));
-        }
-
-        if (updated) {
-            world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, random.nextFloat() * 0.5F + 0.125F);
-        }
+        MyModInitializer.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
+            if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
+                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
+            }
+        });
     }
 }
