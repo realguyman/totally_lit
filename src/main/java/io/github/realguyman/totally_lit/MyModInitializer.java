@@ -17,19 +17,24 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class MyModInitializer implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final MyConfig CONFIG = MyConfig.createAndLoad();
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final int MAX_TICKS_TO_BURN_FOR = 168_000;
 
-    public static final Map<Block, Block> BLOCK_MAP = new HashMap<>();
-    public static final Map<Item, Item> ITEM_MAP = new HashMap<>();
+    public static final Map<Block, Block> JACK_O_LANTERN_MAP = new HashMap<>();
+    public static final Map<Block, Block> LANTERN_MAP = new HashMap<>();
+    public static final Map<Block, Block> TORCH_MAP = new HashMap<>();
 
     @Override
     public void onInitialize() {
         FabricLoader.getInstance().getEntrypointContainers(MOD_ID, TotallyLitEntrypoint.class)
-                .stream().map(EntrypointContainer::getEntrypoint).forEach(TotallyLitEntrypoint::buildMap);
+                .stream().map(EntrypointContainer::getEntrypoint).forEach(entrypoint -> {
+                    entrypoint.buildMap();
+                    LOGGER.debug("Built map for {}", entrypoint.getClass().getName());
+                });
 
         ItemRegistry.register();
 

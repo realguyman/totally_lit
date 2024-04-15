@@ -45,6 +45,9 @@
     ],
     "client": [
       "io.github.realguyman.totally_lit.MyClientModInitializer"
+    ],
+    "totally_lit": [
+      "io.github.realguyman.totally_lit.MyMap"
     ]
   },
   "mixins": [

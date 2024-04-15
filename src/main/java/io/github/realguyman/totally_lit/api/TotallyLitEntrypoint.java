@@ -10,11 +10,15 @@ public interface TotallyLitEntrypoint {
      */
     void buildMap();
 
-    default void put(Block lit, Block unlit) {
-        MyModInitializer.BLOCK_MAP.put(lit, unlit);
+    default void addTorchBlock(Block lit, Block unlit) {
+        MyModInitializer.TORCH_MAP.put(lit, unlit);
     }
 
-    default void put(Item lit, Item unlit) {
-        MyModInitializer.ITEM_MAP.put(lit, unlit);
+    default void addLanternBlock(Block lit, Block unlit) {
+        MyModInitializer.LANTERN_MAP.put(lit, unlit);
+    }
+
+    default void addJackOLanternBlock(Block lit, Block unlit) {
+        MyModInitializer.JACK_O_LANTERN_MAP.put(lit, unlit);
     }
 }
