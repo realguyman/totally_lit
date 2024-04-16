@@ -2,7 +2,6 @@ package io.github.realguyman.totally_lit.api;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 
 public interface TotallyLitEntrypoint {
     /**
