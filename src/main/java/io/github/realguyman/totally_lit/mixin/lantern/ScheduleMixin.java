@@ -1,8 +1,7 @@
 package io.github.realguyman.totally_lit.mixin.lantern;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
-import io.github.realguyman.totally_lit.block.LitLanternBlock;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
+import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -22,7 +21,7 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!state.isOf(Blocks.LANTERN) && !state.isOf(Blocks.SOUL_LANTERN) && !(state.getBlock() instanceof LitLanternBlock)) {
+        if (!MyModInitializer.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
@@ -32,7 +31,7 @@ public abstract class ScheduleMixin {
 
         if ((isRaining && isChanceInFavor) || state.get(LanternBlock.WATERLOGGED)) {
             this.scheduledTick(state, world, pos, random);
-        } else if (canExtinguishOverTime && !state.isOf(Blocks.SOUL_LANTERN)) {
+        } else if (canExtinguishOverTime && !state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
             Block block = state.getBlock();
 

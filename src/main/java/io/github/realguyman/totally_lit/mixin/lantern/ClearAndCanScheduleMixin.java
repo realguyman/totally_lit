@@ -1,18 +1,15 @@
 package io.github.realguyman.totally_lit.mixin.lantern;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
-import io.github.realguyman.totally_lit.block.LitLanternBlock;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.LanternBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockBox;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -27,11 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        final boolean isLantern = state.isOf(Blocks.LANTERN);
-        final boolean isSoulLantern = state.isOf(Blocks.SOUL_LANTERN);
-        final boolean isLitLantern = state.getBlock() instanceof LitLanternBlock;
-
-        if (!isLantern || !isSoulLantern || !isLitLantern) {
+        if (!MyModInitializer.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
@@ -45,24 +38,20 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onPlaced", at = @At("HEAD"))
     private void extinguishWhenPlacedInWater(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
-        Block unlitBlock = null;
-
-        if (state.isOf(Blocks.LANTERN)) {
-            unlitBlock = BlockRegistry.UNLIT_LANTERN;
-        } else if (state.isOf(Blocks.SOUL_LANTERN)) {
-            unlitBlock = BlockRegistry.UNLIT_SOUL_LANTERN;
-        } else if (state.getBlock() instanceof LitLanternBlock litLanternBlock) {
-            unlitBlock = litLanternBlock.getUnlitBlock();
+        if (world.isClient() || !state.contains(Properties.WATERLOGGED) || !state.get(Properties.WATERLOGGED)) {
+            return;
         }
 
-        if (!world.isClient() && unlitBlock != null && state.get(LanternBlock.WATERLOGGED) && world.setBlockState(pos, unlitBlock.getDefaultState().with(LanternBlock.HANGING, state.get(LanternBlock.HANGING)).with(LanternBlock.WATERLOGGED, true))) {
-            world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.0625F, world.getRandom().nextFloat() * 0.5F + 0.125F);
-        }
+        MyModInitializer.LANTERN_MAP.forEach((lit, unlit) -> {
+            if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
+                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
+            }
+        });
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && (state.isOf(Blocks.LANTERN) || state.getBlock() instanceof LitLanternBlock)) {
+        if (!world.isClient() && MyModInitializer.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

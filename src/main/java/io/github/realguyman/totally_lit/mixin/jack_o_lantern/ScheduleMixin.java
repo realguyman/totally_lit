@@ -20,7 +20,7 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!state.isOf(Blocks.JACK_O_LANTERN)) {
+        if (!MyModInitializer.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 

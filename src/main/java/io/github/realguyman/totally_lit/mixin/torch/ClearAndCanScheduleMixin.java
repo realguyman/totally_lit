@@ -1,11 +1,8 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
-import io.github.realguyman.totally_lit.block.LitTorchBlock;
-import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockBox;
@@ -20,14 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        final boolean isTorch = state.isOf(Blocks.TORCH);
-        final boolean isWallTorch = state.isOf(Blocks.WALL_TORCH);
-        final boolean isSoulTorch = state.isOf(Blocks.SOUL_TORCH);
-        final boolean isSoulWallTorch = state.isOf(Blocks.SOUL_WALL_TORCH);
-        final boolean isLitTorch = state.getBlock() instanceof LitTorchBlock;
-        final boolean isLitWallTorch = state.getBlock() instanceof LitWallTorchBlock;
-
-        if (!isTorch || !isWallTorch || !isSoulTorch || !isSoulWallTorch || !isLitTorch || !isLitWallTorch) {
+        if (!MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
 
@@ -41,17 +31,8 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        final boolean isTorch = state.isOf(Blocks.TORCH);
-        final boolean isWallTorch = state.isOf(Blocks.WALL_TORCH);
-        final boolean isSoulTorch = state.isOf(Blocks.SOUL_TORCH);
-        final boolean isSoulWallTorch = state.isOf(Blocks.SOUL_WALL_TORCH);
-        final boolean isLitTorch = state.getBlock() instanceof LitTorchBlock;
-        final boolean isLitWallTorch = state.getBlock() instanceof LitWallTorchBlock;
-
-        if (world.isClient() || !isTorch || !isWallTorch || !isSoulTorch || !isSoulWallTorch || !isLitTorch || !isLitWallTorch) {
-            return;
+        if (!world.isClient() && MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
+            ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
-
-        ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
     }
 }

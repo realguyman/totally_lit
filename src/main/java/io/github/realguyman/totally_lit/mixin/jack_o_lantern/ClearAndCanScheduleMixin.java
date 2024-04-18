@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!state.isOf(Blocks.JACK_O_LANTERN)) {
+        if (!MyModInitializer.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
@@ -30,7 +30,7 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && state.isOf(Blocks.JACK_O_LANTERN)) {
+        if (!world.isClient() && MyModInitializer.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

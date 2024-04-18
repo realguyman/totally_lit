@@ -1,70 +1,89 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
-import io.github.realguyman.totally_lit.item.LitLanternItem;
-import io.github.realguyman.totally_lit.item.LitTorchItem;
-import io.github.realguyman.totally_lit.registry.ItemRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Random;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (!MyModInitializer.CONFIG.itemsCanExtinguishInPlayerInventory()) {
+        if (!MyModInitializer.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
             return;
         }
 
-        PlayerEntity player = null;
+        PlayerEntity player = (PlayerEntity) entity;
 
-        if (entity.isPlayer()) {
-            player = (PlayerEntity) entity;
+        if (
+                !world.isClient()
+                && !player.isCreative()  // Do not extinguish items if in creative mode
+                && !player.isSpectator() // Do not extinguish items if in spectator mode
+                && player.age % 20 == 0  // Only check once a second
+                && player.isTouchingWaterOrRain()
+        ) {
+            MyModInitializer.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
+                        extinguish(
+                                MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance(),
+                                lit, unlit, stack, player, slot, world
+                        );
+                    }
+            );
+
+            MyModInitializer.LANTERN_MAP.forEach((lit, unlit) -> {
+                        extinguish(
+                                MyModInitializer.CONFIG.lanterns.extinguishInRainChance(),
+                                lit, unlit, stack, player, slot, world
+                        );
+                    }
+            );
+
+            MyModInitializer.TORCH_MAP.forEach((lit, unlit) -> {
+                extinguish(
+                        MyModInitializer.CONFIG.torches.extinguishInRainChance(),
+                        lit, unlit, stack, player, slot, world
+                    );
+                }
+            );
+        }
+    }
+
+    @Unique
+    private boolean shouldExtinguish(float chance, Block lit, PlayerEntity player, World world) {
+        if (player.isSubmergedInWater() || player.isSwimming()) {
+            return true;
         }
 
-        if (player != null && !world.isClient() && !player.isCreative() && !player.isSpectator() && player.age % 20 == 0) {
-            Float chance = null;
-            Item item = null;
+        if (player.isTouchingWater() && new Random().nextInt(100) == 0) {
+            return true;
+        }
 
-            if(stack.isOf(Items.JACK_O_LANTERN)) {
-                chance = MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance();
-                item = Items.CARVED_PUMPKIN;
-            } else if (stack.isOf(Items.LANTERN)) {
-                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
-                item = ItemRegistry.UNLIT_LANTERN;
-            } else if (stack.isOf(Items.TORCH)) {
-                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
-                item = ItemRegistry.UNLIT_TORCH;
-            } else if (stack.isOf(Items.SOUL_TORCH)) {
-                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
-                item = ItemRegistry.UNLIT_SOUL_TORCH;
-            } else if (stack.isOf(Items.SOUL_LANTERN)) {
-                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
-                item = ItemRegistry.UNLIT_SOUL_LANTERN;
-            } else if (stack.getItem() instanceof LitTorchItem litTorchItem) {
-                chance = MyModInitializer.CONFIG.torches.extinguishInRainChance();
-                item = litTorchItem.getUnlitItem();
-            } else if (stack.getItem() instanceof LitLanternItem litLanternItem) {
-                chance = MyModInitializer.CONFIG.lanterns.extinguishInRainChance();
-                item = litLanternItem.getUnlitItem();
-            }
+        return player.age % 940 == 0
+                && world.hasRain(player.getBlockPos())
+                && world.getRandom().nextFloat() < chance
+                && MyModInitializer.TORCH_MAP.containsKey(lit);
+    }
 
-            if (chance != null && ((player.isSubmergedInWater() || player.isSwimming()) || (player.isTouchingWater() && world.getRandom().nextInt(100) == 0) || (player.age % 940 == 0 && world.hasRain(player.getBlockPos()) && world.getRandom().nextFloat() < chance))) {
-                ItemStack offhandStack = player.getOffHandStack();
+    @Unique
+    private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, PlayerEntity player, int slot, World world) {
+        if (!shouldExtinguish(chance, lit, player, world) || !stack.isOf(lit.asItem())) {
+            return;
+        }
 
-                if (offhandStack.isOf(Items.JACK_O_LANTERN) || offhandStack.isOf(Items.LANTERN) || offhandStack.isOf(Items.SOUL_LANTERN) || offhandStack.isOf(Items.TORCH) || offhandStack.isOf(Items.SOUL_TORCH) || offhandStack.getItem() instanceof LitTorchItem) {
-                    player.getInventory().offHand.set(0, new ItemStack(item, offhandStack.getCount()));
-                } else {
-                    player.getInventory().setStack(slot, new ItemStack(item, stack.getCount()));
-                }
-            }
+        if (player.getOffHandStack().isOf(lit.asItem())) {
+            player.getInventory().offHand.set(0, new ItemStack(unlit.asItem(), player.getOffHandStack().getCount()));
+        } else {
+            player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), stack.getCount()));
         }
     }
 }

@@ -1,9 +1,7 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
 import io.github.realguyman.totally_lit.MyModInitializer;
-import io.github.realguyman.totally_lit.block.LitTorchBlock;
-import io.github.realguyman.totally_lit.block.LitWallTorchBlock;
-import io.github.realguyman.totally_lit.registry.BlockRegistry;
+import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -23,14 +21,7 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        final boolean isTorch = state.isOf(Blocks.TORCH);
-        final boolean isWallTorch = state.isOf(Blocks.WALL_TORCH);
-        final boolean isSoulTorch = state.isOf(Blocks.SOUL_TORCH);
-        final boolean isSoulWallTorch = state.isOf(Blocks.SOUL_WALL_TORCH);
-        final boolean isLitTorch = state.getBlock() instanceof LitTorchBlock;
-        final boolean isLitWallTorch = state.getBlock() instanceof LitWallTorchBlock;
-
-        if (!isTorch && !isWallTorch && !isSoulTorch && !isSoulWallTorch && !isLitTorch && !isLitWallTorch) {
+        if (!MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
 
@@ -40,7 +31,7 @@ public abstract class ScheduleMixin {
 
         if (isRaining && isChanceInFavor) {
             this.scheduledTick(state, world, pos, random);
-        } else if (canExtinguishOverTime && !isSoulTorch && !isSoulWallTorch) {
+        } else if (canExtinguishOverTime && !state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
             Block block = state.getBlock();
 
