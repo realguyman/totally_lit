@@ -5,6 +5,7 @@ import io.github.realguyman.totally_lit.block.*;
 import net.minecraft.block.AbstractBlock.Settings;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
@@ -14,6 +15,7 @@ public class BlockRegistry {
     public static final Block GLOWSTONE_TORCH;
     public static final Block GLOWSTONE_WALL_TORCH;
     public static final Block GLOWSTONE_LANTERN;
+    public static final Block UNLIT_JACK_O_LANTERN;
     public static final Block UNLIT_LANTERN;
     public static final Block UNLIT_SOUL_LANTERN;
     public static final Block UNLIT_SOUL_TORCH;
@@ -29,6 +31,7 @@ public class BlockRegistry {
         GLOWSTONE_TORCH = add("glowstone_torch", new NoParticleTorchBlock(Settings.copy(Blocks.TORCH)));
         GLOWSTONE_WALL_TORCH = add("glowstone_wall_torch", new NoParticleWallTorchBlock(Settings.copy(Blocks.TORCH).dropsLike(GLOWSTONE_TORCH)));
         GLOWSTONE_LANTERN = add("glowstone_lantern", new LanternBlock(Settings.copy(Blocks.LANTERN)));
+        UNLIT_JACK_O_LANTERN = add("unlit_jack_o_lantern", new CarvedPumpkinBlock(Settings.copy(Blocks.JACK_O_LANTERN).luminance(state -> 0)));
         UNLIT_LANTERN = add("unlit_lantern", new UnlitLanternBlock(Settings.copy(Blocks.LANTERN).luminance(state -> 0), Blocks.LANTERN));
         UNLIT_SOUL_LANTERN = add("unlit_soul_lantern", new UnlitLanternBlock(Settings.copy(UNLIT_LANTERN), Blocks.SOUL_LANTERN));
         UNLIT_SOUL_TORCH = add("unlit_soul_torch", new UnlitTorchBlock(Settings.copy(Blocks.TORCH).luminance(state -> 0), Blocks.SOUL_TORCH));

@@ -38,6 +38,7 @@ public class MyModInitializer implements ModInitializer {
         ItemRegistry.register();
 
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.FUNCTIONAL).register(listener -> {
+            listener.addAfter(Items.JACK_O_LANTERN, ItemRegistry.UNLIT_JACK_O_LANTERN);
             listener.addAfter(Items.TORCH, ItemRegistry.UNLIT_TORCH);
             listener.addAfter(Items.SOUL_TORCH, ItemRegistry.UNLIT_SOUL_TORCH, ItemRegistry.GLOWSTONE_TORCH);
             listener.addAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);

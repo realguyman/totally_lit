@@ -6,8 +6,7 @@ import net.minecraft.block.Blocks;
 
 public class MyMap implements TotallyLitEntrypoint {
     public void buildMap() {
-        // TODO: Use an unlit jack o' lantern block instead of Minecraft's carved pumpkin
-        this.addJackOLanternBlock(Blocks.JACK_O_LANTERN, Blocks.CARVED_PUMPKIN);
+        this.addJackOLanternBlock(Blocks.JACK_O_LANTERN, BlockRegistry.UNLIT_JACK_O_LANTERN);
 
         this.addLanternBlock(Blocks.LANTERN, BlockRegistry.UNLIT_LANTERN);
         this.addLanternBlock(Blocks.SOUL_LANTERN, BlockRegistry.UNLIT_SOUL_LANTERN);
