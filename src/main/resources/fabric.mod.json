@@ -30,6 +30,9 @@
     "hardcore_torches": "*"
   },
   "entrypoints": {
+    "fabric-datagen": [
+      "io.github.realguyman.totally_lit.TotallyLitDataGenerator"
+    ],
     "fabric-gametest": [
       "io.github.realguyman.totally_lit.gametest.CampfireTestSuite",
       "io.github.realguyman.totally_lit.gametest.CandleCakeTestSuite",

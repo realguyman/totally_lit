@@ -38,6 +38,10 @@ dependencies {
 //    modLocalRuntime "dev.emi:emi:${project.emi}"
 }
 
+fabricApi {
+    configureDataGeneration()
+}
+
 loom {
     splitEnvironmentSourceSets()
 
