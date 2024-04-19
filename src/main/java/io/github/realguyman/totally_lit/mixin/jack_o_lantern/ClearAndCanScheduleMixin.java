@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.jack_o_lantern;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -16,12 +16,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!MyModInitializer.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
+        if (!TotallyLit.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
-        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.jackOLanterns.extinguishOverTime();
-        final boolean canExtinguishInRain = MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = TotallyLit.CONFIG.jackOLanterns.extinguishOverTime();
+        final boolean canExtinguishInRain = TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance() > 0F;
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);
@@ -30,7 +30,7 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && MyModInitializer.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
+        if (!world.isClient() && TotallyLit.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

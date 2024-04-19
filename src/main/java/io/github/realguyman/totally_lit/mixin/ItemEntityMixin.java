@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -27,16 +27,16 @@ public abstract class ItemEntityMixin extends Entity {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {
-        if (isSubmergedInWater() && MyModInitializer.CONFIG.itemEntitiesExtinguishWhenSubmerged()) {
+        if (isSubmergedInWater() && TotallyLit.CONFIG.itemEntitiesExtinguishWhenSubmerged()) {
             BiConsumer<Block, Block> extinguish = (lit, unlit) -> {
                 if (getStack().isOf(lit.asItem())) {
                     setStack(new ItemStack(unlit.asItem(), getStack().getCount()));
                 }
             };
 
-            MyModInitializer.JACK_O_LANTERN_MAP.forEach(extinguish);
-            MyModInitializer.LANTERN_MAP.forEach(extinguish);
-            MyModInitializer.TORCH_MAP.forEach(extinguish);
+            TotallyLit.JACK_O_LANTERN_MAP.forEach(extinguish);
+            TotallyLit.LANTERN_MAP.forEach(extinguish);
+            TotallyLit.TORCH_MAP.forEach(extinguish);
         }
     }
 }

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,12 +17,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
+        if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
 
-        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.torches.extinguishOverTime();
-        final boolean canExtinguishInRain = MyModInitializer.CONFIG.torches.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = TotallyLit.CONFIG.torches.extinguishOverTime();
+        final boolean canExtinguishInRain = TotallyLit.CONFIG.torches.extinguishInRainChance() > 0F;
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);
@@ -31,7 +31,7 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
+        if (!world.isClient() && TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }

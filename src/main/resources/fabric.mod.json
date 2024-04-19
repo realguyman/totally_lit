@@ -44,13 +44,13 @@
       "io.github.realguyman.totally_lit.gametest.TorchTestSuite"
     ],
     "main": [
-      "io.github.realguyman.totally_lit.MyModInitializer"
+      "io.github.realguyman.totally_lit.TotallyLit"
     ],
     "client": [
       "io.github.realguyman.totally_lit.MyClientModInitializer"
     ],
     "totally_lit": [
-      "io.github.realguyman.totally_lit.MyMap"
+      "io.github.realguyman.totally_lit.TotallyLitVanillaMap"
     ]
   },
   "mixins": [

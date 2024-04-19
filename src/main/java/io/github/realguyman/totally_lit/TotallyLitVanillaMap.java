@@ -4,7 +4,7 @@ import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.minecraft.block.Blocks;
 
-public class MyMap implements TotallyLitEntrypoint {
+public class TotallyLitVanillaMap implements TotallyLitEntrypoint {
     public void buildMap() {
         this.addJackOLanternBlock(Blocks.JACK_O_LANTERN, BlockRegistry.UNLIT_JACK_O_LANTERN);
 

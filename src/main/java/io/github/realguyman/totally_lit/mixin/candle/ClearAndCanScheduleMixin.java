@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -20,8 +20,8 @@ public abstract class ClearAndCanScheduleMixin {
             return;
         }
 
-        boolean extinguishOverTime = MyModInitializer.CONFIG.candles.extinguishOverTime();
-        boolean extinguishInRain = MyModInitializer.CONFIG.candles.extinguishInRainChance() > 0F;
+        boolean extinguishOverTime = TotallyLit.CONFIG.candles.extinguishOverTime();
+        boolean extinguishInRain = TotallyLit.CONFIG.candles.extinguishInRainChance() > 0F;
 
         if (extinguishOverTime || extinguishInRain) {
             cir.setReturnValue(true);

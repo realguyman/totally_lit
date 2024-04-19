@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.campfire;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
@@ -45,7 +45,7 @@ public abstract class TrackTicksBurntForMixin implements CampfireBlockEntityAcce
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
     private static void trackTicksBurntFor(World world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, CallbackInfo ci) {
-        if (!MyModInitializer.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
+        if (!TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             return;
         }
 
@@ -53,7 +53,7 @@ public abstract class TrackTicksBurntForMixin implements CampfireBlockEntityAcce
         final int ticksBurntFor = campfireAccessed.totally_lit$getTicksBurntFor() + 1;
         campfireAccessed.totally_lit$setTicksBurntFor(ticksBurntFor);
 
-        if (ticksBurntFor > MyModInitializer.CONFIG.campfires.burnDuration() && world.setBlockState(pos, state.with(Properties.LIT, false))) {
+        if (ticksBurntFor > TotallyLit.CONFIG.campfires.burnDuration() && world.setBlockState(pos, state.with(Properties.LIT, false))) {
             CampfireBlock.extinguish(null, world, pos, state);
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             campfireAccessed.totally_lit$setTicksBurntFor(0);

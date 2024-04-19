@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.torch;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
@@ -21,13 +21,13 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (!MyModInitializer.TORCH_MAP.containsKey(state.getBlock())) {
+        if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
 
         final boolean isRaining = world.hasRain(pos.up());
-        final boolean isChanceInFavor = random.nextFloat() < MyModInitializer.CONFIG.torches.extinguishInRainChance();
-        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.torches.extinguishOverTime();
+        final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.torches.extinguishInRainChance();
+        final boolean canExtinguishOverTime = TotallyLit.CONFIG.torches.extinguishOverTime();
 
         if (isRaining && isChanceInFavor) {
             this.scheduledTick(state, world, pos, random);
@@ -36,14 +36,14 @@ public abstract class ScheduleMixin {
             Block block = state.getBlock();
 
             if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, MyModInitializer.CONFIG.torches.burnDuration());
+                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
             }
         }
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        MyModInitializer.TORCH_MAP.forEach((lit, unlit) -> {
+        TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
             if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
                 world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
             }

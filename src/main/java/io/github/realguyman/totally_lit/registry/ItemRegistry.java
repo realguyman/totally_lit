@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.registry;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.item.UnlitLanternItem;
 import io.github.realguyman.totally_lit.item.UnlitTorchItem;
 import net.minecraft.item.*;
@@ -19,7 +19,7 @@ public class ItemRegistry {
     public static final Item UNLIT_TORCH = new UnlitTorchItem(BlockRegistry.UNLIT_TORCH, BlockRegistry.UNLIT_WALL_TORCH, new Item.Settings(), Direction.DOWN, Items.TORCH);
 
     private static Item add(String path, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(MyModInitializer.MOD_ID, path), item);
+        return Registry.register(Registries.ITEM, new Identifier(TotallyLit.MOD_ID, path), item);
     }
 
     public static void register() {

@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.campfire;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
@@ -30,12 +30,12 @@ public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     private void setDefaultLitState(boolean emitsParticles, int fireDamage, Settings settings, CallbackInfo ci) {
-        setDefaultState(getDefaultState().with(CampfireBlock.LIT, MyModInitializer.CONFIG.campfires.defaultLitStateWhenPlaced()));
+        setDefaultState(getDefaultState().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "getPlacementState", at = @At("RETURN"), cancellable = true)
     private void setDefaultLitStateWhenPlacing(ItemPlacementContext context, CallbackInfoReturnable<BlockState> cir) {
-        cir.setReturnValue(cir.getReturnValue().with(CampfireBlock.LIT, MyModInitializer.CONFIG.campfires.defaultLitStateWhenPlaced()));
+        cir.setReturnValue(cir.getReturnValue().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)

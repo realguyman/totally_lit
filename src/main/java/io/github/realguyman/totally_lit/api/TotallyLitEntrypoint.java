@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.api;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 
 public interface TotallyLitEntrypoint {
@@ -10,14 +10,14 @@ public interface TotallyLitEntrypoint {
     void buildMap();
 
     default void addTorchBlock(Block lit, Block unlit) {
-        MyModInitializer.TORCH_MAP.put(lit, unlit);
+        TotallyLit.TORCH_MAP.put(lit, unlit);
     }
 
     default void addLanternBlock(Block lit, Block unlit) {
-        MyModInitializer.LANTERN_MAP.put(lit, unlit);
+        TotallyLit.LANTERN_MAP.put(lit, unlit);
     }
 
     default void addJackOLanternBlock(Block lit, Block unlit) {
-        MyModInitializer.JACK_O_LANTERN_MAP.put(lit, unlit);
+        TotallyLit.JACK_O_LANTERN_MAP.put(lit, unlit);
     }
 }

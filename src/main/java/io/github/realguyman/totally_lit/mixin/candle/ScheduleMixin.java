@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
@@ -24,7 +24,7 @@ public abstract class ScheduleMixin {
         }
 
         boolean raining = world.hasRain(pos.up());
-        boolean chanceInFavor = random.nextFloat() < MyModInitializer.CONFIG.candles.extinguishInRainChance();
+        boolean chanceInFavor = random.nextFloat() < TotallyLit.CONFIG.candles.extinguishInRainChance();
         boolean waterlogged = false;
 
         if (state.contains(Properties.WATERLOGGED)) {
@@ -33,12 +33,12 @@ public abstract class ScheduleMixin {
 
         if ((raining && chanceInFavor) || waterlogged) {
             this.scheduledTick(state, world, pos, random);
-        } else if (MyModInitializer.CONFIG.candles.extinguishOverTime()) {
+        } else if (TotallyLit.CONFIG.candles.extinguishOverTime()) {
             WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
             Block block = state.getBlock();
 
             if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, MyModInitializer.CONFIG.candles.burnDuration());
+                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.candles.burnDuration());
             }
         }
     }

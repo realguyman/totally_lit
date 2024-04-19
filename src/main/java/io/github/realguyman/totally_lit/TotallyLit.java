@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit;
 
+import io.github.realguyman.totally_lit.TotallyLitConfig;
 import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
@@ -46,9 +47,9 @@ import java.util.Map;
 // TODO: Ensure Jitpack configuration is good
 // TODO: Update README to specialize towards developers
 // TODO: Update CHANGELOG
-public class MyModInitializer implements ModInitializer {
+public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
-    public static final MyConfig CONFIG = MyConfig.createAndLoad();
+    public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
     public static final int MAX_TICKS_TO_BURN_FOR = 168_000;
 

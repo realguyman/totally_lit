@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +19,7 @@ import java.util.Random;
 public abstract class ItemMixin {
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (!MyModInitializer.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
+        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
             return;
         }
 
@@ -32,25 +32,25 @@ public abstract class ItemMixin {
                 && player.age % 20 == 0  // Only check once a second
                 && player.isTouchingWaterOrRain()
         ) {
-            MyModInitializer.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
+            TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
-                                MyModInitializer.CONFIG.jackOLanterns.extinguishInRainChance(),
+                                TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance(),
                                 lit, unlit, stack, player, slot, world
                         );
                     }
             );
 
-            MyModInitializer.LANTERN_MAP.forEach((lit, unlit) -> {
+            TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
-                                MyModInitializer.CONFIG.lanterns.extinguishInRainChance(),
+                                TotallyLit.CONFIG.lanterns.extinguishInRainChance(),
                                 lit, unlit, stack, player, slot, world
                         );
                     }
             );
 
-            MyModInitializer.TORCH_MAP.forEach((lit, unlit) -> {
+            TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
                 extinguish(
-                        MyModInitializer.CONFIG.torches.extinguishInRainChance(),
+                        TotallyLit.CONFIG.torches.extinguishInRainChance(),
                         lit, unlit, stack, player, slot, world
                     );
                 }
@@ -71,7 +71,7 @@ public abstract class ItemMixin {
         return player.age % 940 == 0
                 && world.hasRain(player.getBlockPos())
                 && world.getRandom().nextFloat() < chance
-                && MyModInitializer.TORCH_MAP.containsKey(lit);
+                && TotallyLit.TORCH_MAP.containsKey(lit);
     }
 
     @Unique

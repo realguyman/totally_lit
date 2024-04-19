@@ -1,6 +1,6 @@
 package io.github.realguyman.totally_lit.mixin.lantern;
 
-import io.github.realguyman.totally_lit.MyModInitializer;
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
@@ -24,12 +24,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class ClearAndCanScheduleMixin {
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!MyModInitializer.LANTERN_MAP.containsKey(state.getBlock())) {
+        if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
-        final boolean canExtinguishInRain = MyModInitializer.CONFIG.lanterns.extinguishInRainChance() > 0F;
-        final boolean canExtinguishOverTime = MyModInitializer.CONFIG.lanterns.extinguishOverTime();
+        final boolean canExtinguishInRain = TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0F;
+        final boolean canExtinguishOverTime = TotallyLit.CONFIG.lanterns.extinguishOverTime();
 
         if (canExtinguishOverTime || canExtinguishInRain) {
             cir.setReturnValue(true);
@@ -42,7 +42,7 @@ public abstract class ClearAndCanScheduleMixin {
             return;
         }
 
-        MyModInitializer.LANTERN_MAP.forEach((lit, unlit) -> {
+        TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
             if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
                 world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
             }
@@ -51,7 +51,7 @@ public abstract class ClearAndCanScheduleMixin {
 
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
-        if (!world.isClient() && MyModInitializer.LANTERN_MAP.containsKey(state.getBlock())) {
+        if (!world.isClient() && TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
     }
