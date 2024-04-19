@@ -32,11 +32,11 @@ public class BlockRegistry {
         GLOWSTONE_WALL_TORCH = add("glowstone_wall_torch", new NoParticleWallTorchBlock(Settings.copy(Blocks.TORCH).dropsLike(GLOWSTONE_TORCH)));
         GLOWSTONE_LANTERN = add("glowstone_lantern", new LanternBlock(Settings.copy(Blocks.LANTERN)));
         UNLIT_JACK_O_LANTERN = add("unlit_jack_o_lantern", new CarvedPumpkinBlock(Settings.copy(Blocks.JACK_O_LANTERN).luminance(state -> 0)));
-        UNLIT_LANTERN = add("unlit_lantern", new UnlitLanternBlock(Settings.copy(Blocks.LANTERN).luminance(state -> 0), Blocks.LANTERN));
-        UNLIT_SOUL_LANTERN = add("unlit_soul_lantern", new UnlitLanternBlock(Settings.copy(UNLIT_LANTERN), Blocks.SOUL_LANTERN));
-        UNLIT_SOUL_TORCH = add("unlit_soul_torch", new UnlitTorchBlock(Settings.copy(Blocks.TORCH).luminance(state -> 0), Blocks.SOUL_TORCH));
-        UNLIT_SOUL_WALL_TORCH = add("unlit_soul_wall_torch", new UnlitWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_SOUL_TORCH), Blocks.SOUL_WALL_TORCH));
-        UNLIT_TORCH = add("unlit_torch", new UnlitTorchBlock(Settings.copy(Blocks.TORCH).luminance(state -> 0), Blocks.TORCH));
-        UNLIT_WALL_TORCH = add("unlit_wall_torch", new UnlitWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_TORCH), Blocks.WALL_TORCH));
+        UNLIT_LANTERN = add("unlit_lantern", new LanternBlock(Settings.copy(Blocks.LANTERN).luminance(state -> 0)));
+        UNLIT_SOUL_LANTERN = add("unlit_soul_lantern", new LanternBlock(Settings.copy(UNLIT_LANTERN)));
+        UNLIT_SOUL_TORCH = add("unlit_soul_torch", new NoParticleTorchBlock(Settings.copy(Blocks.TORCH).luminance(state -> 0)));
+        UNLIT_SOUL_WALL_TORCH = add("unlit_soul_wall_torch", new NoParticleWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_SOUL_TORCH)));
+        UNLIT_TORCH = add("unlit_torch", new NoParticleTorchBlock(Settings.copy(Blocks.TORCH).luminance(state -> 0)));
+        UNLIT_WALL_TORCH = add("unlit_wall_torch", new NoParticleWallTorchBlock(Settings.copy(Blocks.WALL_TORCH).luminance(state -> 0).dropsLike(UNLIT_TORCH)));
     }
 }
