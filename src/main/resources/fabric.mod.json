@@ -47,7 +47,7 @@
       "io.github.realguyman.totally_lit.TotallyLit"
     ],
     "client": [
-      "io.github.realguyman.totally_lit.MyClientModInitializer"
+      "io.github.realguyman.totally_lit.TotallyLitClient"
     ],
     "totally_lit": [
       "io.github.realguyman.totally_lit.TotallyLitVanillaMap"
