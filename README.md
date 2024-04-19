@@ -1,3 +1,5 @@
+![](https://cdn.modrinth.com/data/hbKDMT6l/images/b78dd8ad6f3b3600261cd09e1b414eca58c3a7b4.png)
+
 # Totally Lit
 
 Some of Minecraft's light sources will extinguish under various conditions. An open source mod built for [Fabric](https://fabricmc.net/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
