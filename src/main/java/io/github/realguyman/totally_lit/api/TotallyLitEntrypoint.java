@@ -9,15 +9,15 @@ public interface TotallyLitEntrypoint {
      */
     void buildMap();
 
-    default void addTorchBlock(Block lit, Block unlit) {
+    default void addTorch(Block lit, Block unlit) {
         TotallyLit.TORCH_MAP.put(lit, unlit);
     }
 
-    default void addLanternBlock(Block lit, Block unlit) {
+    default void addLantern(Block lit, Block unlit) {
         TotallyLit.LANTERN_MAP.put(lit, unlit);
     }
 
-    default void addJackOLanternBlock(Block lit, Block unlit) {
+    default void addJackOLantern(Block lit, Block unlit) {
         TotallyLit.JACK_O_LANTERN_MAP.put(lit, unlit);
     }
 }
