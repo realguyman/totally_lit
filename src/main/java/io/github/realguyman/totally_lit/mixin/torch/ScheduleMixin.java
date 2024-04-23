@@ -3,10 +3,14 @@ package io.github.realguyman.totally_lit.mixin.torch;
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.*;
+import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,6 +47,16 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+        var nearbyVillagers = world.getEntitiesByType(
+                TypeFilter.instanceOf(VillagerEntity.class),
+                new Box(pos).expand(32),
+                EntityPredicates.VALID_LIVING_ENTITY
+        );
+
+        if (!nearbyVillagers.isEmpty()) {
+            return;
+        }
+
         TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
             if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
                 world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);

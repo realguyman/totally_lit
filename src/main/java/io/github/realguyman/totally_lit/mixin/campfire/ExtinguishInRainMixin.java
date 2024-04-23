@@ -7,11 +7,15 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
+import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -28,6 +32,16 @@ public class ExtinguishInRainMixin {
             final boolean isCampfireBlockEntity = blockEntity instanceof CampfireBlockEntity;
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
             final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
+
+            var nearbyVillagers = world.getEntitiesByType(
+                    TypeFilter.instanceOf(VillagerEntity.class),
+                    new Box(pos).expand(32),
+                    EntityPredicates.VALID_LIVING_ENTITY
+            );
+
+            if (!nearbyVillagers.isEmpty()) {
+                return;
+            }
 
             if (isRaining && isLitCampfire && isCampfireBlockEntity && isChanceInFavor && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
                 CampfireBlock.extinguish(null, world, pos, state);

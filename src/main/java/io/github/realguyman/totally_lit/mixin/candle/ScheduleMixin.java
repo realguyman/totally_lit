@@ -2,9 +2,13 @@ package io.github.realguyman.totally_lit.mixin.candle;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
+import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
+import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -45,7 +49,13 @@ public abstract class ScheduleMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (AbstractCandleBlock.isLitCandle(state)) {
+        var nearbyVillagers = world.getEntitiesByType(
+                TypeFilter.instanceOf(VillagerEntity.class),
+                new Box(pos).expand(32),
+                EntityPredicates.VALID_LIVING_ENTITY
+        );
+
+        if (AbstractCandleBlock.isLitCandle(state) && nearbyVillagers.isEmpty()) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
         }
     }
