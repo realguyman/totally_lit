@@ -1,8 +1,6 @@
-![](https://cdn.modrinth.com/data/hbKDMT6l/images/b78dd8ad6f3b3600261cd09e1b414eca58c3a7b4.png)
+# ![Totally Lit](https://cdn.modrinth.com/data/hbKDMT6l/images/35f50553a0aa8b2382585227b402547e6db24bd3.png)
 
-# Totally Lit
-
-Some of Minecraft's light sources will extinguish under various conditions. An open source mod built for [Fabric](https://fabricmc.net/). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
+Some of Minecraft's light sources will extinguish under various conditions. An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](https://quiltmc.org/), too). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
 
 For more information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
@@ -20,7 +18,6 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
 
-- [x] [Quilt](https://quiltmc.org/)
 - [x] [Lithium](https://modrinth.com/mods/lithium)
 - [x] [Danger Close](https://modrinth.com/mod/danger-close)
 - [x] [Torch hit!](https://modrinth.com/mod/torch-hit)
@@ -29,8 +26,8 @@ Should work with most mods if not all mods that don't modify torches, lanterns, 
 ### 📝 Todo
 
 - [ ] Add ability for villagers to ignite extinguished light sources
-- [ ] Implement crafting grid functionality for flint and steel
-- [ ] Build a proper API for developers (i.e., api package, events, javadoc, etc.)
+- [x] Implement crafting grid functionality for flint and steel
+- [ ] Build a proper API for developers (i.e., ~~entrypoint~~, events, javadoc, etc.)
 - [ ] Organize, clean, and otherwise re-design the codebase for better maintainability
 - [ ] Implement more gametests and add testmods
 - [ ] Extend inventory behaviours to mobs as well (i.e., a zombie holding a torch while in water should extinguish)
