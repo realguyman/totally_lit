@@ -21,6 +21,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -86,6 +87,75 @@ public class TotallyLit implements ModInitializer {
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, TORCH_MAP, TagRegistry.TORCH_IGNITER_ITEMS);
         });
+
+        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+            return igniteUnlitItemInHand(
+                    player,
+                    world,
+                    hand,
+                    hitResult,
+                    JACK_O_LANTERN_MAP,
+                    TagRegistry.JACK_O_LANTERN_IGNITER_BLOCKS
+            );
+        });
+
+        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+            return igniteUnlitItemInHand(
+                    player,
+                    world,
+                    hand,
+                    hitResult,
+                    LANTERN_MAP,
+                    TagRegistry.LANTERN_IGNITER_BLOCKS
+            );
+        });
+
+        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+            return igniteUnlitItemInHand(
+                    player,
+                    world,
+                    hand,
+                    hitResult,
+                    TORCH_MAP,
+                    TagRegistry.TORCH_IGNITER_BLOCKS
+            );
+        });
+    }
+
+    private ActionResult igniteUnlitItemInHand(
+            PlayerEntity player,
+            World world,
+            Hand hand,
+            BlockHitResult hitResult,
+            Map<Block, Block> map,
+            TagKey<Block> igniters
+    ) {
+        final BlockState state = world.getBlockState(hitResult.getBlockPos());
+
+        if (!state.isIn(igniters) || player.isSneaking()) {
+            return ActionResult.PASS;
+        }
+
+        final ItemStack stack = player.getStackInHand(hand);
+
+        for (Map.Entry<Block, Block> entry : map.entrySet()) {
+            final Item lit = entry.getKey().asItem();
+            final Item unlit = entry.getValue().asItem();
+
+            if (!stack.isOf(unlit)) {
+                continue;
+            }
+
+            if (!player.giveItemStack(new ItemStack(lit))) {
+                return ActionResult.PASS;
+            }
+
+            stack.decrement(1);
+            world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
+            return ActionResult.SUCCESS;
+        }
+
+        return ActionResult.PASS;
     }
 
     private ActionResult igniteUnlitBlock(
