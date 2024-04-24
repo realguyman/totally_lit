@@ -38,8 +38,13 @@ import java.util.Map;
 // TODO: Ignition system: Unlit items should ignite when using on lit blocks
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
 // TODO: Ignition system: Flint and steel should be damaged in crafting recipes
+
+
 // TODO: Extinguish system: Add ability to extinguish light sources with potions
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in crafting recipes and in world
+
+
+// TODO: Implement automatic texture generation for unlit variations of blocks with this technique: https://fabricmc.net/wiki/tutorial:datagen_buckets
 // TODO: API: Implement custom Events for developers to subscribe to
 // TODO: API: Move helpful classes, etc into API package, i.e., NoParticleTorchBlock
 // TODO: Integrate: Tips, Patchouli, and Lanterns Belong on Walls
