@@ -7,6 +7,7 @@
     "DamageFlintAndSteelItemInRecipeMixin",
     "ItemEntityMixin",
     "ItemMixin",
+    "PotionEntityMixin",
     "campfire.CanExtinguishInRainMixin",
     "campfire.DefaultStateAndIgnitionMixin",
     "campfire.ExtinguishInRainMixin",
