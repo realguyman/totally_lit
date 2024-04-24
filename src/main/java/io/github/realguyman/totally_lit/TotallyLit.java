@@ -37,9 +37,7 @@ import java.util.Map;
 // TODO: Ignition system: Items enchanted with Fire Aspect should ignite unlit blocks
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
 
-// TODO: Extinguish system: Add ability to extinguish light sources with potions
-// TODO: Extinguish system: Add ability to extinguish light sources with water buckets in crafting recipes and in world
-
+// TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 
 // TODO: Implement automatic texture generation for unlit variations of blocks with this technique: https://fabricmc.net/wiki/tutorial:datagen_buckets
 // TODO: API: Move helpful classes, etc into API package, i.e., NoParticleTorchBlock
