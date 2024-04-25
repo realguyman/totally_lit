@@ -6,6 +6,8 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
@@ -42,8 +44,9 @@ public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
     private void ignite(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         final ItemStack stack = player.getStackInHand(hand);
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
+        final boolean stackHasFireAspect = EnchantmentHelper.get(stack).containsKey(Enchantments.FIRE_ASPECT);
 
-        if (!stack.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) || !canBeIgnited) {
+        if ((!stack.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && !stackHasFireAspect) || !canBeIgnited) {
             return;
         }
 

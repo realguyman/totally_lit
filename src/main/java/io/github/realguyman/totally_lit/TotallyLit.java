@@ -12,6 +12,8 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
@@ -36,7 +38,6 @@ import java.util.Map;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 
-// TODO: Ignition system: Items enchanted with Fire Aspect should ignite unlit blocks
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
 
 // TODO: Implement automatic texture generation for unlit variations of blocks with this technique: https://fabricmc.net/wiki/tutorial:datagen_buckets
@@ -249,8 +250,9 @@ public class TotallyLit implements ModInitializer {
             TagKey<Item> igniters
     ) {
         final ItemStack stack = player.getStackInHand(hand);
+        final boolean stackHasFireAspect = EnchantmentHelper.get(stack).containsKey(Enchantments.FIRE_ASPECT);
 
-        if (!stack.isIn(igniters) || player.isSneaking()) {
+        if ((!stack.isIn(igniters) && !stackHasFireAspect) || player.isSneaking()) {
             return ActionResult.PASS;
         }
 
