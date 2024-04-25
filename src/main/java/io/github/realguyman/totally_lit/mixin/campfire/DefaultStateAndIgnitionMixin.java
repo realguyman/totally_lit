@@ -40,15 +40,20 @@ public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
 
     @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
     private void ignite(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        final ItemStack itemInHand = player.getStackInHand(hand);
+        final ItemStack stack = player.getStackInHand(hand);
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
 
-        if (itemInHand.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && canBeIgnited && world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
-            itemInHand.damage(1, player, playerInScope -> playerInScope.sendToolBreakStatus(hand));
-
-            world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
-            player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-            cir.setReturnValue(ActionResult.SUCCESS);
+        if (!stack.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) || !canBeIgnited) {
+            return;
         }
+
+        if (!world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
+            cir.setReturnValue(ActionResult.FAIL);
+        }
+
+        stack.damage(1, player, playerInScope -> playerInScope.sendToolBreakStatus(hand));
+        world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
+        player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
+        cir.setReturnValue(ActionResult.SUCCESS);
     }
 }
