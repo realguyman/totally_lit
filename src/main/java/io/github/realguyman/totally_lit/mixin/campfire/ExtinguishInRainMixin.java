@@ -2,6 +2,7 @@ package io.github.realguyman.totally_lit.mixin.campfire;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
+import java.util.List;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
@@ -48,6 +49,8 @@ public class ExtinguishInRainMixin {
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 ((CampfireBlockEntityAccess) blockEntity).totally_lit$setTicksBurntFor(0);
             }
+
+            ci.cancel();
         }
     }
 }

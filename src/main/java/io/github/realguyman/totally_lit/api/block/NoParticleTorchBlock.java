@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  */
 public class NoParticleTorchBlock extends TorchBlock {
     public NoParticleTorchBlock(Settings settings) {
-        super(null, settings);
+        super(settings, null);
     }
 
     @Override

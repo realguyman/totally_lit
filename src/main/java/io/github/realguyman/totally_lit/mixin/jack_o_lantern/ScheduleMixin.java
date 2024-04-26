@@ -1,6 +1,7 @@
 package io.github.realguyman.totally_lit.mixin.jack_o_lantern;
 
 import io.github.realguyman.totally_lit.TotallyLit;
+import java.util.List;
 import net.minecraft.block.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;
@@ -22,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ScheduleMixin {
     @Shadow public abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random);
 
-    @Inject(method = "randomTick", at = @At("HEAD"))
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             return;
@@ -42,6 +43,8 @@ public abstract class ScheduleMixin {
                 world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.jackOLanterns.burnDuration());
             }
         }
+
+        ci.cancel();
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))

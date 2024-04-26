@@ -50,7 +50,7 @@ public abstract class ClearAndCanScheduleMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
+    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient() && TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }
