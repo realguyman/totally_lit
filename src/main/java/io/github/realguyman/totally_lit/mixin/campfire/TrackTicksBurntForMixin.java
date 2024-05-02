@@ -31,8 +31,8 @@ public abstract class TrackTicksBurntForMixin implements CampfireBlockEntityAcce
         return ticksBurntFor;
     }
 
-    public void totally_lit$setTicksBurntFor(int value) {
-        ticksBurntFor = value;
+    public void totally_lit$setTicksBurntFor(int ticks) {
+        ticksBurntFor = ticks;
     }
 
     @Inject(method = "readNbt", at = @At("RETURN"))
