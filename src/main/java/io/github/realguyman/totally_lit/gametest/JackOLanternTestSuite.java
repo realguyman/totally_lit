@@ -11,13 +11,26 @@ import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
 
 public class JackOLanternTestSuite {
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    @GameTest(
+            templateName = FabricGameTest.EMPTY_STRUCTURE,
+            tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR
+    )
     public void jackOLanternBlockDoesExtinguishOverTime(TestContext context) {
-        TestUtil.blockDoesExtinguishOverTime(context, Blocks.JACK_O_LANTERN, BlockRegistry.UNLIT_JACK_O_LANTERN);
+        TestUtil.blockDoesExtinguishOverTime(
+                context,
+                Blocks.JACK_O_LANTERN,
+                BlockRegistry.UNLIT_JACK_O_LANTERN
+        );
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
-    public void jackOLanternItemEntityDoesExtinguishWhenSubmergedInWater(TestContext context) {
-        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(context, Items.JACK_O_LANTERN, ItemRegistry.UNLIT_JACK_O_LANTERN);
+    public void jackOLanternItemEntityDoesExtinguishWhenSubmergedInWater(
+            TestContext context
+    ) {
+        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
+                context,
+                Items.JACK_O_LANTERN,
+                ItemRegistry.UNLIT_JACK_O_LANTERN
+        );
     }
 }

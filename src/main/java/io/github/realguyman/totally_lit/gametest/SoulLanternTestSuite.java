@@ -11,12 +11,24 @@ import net.minecraft.test.TestContext;
 
 public class SoulLanternTestSuite {
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
-    public void soulLanternItemEntityDoesExtinguishWhenSubmergedInWater(TestContext context) {
-        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(context, Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN);
+    public void soulLanternItemEntityDoesExtinguishWhenSubmergedInWater(
+            TestContext context
+    ) {
+        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
+                context,
+                Items.SOUL_LANTERN,
+                ItemRegistry.UNLIT_SOUL_LANTERN
+        );
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
-    public void soulLanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(TestContext context) {
-        TestUtil.waterloggedBlockDoesExtinguishWhenRandomlyTicked(context, Blocks.SOUL_LANTERN, BlockRegistry.UNLIT_SOUL_LANTERN);
+    public void soulLanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(
+            TestContext context
+    ) {
+        TestUtil.waterloggedBlockDoesExtinguishWhenRandomlyTicked(
+                context,
+                Blocks.SOUL_LANTERN,
+                BlockRegistry.UNLIT_SOUL_LANTERN
+        );
     }
 }
