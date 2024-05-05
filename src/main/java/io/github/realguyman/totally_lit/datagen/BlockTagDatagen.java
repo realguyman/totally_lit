@@ -10,7 +10,10 @@ import net.minecraft.registry.tag.BlockTags;
 import java.util.concurrent.CompletableFuture;
 
 public class BlockTagDatagen extends FabricTagProvider.BlockTagProvider {
-    public BlockTagDatagen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public BlockTagDatagen(
+            FabricDataOutput output,
+            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
+    ) {
         super(output, registriesFuture);
     }
 
