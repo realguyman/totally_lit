@@ -21,9 +21,15 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBlock.class)
-public abstract class ExtinguishInRainMixin {
+public abstract class AbstractBlockMixin {
+    @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
+    private void hasRandomTicks(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(true);
+    }
+
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (state.isIn(BlockTags.CAMPFIRES)) {

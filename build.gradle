@@ -31,8 +31,8 @@ dependencies {
 
     // Local dependencies
     modLocalRuntime "com.terraformersmc:modmenu:${project.mod_menu}"
-    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
-    modLocalRuntime "dev.lambdaurora:lambdynamiclights:${project.lambdynamiclights}"
+//    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
+//    modLocalRuntime "dev.lambdaurora:lambdynamiclights:${project.lambdynamiclights}"
 //    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
 //    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei}"
 //    modLocalRuntime "dev.emi:emi:${project.emi}"
@@ -66,8 +66,8 @@ loom {
 java {
     withSourcesJar()
 
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 jar {
@@ -85,7 +85,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 17
+    it.options.release = 21
 }
 
 modrinth {
