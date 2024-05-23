@@ -11,18 +11,37 @@ import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
 
 public class LanternTestSuite {
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    @GameTest(
+            templateName = FabricGameTest.EMPTY_STRUCTURE,
+            tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR
+    )
     public void lanternBlockDoesExtinguishOverTime(TestContext context) {
-        TestUtil.blockDoesExtinguishOverTime(context, Blocks.LANTERN, BlockRegistry.UNLIT_LANTERN);
+        TestUtil.blockDoesExtinguishOverTime(
+                context,
+                Blocks.LANTERN,
+                BlockRegistry.UNLIT_LANTERN
+        );
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
-    public void lanternItemEntityDoesExtinguishWhenSubmergedInWater(TestContext context) {
-        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(context, Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
+    public void lanternItemEntityDoesExtinguishWhenSubmergedInWater(
+            TestContext context
+    ) {
+        TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
+                context,
+                Items.LANTERN,
+                ItemRegistry.UNLIT_LANTERN
+        );
     }
 
     @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
-    public void lanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(TestContext context) {
-        TestUtil.waterloggedBlockDoesExtinguishWhenRandomlyTicked(context, Blocks.LANTERN, BlockRegistry.UNLIT_LANTERN);
+    public void lanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(
+            TestContext context
+    ) {
+        TestUtil.waterloggedBlockDoesExtinguishWhenRandomlyTicked(
+                context,
+                Blocks.LANTERN,
+                BlockRegistry.UNLIT_LANTERN
+        );
     }
 }

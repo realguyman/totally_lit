@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "totally_lit:unlit_torch"
   },
-  "result": "minecraft:torch",
+  "result": {
+    "id": "minecraft:torch"
+  },
   "experience": 0
 }

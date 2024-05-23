@@ -11,7 +11,7 @@
     ]
   ],
   "result": {
-    "item": "minecraft:lantern"
+    "id": "minecraft:lantern"
   },
   "owo:remainders": {
     "minecraft:torch": "minecraft:torch",

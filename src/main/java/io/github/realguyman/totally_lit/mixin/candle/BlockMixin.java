@@ -1,6 +1,5 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
-import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -14,21 +13,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
-public abstract class ClearAndCanScheduleMixin {
-    @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
-    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        if (!AbstractCandleBlock.isLitCandle(state)) {
-            return;
-        }
-
-        boolean extinguishOverTime = TotallyLit.CONFIG.candles.extinguishOverTime();
-        boolean extinguishInRain = TotallyLit.CONFIG.candles.extinguishInRainChance() > 0F;
-
-        if (extinguishOverTime || extinguishInRain) {
-            cir.setReturnValue(true);
-        }
-    }
-
+public abstract class BlockMixin {
     @Inject(method = "onBreak", at = @At("HEAD"))
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient() && AbstractCandleBlock.isLitCandle(state)) {

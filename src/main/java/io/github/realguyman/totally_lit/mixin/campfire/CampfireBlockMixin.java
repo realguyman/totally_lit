@@ -8,31 +8,26 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CampfireBlock.class)
-public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
-    protected DefaultStateAndIgnitionMixin(Settings settings) {
+public abstract class CampfireBlockMixin extends BlockWithEntity {
+    protected CampfireBlockMixin(Settings settings) {
         super(settings);
-    }
-
-    @Inject(method = "<init>", at = @At("RETURN"))
-    private void litStateWhenInitialized(boolean emitsParticles, int fireDamage, Settings settings, CallbackInfo ci) {
-        setDefaultState(getDefaultState().with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced()));
     }
 
     @ModifyReturnValue(method = "getPlacementState", at = @At("RETURN"))
@@ -40,23 +35,22 @@ public abstract class DefaultStateAndIgnitionMixin extends BlockWithEntity {
         return original.with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced());
     }
 
-    @Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
-    private void ignite(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
-        final ItemStack stack = player.getStackInHand(hand);
+    @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
+    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir) {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
-        final boolean stackHasFireAspect = EnchantmentHelper.get(stack).containsKey(Enchantments.FIRE_ASPECT);
+        final boolean stackHasFireAspect = EnchantmentHelper.getEnchantments(stack).getEnchantments().contains(Enchantments.FIRE_ASPECT);
 
         if ((!stack.isIn(TagRegistry.CAMPFIRE_IGNITER_ITEMS) && !stackHasFireAspect) || !canBeIgnited) {
             return;
         }
 
         if (!world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
-            cir.setReturnValue(ActionResult.FAIL);
+            cir.setReturnValue(ItemActionResult.FAIL);
         }
 
-        stack.damage(1, player, playerInScope -> playerInScope.sendToolBreakStatus(hand));
+        stack.damage(1, player, EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.HAND, hand.ordinal()));
         world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
         player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-        cir.setReturnValue(ActionResult.SUCCESS);
+        cir.setReturnValue(ItemActionResult.SUCCESS);
     }
 }

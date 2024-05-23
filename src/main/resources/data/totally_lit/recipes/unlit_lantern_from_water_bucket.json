@@ -9,7 +9,7 @@
     }
   ],
   "result": {
-    "item": "totally_lit:unlit_lantern"
+    "id": "totally_lit:unlit_lantern"
   },
   "owo:remainders": {
     "minecraft:water_bucket": "minecraft:water_bucket"

@@ -3,6 +3,8 @@
   "ingredient": {
     "item": "totally_lit:unlit_soul_torch"
   },
-  "result": "minecraft:soul_torch",
+  "result": {
+    "id": "minecraft:soul_torch"
+  },
   "experience": 0
 }

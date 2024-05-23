@@ -9,12 +9,16 @@ import net.minecraft.registry.tag.FluidTags;
 import java.util.concurrent.CompletableFuture;
 
 public class FluidTagDatagen extends FabricTagProvider.FluidTagProvider {
-    public FluidTagDatagen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
+    public FluidTagDatagen(
+            FabricDataOutput output,
+            CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture
+    ) {
         super(output, completableFuture);
     }
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
-        getOrCreateTagBuilder(TagRegistry.TORCH_IGNITER_FLUIDS).addOptionalTag(FluidTags.LAVA);
+        getOrCreateTagBuilder(TagRegistry.TORCH_IGNITER_FLUIDS)
+                .addOptionalTag(FluidTags.LAVA);
     }
 }

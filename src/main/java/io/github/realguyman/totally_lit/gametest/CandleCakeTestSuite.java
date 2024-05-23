@@ -9,8 +9,14 @@ import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
 
 public class CandleCakeTestSuite {
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE, tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    @GameTest(
+            templateName = FabricGameTest.EMPTY_STRUCTURE,
+            tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR
+    )
     public void candleCakeBlockDoesExtinguishOverTime(TestContext context) {
-        TestUtil.abstractCandleBlockDoesExtinguishOverTime(context, (AbstractCandleBlock) Blocks.CANDLE_CAKE);
+        TestUtil.abstractCandleBlockDoesExtinguishOverTime(
+                context,
+                (AbstractCandleBlock) Blocks.CANDLE_CAKE
+        );
     }
 }

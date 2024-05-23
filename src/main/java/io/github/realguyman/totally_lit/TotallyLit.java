@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
@@ -250,7 +251,7 @@ public class TotallyLit implements ModInitializer {
             TagKey<Item> igniters
     ) {
         final ItemStack stack = player.getStackInHand(hand);
-        final boolean stackHasFireAspect = EnchantmentHelper.get(stack).containsKey(Enchantments.FIRE_ASPECT);
+        final boolean stackHasFireAspect = EnchantmentHelper.getEnchantments(stack).getEnchantments().contains(Enchantments.FIRE_ASPECT);
 
         if ((!stack.isIn(igniters) && !stackHasFireAspect) || player.isSneaking()) {
             return ActionResult.PASS;
@@ -271,7 +272,7 @@ public class TotallyLit implements ModInitializer {
                 return ActionResult.FAIL;
             }
 
-            stack.damage(1, player, playerInScope -> playerInScope.sendToolBreakStatus(hand));
+            stack.damage(1, player, EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.HAND, hand.ordinal()));
             world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
             return ActionResult.SUCCESS;
         }
