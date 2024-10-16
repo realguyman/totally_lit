@@ -6,11 +6,13 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
@@ -48,7 +50,7 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
             cir.setReturnValue(ItemActionResult.FAIL);
         }
 
-        stack.damage(1, player, EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.HAND, hand.ordinal()));
+        stack.damage(1, player, EquipmentSlot.values()[hand.ordinal()]);
         world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
         player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
         cir.setReturnValue(ItemActionResult.SUCCESS);

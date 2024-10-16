@@ -17,7 +17,7 @@ public class ItemRegistry {
     public static final Item UNLIT_TORCH = new VerticallyAttachableBlockItem(BlockRegistry.UNLIT_TORCH, BlockRegistry.UNLIT_WALL_TORCH, new Item.Settings(), Direction.DOWN);
 
     private static Item add(String path, Item item) {
-        return Registry.register(Registries.ITEM, new Identifier(TotallyLit.MOD_ID, path), item);
+        return Registry.register(Registries.ITEM, Identifier.of(TotallyLit.MOD_ID, path), item);
     }
 
     public static void register() {

@@ -1,6 +1,7 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
 import io.github.realguyman.totally_lit.TotallyLit;
+import java.util.List;
 import net.minecraft.block.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;

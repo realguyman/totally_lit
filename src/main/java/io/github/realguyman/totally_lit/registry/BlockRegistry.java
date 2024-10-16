@@ -25,7 +25,7 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH;
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registries.BLOCK, new Identifier(TotallyLit.MOD_ID, path), block);
+        return Registry.register(Registries.BLOCK, Identifier.of(TotallyLit.MOD_ID, path), block);
     }
 
     static {

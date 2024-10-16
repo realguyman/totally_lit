@@ -2,6 +2,7 @@ package io.github.realguyman.totally_lit.mixin.campfire;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
+import java.util.List;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;

@@ -2,6 +2,7 @@ package io.github.realguyman.totally_lit.mixin.lantern;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
+import java.util.List;
 import net.minecraft.block.*;
 import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.predicate.entity.EntityPredicates;

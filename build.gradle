@@ -1,7 +1,7 @@
 plugins {
-    id "fabric-loom" version "1.7-SNAPSHOT"
-    id "com.modrinth.minotaur" version "2.+"
-    id "maven-publish"
+    id 'fabric-loom' version '1.7-SNAPSHOT'
+    id 'com.modrinth.minotaur' version '2.+'
+    id 'maven-publish'
 }
 
 version = project.mod_version
@@ -12,13 +12,12 @@ base {
 }
 
 repositories {
-    maven { url "https://maven.terraformersmc.com/" }
-    maven { url "https://maven.wispforest.io/" }
-    maven { url "https://jitpack.io/" }
-    maven { url "https://maven.blamejared.com/" }
-    maven { url "https://api.modrinth.com/maven" }
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.gegy.dev/" }
+    maven { url 'https://maven.terraformersmc.com/' }
+    maven { url 'https://maven.wispforest.io/' }
+    maven { url 'https://jitpack.io/' }
+    maven { url 'https://maven.blamejared.com/' }
+    maven { url 'https://api.modrinth.com/maven' }
+    maven { url 'https://maven.shedaniel.me/' }
 }
 
 dependencies {
@@ -31,9 +30,8 @@ dependencies {
 
     // Local dependencies
     modLocalRuntime "com.terraformersmc:modmenu:${project.mod_menu}"
-//    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
-//    modLocalRuntime "dev.lambdaurora:lambdynamiclights:${project.lambdynamiclights}"
-//    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
+    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
+    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
 //    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei}"
 //    modLocalRuntime "dev.emi:emi:${project.emi}"
 }
@@ -46,7 +44,7 @@ loom {
     splitEnvironmentSourceSets()
 
     mods {
-        "totally_lit" {
+        'totally_lit' {
             sourceSet sourceSets.main
             sourceSet sourceSets.client
         }
@@ -55,10 +53,10 @@ loom {
     runs {
         gametest {
             inherit server
-            name "Gametest"
-            vmArg "-Dfabric-api.gametest"
+            name 'Gametest'
+            vmArg '-Dfabric-api.gametest'
             vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit.xml"
-            runDir "build/gametest"
+            runDir 'build/gametest'
         }
     }
 }
@@ -71,16 +69,16 @@ java {
 }
 
 jar {
-    from("LICENSE") {
+    from('LICENSE') {
         rename { "${it}_${project.base.archivesName.get()}" }
     }
 }
 
 processResources {
-    inputs.property "version", project.version
+    inputs.property 'version', project.version
 
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version
+    filesMatching('fabric.mod.json') {
+        expand 'version': project.version
     }
 }
 
@@ -89,28 +87,29 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 modrinth {
-    if (project.version.contains("-alpha")) {
-        versionType = "alpha"
-    } else if (project.version.contains("-beta")) {
-        versionType = "beta"
+    if (project.version.contains('-alpha')) {
+        versionType = 'alpha'
+    } else if (project.version.contains('-beta')) {
+        versionType = 'beta'
     }
 
-    projectId = "hbKDMT6l"
+    projectId = 'hbKDMT6l'
     uploadFile = remapJar
     additionalFiles = [remapSourcesJar]
-    loaders = ["fabric", "quilt"]
+    loaders = ['fabric', 'quilt']
     gameVersions = [project.minecraft]
     dependencies {
-        required.project "fabric-api"
-        required.project "owo-lib"
-        optional.project "modmenu"
-        incompatible.project "hardcore-torches"
+        required.project 'fabric-api'
+        required.project 'owo-lib'
+        optional.project 'modmenu'
+        incompatible.project 'hardcore-torches'
     }
 }
 
 publishing {
     publications {
-        create("mavenJava", MavenPublication) {
+        create('mavenJava', MavenPublication) {
+            artifactId = project.archives_base_name
             from components.java
         }
     }

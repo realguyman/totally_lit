@@ -272,7 +272,7 @@ public class TotallyLit implements ModInitializer {
                 return ActionResult.FAIL;
             }
 
-            stack.damage(1, player, EquipmentSlot.fromTypeIndex(EquipmentSlot.Type.HAND, hand.ordinal()));
+            stack.damage(1, player, EquipmentSlot.values()[hand.ordinal()]);
             world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
             return ActionResult.SUCCESS;
         }
