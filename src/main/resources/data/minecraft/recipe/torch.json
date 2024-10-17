@@ -6,7 +6,22 @@
     },
     [
       {
-        "tag": "totally_lit:torch_igniters"
+        "item": "minecraft:torch"
+      },
+      {
+        "item": "minecraft:soul_torch"
+      },
+      {
+        "item": "minecraft:lava_bucket"
+      },
+      {
+        "item": "minecraft:magma_block"
+      },
+      {
+        "item": "minecraft:lantern"
+      },
+      {
+        "item": "minecraft:soul_lantern"
       }
     ]
   ],

@@ -6,7 +6,10 @@
     },
     [
       {
-        "tag": "totally_lit:lantern_igniters"
+        "item": "minecraft:torch"
+      },
+      {
+        "item": "minecraft:soul_torch"
       }
     ]
   ],
