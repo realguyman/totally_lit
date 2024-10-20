@@ -18,22 +18,21 @@ For more information regarding the project, [read the wiki 📖](https://github.
 
 Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
 
-- [x] [Lithium](https://modrinth.com/mods/lithium)
-- [x] [Danger Close](https://modrinth.com/mod/danger-close)
-- [x] [Torch hit!](https://modrinth.com/mod/torch-hit)
-- [ ] [Hardcore Torches](https://modrinth.com/mods/hardcore-torches)
+- [Hardcore Torches](https://modrinth.com/mod/hardcore-torches) is incompatible
 
 ### 📝 Todo
 
-- [ ] Add ability for villagers to ignite extinguished light sources
-- [x] Implement crafting grid functionality for flint and steel
-- [ ] Build a proper API for developers (i.e., ~~entrypoint~~, events, javadoc, etc.)
-- [ ] Organize, clean, and otherwise re-design the codebase for better maintainability
-- [ ] Implement more gametests and add testmods
-- [ ] Extend inventory behaviours to mobs as well (i.e., a zombie holding a torch while in water should extinguish)
-- [ ] Integrate with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Jade](https://modrinth.com/mod/jade), and [Lanterns Belong on Walls](https://modrinth.com/mod/lanterns-bow)
-- [ ] Attempt to find a method that doesn't impact the game in an overly negative way to extinguish light sources over time in inventories
-- [ ] Finish wiki
+- Add ability for villagers to ignite extinguished light sources
+- Build a proper API for developers (i.e., ~~entrypoint~~, events, ~~javadoc~~, etc.)
+- Organize, clean, and otherwise re-design the codebase for better maintainability
+- Implement more gametests and add testmods
+- Extend inventory behaviours to mobs as well (i.e., a zombie holding a torch while in water should extinguish)
+- Integrate
+  with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Jade](https://modrinth.com/mod/jade),
+  and [Lanterns Belong on Walls](https://modrinth.com/mod/lanterns-bow)
+- Attempt to find a method that doesn't impact the game in an overly negative way to extinguish light sources over time
+  in inventories
+- Finish wiki
 
 ## 📥 Downloads
 
