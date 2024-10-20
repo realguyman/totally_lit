@@ -39,20 +39,6 @@ Should work with most mods if not all mods that don't modify torches, lanterns, 
 
 Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit/files/all?page=1&pageSize=20), [Modrinth](https://modrinth.com/mod/totally-lit/versions), and [GitHub](https://github.com/realguyman/totally_lit/releases).
 
-## 🖼 Gallery
-
-### Light your way through the darkness ...
-
-I shall press on..
-
-![A player igniting a torch in an abandoned mineshaft](https://cdn.modrinth.com/data/hbKDMT6l/images/3de4d16161d75b80e1bc05c459818acad5ec01f5.png)
-
-### What magic is this?....
-
-They never stop burning..
-
-![A player stands in an ancient city corridor, gazing upon a dimly lit soul lantern.](https://cdn.modrinth.com/data/hbKDMT6l/images/c280e05992cc6dab80e24fdfb631561a4af66377.png)
-
 ## License
 
 Copyright (C) 2022 Dale E. Wingard, Jr.
