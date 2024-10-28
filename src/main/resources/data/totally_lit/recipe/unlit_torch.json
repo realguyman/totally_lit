@@ -5,14 +5,8 @@
     "|"
   ],
   "key": {
-    "#": [
-      {
-        "tag": "c:coal"
-      }
-    ],
-    "|": {
-      "item": "minecraft:stick"
-    }
+    "#": "#c:coal",
+    "|": "minecraft:stick"
   },
   "result": {
     "id": "totally_lit:unlit_torch",

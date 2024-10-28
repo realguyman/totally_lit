@@ -26,7 +26,6 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -207,7 +206,7 @@ public class TotallyLit implements ModInitializer {
         return ActionResult.PASS;
     }
 
-    private TypedActionResult<ItemStack> igniteUnlitItemInHandFromRaycast(
+    private ActionResult igniteUnlitItemInHandFromRaycast(
             PlayerEntity player,
             World world,
             Hand hand,
@@ -219,7 +218,7 @@ public class TotallyLit implements ModInitializer {
         final ItemStack stack = player.getStackInHand(hand);
 
         if (!world.getFluidState(pos).isIn(igniterFluids)) {
-            return TypedActionResult.pass(stack);
+            return ActionResult.PASS;
         }
 
         for (Map.Entry<Block, Block> entry : map.entrySet()) {
@@ -231,15 +230,15 @@ public class TotallyLit implements ModInitializer {
             }
 
             if (!player.giveItemStack(new ItemStack(lit))) {
-                return TypedActionResult.fail(stack);
+                return ActionResult.FAIL;
             }
 
             stack.decrement(1);
             world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
-            return TypedActionResult.success(stack, true);
+            return ActionResult.SUCCESS;
         }
 
-        return TypedActionResult.pass(stack);
+        return ActionResult.PASS;
     }
 
     private ActionResult igniteUnlitBlock(

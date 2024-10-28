@@ -6,18 +6,16 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.CampfireBlock;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -38,7 +36,7 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
     }
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
-    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir) {
+    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
         final boolean stackHasFireAspect = EnchantmentHelper.getEnchantments(stack).getEnchantments().contains(Enchantments.FIRE_ASPECT);
 
@@ -47,12 +45,12 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
         }
 
         if (!world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
-            cir.setReturnValue(ItemActionResult.FAIL);
+            cir.setReturnValue(ActionResult.FAIL);
         }
 
         stack.damage(1, player, EquipmentSlot.values()[hand.ordinal()]);
         world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
         player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-        cir.setReturnValue(ItemActionResult.SUCCESS);
+        cir.setReturnValue(ActionResult.SUCCESS);
     }
 }

@@ -6,16 +6,8 @@
     "iii"
   ],
   "key": {
-    "i": [
-      {
-        "item": "minecraft:iron_nugget"
-      }
-    ],
-    "u": [
-      {
-        "item": "totally_lit:unlit_torch"
-      }
-    ]
+    "i": "minecraft:iron_nugget",
+    "u": "totally_lit:unlit_torch"
   },
   "result": {
     "id": "totally_lit:unlit_lantern"
