@@ -76,13 +76,15 @@ public abstract class ItemMixin {
 
     @Unique
     private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, PlayerEntity player, int slot, World world) {
-        if (!shouldExtinguish(chance, lit, player, world) || !stack.isOf(lit.asItem())) {
+        if (!shouldExtinguish(chance, lit, player, world)) {
             return;
         }
 
-        if (player.getOffHandStack().isOf(lit.asItem())) {
-            player.getInventory().offHand.set(0, new ItemStack(unlit.asItem(), player.getOffHandStack().getCount()));
-        } else {
+        if (player.getInventory().getStack(40).isOf(lit.asItem())) {
+            player.getInventory().setStack(40, new ItemStack(unlit.asItem(), stack.getCount()));
+        }
+
+        if (player.getInventory().getStack(slot).isOf(lit.asItem())) {
             player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), stack.getCount()));
         }
     }
