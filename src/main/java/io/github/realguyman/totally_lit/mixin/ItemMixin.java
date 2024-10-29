@@ -82,6 +82,7 @@ public abstract class ItemMixin {
 
         if (player.getInventory().getStack(40).isOf(lit.asItem())) {
             player.getInventory().setStack(40, new ItemStack(unlit.asItem(), stack.getCount()));
+            return;
         }
 
         if (player.getInventory().getStack(slot).isOf(lit.asItem())) {
