@@ -86,7 +86,7 @@ public abstract class ItemMixin {
         }
 
         if (player.getInventory().getStack(slot).isOf(lit.asItem())) {
-            player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), stack.getCount()));
+            player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), player.getInventory().getStack(slot).getCount()));
         }
     }
 }
