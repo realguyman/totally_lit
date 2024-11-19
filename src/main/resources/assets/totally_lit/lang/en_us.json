@@ -36,5 +36,6 @@
   "text.config.totally_lit.option.torches.extinguishOverTime":  "Extinguish Over Time",
   "text.config.totally_lit.section.behaviors": "Behaviors",
   "text.config.totally_lit.section.extinguishables": "Extinguishables",
-  "text.config.totally_lit.title": "Totally Lit"
+  "text.config.totally_lit.title": "Totally Lit",
+  "resourcePack.totally_lit.unlit_campfire.name": "Totally Lit - Unlit Campfire"
 }
