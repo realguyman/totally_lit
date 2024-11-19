@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit.util;
 
+import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.*;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
@@ -19,6 +20,8 @@ public final class TestUtil {
     }
 
     public static void blockDoesExtinguishOverTime(TestContext context, Block lit, Block unlit) {
+        context.getWorld().getTickManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
+
         BlockPos pos = new BlockPos(0, 2, 0);
         context.setBlockState(pos, lit);
         context.forceRandomTick(pos);
@@ -26,6 +29,8 @@ public final class TestUtil {
     }
 
     public static void abstractCandleBlockDoesExtinguishOverTime(TestContext context, AbstractCandleBlock candleBlock) {
+        context.getWorld().getTickManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
+
         BlockPos pos = new BlockPos(0, 2, 0);
         context.setBlockState(pos, candleBlock.getDefaultState().with(AbstractCandleBlock.LIT, true));
         context.forceRandomTick(pos);
@@ -35,6 +40,8 @@ public final class TestUtil {
     }
 
     public static void waterloggedBlockDoesExtinguishWhenRandomlyTicked(TestContext context, Block lit, Block unlit) {
+        context.getWorld().getTickManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
+
         BlockPos pos = new BlockPos(0, 2, 0);
         context.setBlockState(pos, lit.getDefaultState().with(LanternBlock.WATERLOGGED, true));
         context.forceRandomTick(pos);
