@@ -2,15 +2,17 @@ package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 
 public class TagRegistry {
-    private static TagKey add(RegistryKey registryKey, String path) {
+    private static <T> TagKey<T> add(RegistryKey<? extends Registry<T>> registryKey, String path) {
         return TagKey.of(registryKey, Identifier.of(TotallyLit.MOD_ID, path));
     }
     
@@ -24,6 +26,10 @@ public class TagRegistry {
 
     private static TagKey<Fluid> addFluid(String path) {
         return add(RegistryKeys.FLUID, path);
+    }
+
+    private static TagKey<EntityType<?>> addEntityType(String path) {
+        return add(RegistryKeys.ENTITY_TYPE, path);
     }
 
     public static final TagKey<Block> SOUL_FIRE_VARIANT_BLOCKS = addBlock("soul_fire_variants");
@@ -58,4 +64,6 @@ public class TagRegistry {
     public static final TagKey<Fluid> TORCH_IGNITER_FLUIDS = addFluid("torch_igniters");
     public static final TagKey<Item> TORCH_IGNITER_ITEMS = addItem("torch_igniters");
     public static final TagKey<Item> TORCH_ITEMS = addItem("torches");
+
+    public static final TagKey<EntityType<?>> CARETAKERS = addEntityType("caretakers");
 }

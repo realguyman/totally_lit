@@ -6,7 +6,7 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.recipe.CampfireCookingRecipe;
@@ -17,7 +17,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
@@ -53,13 +52,13 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
     private static void trackTicksBurntFor(ServerWorld world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CampfireCookingRecipe> recipeMatchGetter, CallbackInfo ci) {
-        var nearbyVillagers = world.getEntitiesByType(
-                TypeFilter.instanceOf(VillagerEntity.class),
+        var caretakers = world.getEntitiesByClass(
+                Entity.class,
                 new Box(pos).expand(32),
                 EntityPredicates.VALID_LIVING_ENTITY
-        );
+        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (!nearbyVillagers.isEmpty() || !TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
+        if (!caretakers.isEmpty() || !TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             return;
         }
 

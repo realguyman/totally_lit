@@ -2,14 +2,12 @@ package io.github.realguyman.totally_lit.mixin.torch;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import java.util.List;
 import net.minecraft.block.*;
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
@@ -54,13 +52,13 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        var nearbyVillagers = world.getEntitiesByType(
-                TypeFilter.instanceOf(VillagerEntity.class),
+        var caretakers = world.getEntitiesByClass(
+                Entity.class,
                 new Box(pos).expand(32),
                 EntityPredicates.VALID_LIVING_ENTITY
-        );
+        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (!nearbyVillagers.isEmpty()) {
+        if (!caretakers.isEmpty()) {
             return;
         }
 

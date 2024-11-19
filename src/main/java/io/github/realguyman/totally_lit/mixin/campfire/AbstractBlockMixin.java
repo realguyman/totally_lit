@@ -2,19 +2,18 @@ package io.github.realguyman.totally_lit.mixin.campfire;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
-import java.util.List;
+import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.passive.VillagerEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.TypeFilter;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
@@ -40,13 +39,13 @@ public abstract class AbstractBlockMixin {
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
             final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
 
-            var nearbyVillagers = world.getEntitiesByType(
-                    TypeFilter.instanceOf(VillagerEntity.class),
+            var caretakers = world.getEntitiesByClass(
+                    Entity.class,
                     new Box(pos).expand(32),
                     EntityPredicates.VALID_LIVING_ENTITY
-            );
+            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-            if (!nearbyVillagers.isEmpty()) {
+            if (!caretakers.isEmpty()) {
                 return;
             }
 
