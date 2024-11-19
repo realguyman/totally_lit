@@ -30,7 +30,7 @@ dependencies {
 
     // Local dependencies
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu}"
-//    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
+    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
 //    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
 //    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei}"
 //    modLocalRuntime "dev.emi:emi:${project.emi}"
