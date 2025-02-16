@@ -1,8 +1,8 @@
 # ![Totally Lit](https://cdn.modrinth.com/data/hbKDMT6l/images/35f50553a0aa8b2382585227b402547e6db24bd3.png)
 
-Some of Minecraft's light sources will extinguish under various conditions. An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](https://quiltmc.org/), too). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib).
+Designed to fit into Minecraft's lore as closely as possible, while providing a more challenging early game experience and encouraging players to use powered, magical, and bioluminescent light sources.
 
-For more information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
+An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](https://quiltmc.org/), too). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib). For more in-depth information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
 ## ✨ Features
 
@@ -22,25 +22,19 @@ Should work with most mods if not all mods that don't modify torches, lanterns, 
 
 ### 📝 Todo
 
-- Add ability for villagers to ignite extinguished light sources
-- Build a proper API for developers (i.e., ~~entrypoint~~, events, ~~javadoc~~, etc.)
-- Organize, clean, and otherwise re-design the codebase for better maintainability
-- Implement more gametests and add testmods
-- Extend inventory behaviours to mobs as well (i.e., a zombie holding a torch while in water should extinguish)
 - Integrate
-  with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Jade](https://modrinth.com/mod/jade),
-  and [Lanterns Belong on Walls](https://modrinth.com/mod/lanterns-bow)
-- Attempt to find a method that doesn't impact the game in an overly negative way to extinguish light sources over time
-  in inventories
-- Finish wiki
+  with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Lavender](https://modrinth.com/mod/lavender), and [Jade](https://modrinth.com/mod/jade).
+- Add events for developers.
+- Extend inventory behaviours to mobs.
+- Finish wiki.
 
 ## 📥 Downloads
 
-Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit/files/all?page=1&pageSize=20), [Modrinth](https://modrinth.com/mod/totally-lit/versions), and [GitHub](https://github.com/realguyman/totally_lit/releases).
+Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit), [Modrinth](https://modrinth.com/mod/totally-lit), and [GitHub](https://github.com/realguyman/totally_lit).
 
-## License
+## 📜 Copyright & License
 
-Copyright (C) 2024 Dale E. Wingard, Jr.
+&copy; 2025 Dale E. Wingard, Jr.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
