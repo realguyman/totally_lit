@@ -54,7 +54,7 @@ public abstract class AbstractBlockMixin {
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         var caretakers = world.getEntitiesByClass(
                 Entity.class,
-                new Box(pos).expand(32),
+                new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
                 EntityPredicates.VALID_LIVING_ENTITY
         ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
