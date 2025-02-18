@@ -44,7 +44,9 @@ dependencies {
 }
 
 fabricApi {
-    configureDataGeneration()
+    configureDataGeneration() {
+        client = true
+    }
 }
 
 loom {

@@ -14,5 +14,6 @@ public class TotallyLitDatagen implements DataGeneratorEntrypoint {
         pack.addProvider(FluidTagDatagen::new);
         pack.addProvider(BlockLootTableDatagen::new);
         pack.addProvider(EntityTypeTagDatagen::new);
+        pack.addProvider(TotallyLitFabricModelProvider::new);
     }
 }
