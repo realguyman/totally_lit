@@ -4,20 +4,24 @@
   "package": "io.github.realguyman.totally_lit.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "AbstractChestBoatEntityMixin",
+    "EnderChestInventoryMixin",
     "ItemEntityMixin",
     "ItemMixin",
+    "LootableContainerBlockEntityMixin",
     "PotionEntityMixin",
-    "campfire.CampfireBlockMixin",
+    "StorageMinecartEntityMixin",
     "campfire.AbstractBlockMixin",
     "campfire.CampfireBlockEntityMixin",
-    "candle.BlockMixin",
+    "campfire.CampfireBlockMixin",
     "candle.AbstractBlockMixin",
+    "candle.BlockMixin",
     "jack_o_lantern.AbstractBlockMixin",
     "jack_o_lantern.BlockMixin",
-    "lantern.BlockMixin",
     "lantern.AbstractBlockMixin",
-    "torch.BlockMixin",
-    "torch.AbstractBlockMixin"
+    "lantern.BlockMixin",
+    "torch.AbstractBlockMixin",
+    "torch.BlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
