@@ -4,6 +4,8 @@ Designed to fit into Minecraft's lore as closely as possible, while providing a 
 
 An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](https://quiltmc.org/), too). Requires [Fabric API](https://modrinth.com/mod/fabric-api) and [owo-lib](https://modrinth.com/mod/owo-lib). For more in-depth information regarding the project, [read the wiki 📖](https://github.com/realguyman/totally_lit/wiki).
 
+*Inspired by [Realistic Torches](https://github.com/MattCzyr/RealisticTorches), thank you [MattCzyr](https://github.com/MattCzyr)!*
+
 ## ✨ Features
 
 - 💡 **Dynamic lighting is fully supported** with [LambDynamicLights](https://modrinth.com/mod/lambdynamiclights).
