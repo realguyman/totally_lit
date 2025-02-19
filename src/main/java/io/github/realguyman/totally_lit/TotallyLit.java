@@ -12,7 +12,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +20,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -231,9 +231,17 @@ public class TotallyLit implements ModInitializer {
             TagKey<Item> igniters
     ) {
         final ItemStack stack = player.getStackInHand(hand);
-        final boolean stackHasFireAspect = EnchantmentHelper.getEnchantments(stack).getEnchantments().contains(Enchantments.FIRE_ASPECT);
+        final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
+                world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(
+                        Enchantments.FIRE_ASPECT
+                )
+        );
 
-        if ((!stack.isIn(igniters) && !stackHasFireAspect) || player.isSneaking()) {
+        if (player.isSneaking()) {
+            return ActionResult.PASS;
+        }
+
+        if (!stack.isIn(igniters) && (!TotallyLit.CONFIG.fireAspectIgnitesUnlitVariants() || !stackHasFireAspect)) {
             return ActionResult.PASS;
         }
 
