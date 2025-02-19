@@ -37,27 +37,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
-
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
-
-// TODO: Implement automatic texture generation for unlit variations of blocks with this technique: https://fabricmc.net/wiki/tutorial:datagen_buckets
-
-// TODO: Add unlit campfire texture in a resourcepack included with the mod
-
-// TODO: Integrate: Tips, Patchouli, and Lanterns Belong on Walls
-
-// TODO: Clean: Re-implement JSON files into Fabric's datagen to simplify project and prevent future errors
-// TODO: Clean: Organize and simplify code
-
-// TODO: Test: Implement gametests and testmod
-
-// TODO: Ensure Jitpack is setup correctly
-// TODO: Update GitHub Actions
-// TODO: Update dependencies
-// TODO: Update LOGO
-// TODO: Update README
-// TODO: Update CHANGELOG
-// TODO: Finish wiki
+// TODO: Test: Implement more gametests and testmod
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
