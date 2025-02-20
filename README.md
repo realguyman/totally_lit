@@ -1,4 +1,4 @@
-# ![Totally Lit](https://cdn.modrinth.com/data/hbKDMT6l/images/35f50553a0aa8b2382585227b402547e6db24bd3.png)
+# ![Totally Lit](https://cdn.modrinth.com/data/hbKDMT6l/images/7d1782940f24332ecb396c2272f8c10da115b726.png)
 
 Designed to fit into Minecraft's lore as closely as possible, while providing a more challenging early game experience and encouraging players to use powered, magical, and bioluminescent light sources.
 
