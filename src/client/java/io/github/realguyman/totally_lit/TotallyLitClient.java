@@ -22,7 +22,7 @@ public class TotallyLitClient implements ClientModInitializer {
             ResourceManagerHelper.registerBuiltinResourcePack(
                     Objects.requireNonNull(Identifier.of(MOD_ID, "unlit_campfire")),
                     modContainer,
-                    Text.translatable("resourcePack.totally_lit.unlit_campfire.name").toString(),
+                    "Totally Lit - Unlit Campfire",
                     ResourcePackActivationType.DEFAULT_ENABLED
             );
         });
