@@ -14,6 +14,8 @@ An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](h
 - 🔥 **Bring unlit torches to life during your adventures with fire**, lava (flowing, standing, or even in a cauldron!), or flint and steel.
 - 🏊 **Wading, swimming, fully submerging in water, or getting rained on** can cause jack o'lanterns, lanterns, and torches to extinguish.
 - 💪 **Glowstone lanterns and torches for mid/late-game** which are waterproof and never die out.
+- 🧯 Torches, lanterns, and jack o' lanterns **extinguish when stored in chests** (disabled by default).
+- 👷 **Villagers prevent any extinguishing** in a configurable cubed radius, no more dark villages.
 - 📄 **Configurable with files or the settings page** provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 
 ### ❗ Compatibility
