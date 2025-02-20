@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "hanging=false": {
+      "model": "totally_lit:block/glowstone_lantern"
+    },
+    "hanging=true": {
+      "model": "totally_lit:block/glowstone_lantern_hanging"
+    }
+  }
+}

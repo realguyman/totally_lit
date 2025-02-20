@@ -22,6 +22,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public abstract class BlockMixin {
+    @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
+    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(true);
+    }
+
     @Inject(method = "onPlaced", at = @At("HEAD"))
     private void extinguishWhenPlacedInWater(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
         if (world.isClient() || !state.contains(Properties.WATERLOGGED) || !state.get(Properties.WATERLOGGED)) {
@@ -36,7 +41,7 @@ public abstract class BlockMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
+    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfo ci) {
         if (!world.isClient() && TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
         }

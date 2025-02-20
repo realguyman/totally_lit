@@ -34,10 +34,9 @@ dependencies {
     modLocalRuntime "maven.modrinth:sodium:${project.sodium}"
     modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
     modLocalRuntime "maven.modrinth:noisium:${project.noisium}"
-    modLocalRuntime "maven.modrinth:c2me-fabric:${project.c2me}"
-    modLocalRuntime "maven.modrinth:scalablelux:${project.scalablelux}"
+//    modLocalRuntime "maven.modrinth:c2me-fabric:${project.c2me}"
     modLocalRuntime "maven.modrinth:ferrite-core:${project.ferritecore}"
-    modLocalRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${project.lambdynamiclights}"
+//    modLocalRuntime "maven.modrinth:lambdynamiclights:${project.lambdynamiclights}"
 //    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
 //    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei}"
 //    modLocalRuntime "dev.emi:emi:${project.emi}"
@@ -74,8 +73,8 @@ java {
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 jar {
@@ -93,7 +92,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = 17
 }
 
 modrinth {

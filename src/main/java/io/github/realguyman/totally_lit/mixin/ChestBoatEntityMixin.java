@@ -2,7 +2,7 @@ package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
-import net.minecraft.entity.vehicle.AbstractChestBoatEntity;
+import net.minecraft.entity.vehicle.ChestBoatEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.BiConsumer;
 
-@Mixin(AbstractChestBoatEntity.class)
-public abstract class AbstractChestBoatEntityMixin {
+@Mixin(ChestBoatEntity.class)
+public abstract class ChestBoatEntityMixin {
     @Shadow
     public abstract void setStack(int slot, ItemStack stack);
 

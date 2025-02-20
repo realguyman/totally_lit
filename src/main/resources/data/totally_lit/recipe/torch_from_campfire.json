@@ -1,8 +1,0 @@
-{
-  "type": "minecraft:campfire_cooking",
-  "ingredient": "totally_lit:unlit_torch",
-  "result": {
-    "id": "minecraft:torch"
-  },
-  "experience": 0
-}

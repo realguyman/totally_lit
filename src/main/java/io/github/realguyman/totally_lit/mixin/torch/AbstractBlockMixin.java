@@ -17,18 +17,12 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(AbstractBlock.class)
 public abstract class AbstractBlockMixin {
     @Shadow protected abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random);
 
-    @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
-    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(true);
-    }
-
-    @Inject(method = "randomTick", at = @At("HEAD"))
+    @Inject(method = "randomTick", at = @At("HEAD"), cancellable = true)
     private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
@@ -48,6 +42,8 @@ public abstract class AbstractBlockMixin {
                 world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
             }
         }
+
+        ci.cancel();
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
