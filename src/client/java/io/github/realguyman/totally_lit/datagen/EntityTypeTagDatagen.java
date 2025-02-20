@@ -1,20 +1,17 @@
 package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.entity.EntityType;
-import net.minecraft.registry.RegistryWrapper;
-
-import java.util.concurrent.CompletableFuture;
 
 public class EntityTypeTagDatagen extends FabricTagProvider.EntityTypeTagProvider {
-    public EntityTypeTagDatagen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
-        super(output, completableFuture);
+    public EntityTypeTagDatagen(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
+    protected void generateTags() {
         getOrCreateTagBuilder(TagRegistry.CARETAKERS)
                 .add(EntityType.ILLUSIONER)
                 .add(EntityType.PILLAGER)

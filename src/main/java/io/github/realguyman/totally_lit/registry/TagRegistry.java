@@ -5,11 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
+import net.minecraft.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 
 public class TagRegistry {
     private static <T> TagKey<T> add(RegistryKey<? extends Registry<T>> registryKey, String path) {
@@ -17,19 +16,19 @@ public class TagRegistry {
     }
     
     private static TagKey<Block> addBlock(String path) {
-        return add(RegistryKeys.BLOCK, path);
+        return add(Registry.BLOCK_KEY, path);
     }
 
     private static TagKey<Item> addItem(String path) {
-        return add(RegistryKeys.ITEM, path);
+        return add(Registry.ITEM_KEY, path);
     }
 
     private static TagKey<Fluid> addFluid(String path) {
-        return add(RegistryKeys.FLUID, path);
+        return add(Registry.FLUID_KEY, path);
     }
 
     private static TagKey<EntityType<?>> addEntityType(String path) {
-        return add(RegistryKeys.ENTITY_TYPE, path);
+        return add(Registry.ENTITY_TYPE_KEY, path);
     }
 
     public static final TagKey<Block> SOUL_FIRE_VARIANT_BLOCKS = addBlock("soul_fire_variants");

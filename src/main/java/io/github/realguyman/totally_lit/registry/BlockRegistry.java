@@ -8,11 +8,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.block.LanternBlock;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class BlockRegistry {
     public static final Block GLOWSTONE_TORCH;
@@ -27,7 +24,7 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH;
 
     private static Block add(String path, Block block) {
-        return Registry.register(Registries.BLOCK, Identifier.of(TotallyLit.MOD_ID, path), block);
+        return Registry.register(Registry.BLOCK, Identifier.of(TotallyLit.MOD_ID, path), block);
     }
 
     static {

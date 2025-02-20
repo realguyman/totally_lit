@@ -3,56 +3,52 @@ package io.github.realguyman.totally_lit.registry;
 import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.VerticallyAttachableBlockItem;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.WallStandingBlockItem;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.Direction;
+import net.minecraft.util.registry.Registry;
 
 public class ItemRegistry {
-    public static final Item GLOWSTONE_TORCH = new VerticallyAttachableBlockItem(
+    public static final Item GLOWSTONE_TORCH = new WallStandingBlockItem(
             BlockRegistry.GLOWSTONE_TORCH,
             BlockRegistry.GLOWSTONE_WALL_TORCH,
-            new Item.Settings(),
-            Direction.DOWN
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
     public static final Item GLOWSTONE_LANTERN = new BlockItem(
             BlockRegistry.GLOWSTONE_LANTERN,
-            new Item.Settings()
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
     public static final Item UNLIT_JACK_O_LANTERN = new BlockItem(
             BlockRegistry.UNLIT_JACK_O_LANTERN,
-            new Item.Settings()
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
     public static final Item UNLIT_LANTERN = new BlockItem(
             BlockRegistry.UNLIT_LANTERN,
-            new Item.Settings()
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
     public static final Item UNLIT_SOUL_LANTERN = new BlockItem(
             BlockRegistry.UNLIT_SOUL_LANTERN,
-            new Item.Settings()
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
-    public static final Item UNLIT_SOUL_TORCH = new VerticallyAttachableBlockItem(
+    public static final Item UNLIT_SOUL_TORCH = new WallStandingBlockItem(
             BlockRegistry.UNLIT_SOUL_TORCH,
             BlockRegistry.UNLIT_SOUL_WALL_TORCH,
-            new Item.Settings(),
-            Direction.DOWN
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
-    public static final Item UNLIT_TORCH = new VerticallyAttachableBlockItem(
+    public static final Item UNLIT_TORCH = new WallStandingBlockItem(
             BlockRegistry.UNLIT_TORCH,
             BlockRegistry.UNLIT_WALL_TORCH,
-            new Item.Settings(),
-            Direction.DOWN
+            new Item.Settings().group(ItemGroup.DECORATIONS)
     );
 
     private static Item add(String path, Item item) {
-        return Registry.register(Registries.ITEM, Identifier.of(TotallyLit.MOD_ID, path), item);
+        return Registry.register(Registry.ITEM, Identifier.of(TotallyLit.MOD_ID, path), item);
     }
 
     public static void register() {

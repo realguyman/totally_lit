@@ -7,12 +7,10 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 public class TotallyLitDatagen implements DataGeneratorEntrypoint {
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator generator) {
-        final FabricDataGenerator.Pack pack = generator.createPack();
-
-        pack.addProvider(ItemTagDatagen::new);
-        pack.addProvider(BlockTagDatagen::new);
-        pack.addProvider(FluidTagDatagen::new);
-        pack.addProvider(BlockLootTableDatagen::new);
-        pack.addProvider(EntityTypeTagDatagen::new);
+        generator.addProvider(ItemTagDatagen::new);
+        generator.addProvider(BlockTagDatagen::new);
+        generator.addProvider(FluidTagDatagen::new);
+        generator.addProvider(BlockLootTableDatagen::new);
+        generator.addProvider(EntityTypeTagDatagen::new);
     }
 }

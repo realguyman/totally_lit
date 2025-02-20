@@ -9,6 +9,8 @@ import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.util.Objects;
+
 import static io.github.realguyman.totally_lit.registry.BlockRegistry.*;
 
 public class TotallyLitClient implements ClientModInitializer {
@@ -18,9 +20,9 @@ public class TotallyLitClient implements ClientModInitializer {
     public void onInitializeClient() {
         FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
             ResourceManagerHelper.registerBuiltinResourcePack(
-                    Identifier.of(MOD_ID, "unlit_campfire"),
+                    Objects.requireNonNull(Identifier.of(MOD_ID, "unlit_campfire")),
                     modContainer,
-                    Text.translatable("resourcePack.totally_lit.unlit_campfire.name"),
+                    Text.translatable("resourcePack.totally_lit.unlit_campfire.name").toString(),
                     ResourcePackActivationType.DEFAULT_ENABLED
             );
         });

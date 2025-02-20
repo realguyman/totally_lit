@@ -30,12 +30,11 @@ dependencies {
     annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib}")
 
     // Local dependencies
-    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu}"
-    modLocalRuntime "maven.modrinth:sodium:${project.sodium}"
-    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
-    modLocalRuntime "maven.modrinth:noisium:${project.noisium}"
+//    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu}"
+//    modLocalRuntime "maven.modrinth:sodium:${project.sodium}"
+//    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
 //    modLocalRuntime "maven.modrinth:c2me-fabric:${project.c2me}"
-    modLocalRuntime "maven.modrinth:ferrite-core:${project.ferritecore}"
+//    modLocalRuntime "maven.modrinth:ferrite-core:${project.ferritecore}"
 //    modLocalRuntime "maven.modrinth:lambdynamiclights:${project.lambdynamiclights}"
 //    modLocalRuntime "vazkii.patchouli:Patchouli:${project.patchouli}"
 //    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei}"

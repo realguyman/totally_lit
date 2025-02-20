@@ -14,7 +14,7 @@ public final class TestUtil {
     public static void itemEntityDoesExtinguishWhenSubmergedInWater(TestContext context, Item lit, Item unlit) {
         BlockPos pos = new BlockPos(0, 2, 0);
         context.setBlockState(pos, Blocks.WATER);
-        context.spawnItem(lit, pos);
+        context.spawnItem(lit, 0, 2, 0);
         context.expectEntityWithDataEnd(pos, EntityType.ITEM, entity -> entity.getStack().getItem(), unlit);
     }
 

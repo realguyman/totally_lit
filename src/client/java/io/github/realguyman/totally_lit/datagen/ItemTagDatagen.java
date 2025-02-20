@@ -1,23 +1,18 @@
 package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryWrapper;
-
-import java.util.concurrent.CompletableFuture;
+import org.jetbrains.annotations.Nullable;
 
 public class ItemTagDatagen extends FabricTagProvider.ItemTagProvider {
-    public ItemTagDatagen(
-            FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture
-    ) {
-        super(output, completableFuture);
+    public ItemTagDatagen(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup lookup) {
+    protected void generateTags() {
         getOrCreateTagBuilder(TagRegistry.CAMPFIRE_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,

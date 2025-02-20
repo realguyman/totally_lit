@@ -39,7 +39,7 @@ public abstract class AbstractBlockMixin {
             Block block = state.getBlock();
 
             if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
+                world.createAndScheduleBlockTick(pos, block, TotallyLit.CONFIG.torches.burnDuration());
             }
         }
 

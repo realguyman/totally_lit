@@ -1,20 +1,17 @@
 package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.block.Block;
-import net.minecraft.registry.RegistryWrapper;
-
-import java.util.concurrent.CompletableFuture;
 
 public class BlockLootTableDatagen extends FabricBlockLootTableProvider {
-    public BlockLootTableDatagen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput);
+    public BlockLootTableDatagen(FabricDataGenerator dataGenerator) {
+        super(dataGenerator);
     }
 
     @Override
-    public void generate() {
+    protected void generateBlockLootTables() {
         addDrops(
                 BlockRegistry.UNLIT_TORCH,
                 BlockRegistry.UNLIT_SOUL_TORCH,
