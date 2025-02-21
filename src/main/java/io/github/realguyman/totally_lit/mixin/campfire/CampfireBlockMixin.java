@@ -39,7 +39,7 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
     private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
         final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
-                world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(
+                world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getOrThrow(
                         Enchantments.FIRE_ASPECT
                 )
         );

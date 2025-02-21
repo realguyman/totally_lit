@@ -10,7 +10,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.recipe.CampfireCookingRecipe;
-import net.minecraft.recipe.ServerRecipeManager;
+import net.minecraft.recipe.RecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.server.world.ServerWorld;
@@ -19,6 +19,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
+import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -51,7 +52,7 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
     }
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
-    private static void trackTicksBurntFor(ServerWorld world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CampfireCookingRecipe> recipeMatchGetter, CallbackInfo ci) {
+    private static void trackTicksBurntFor(World world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, CallbackInfo ci) {
         var caretakers = world.getEntitiesByClass(
                 Entity.class,
                 new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),

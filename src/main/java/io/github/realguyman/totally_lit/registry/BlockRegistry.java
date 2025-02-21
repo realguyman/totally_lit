@@ -10,8 +10,6 @@ import net.minecraft.block.CarvedPumpkinBlock;
 import net.minecraft.block.LanternBlock;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
 import net.minecraft.util.Identifier;
 
 public class BlockRegistry {
@@ -35,7 +33,6 @@ public class BlockRegistry {
                 "glowstone_torch",
                 new NoParticleTorchBlock(
                         Settings.copy(Blocks.TORCH)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "glowstone_torch")))
                 )
         );
 
@@ -43,9 +40,6 @@ public class BlockRegistry {
                 "glowstone_wall_torch",
                 new NoParticleWallTorchBlock(
                         Settings.copy(Blocks.TORCH)
-                                .lootTable(GLOWSTONE_TORCH.getLootTableKey())
-                                .overrideTranslationKey(GLOWSTONE_TORCH.getTranslationKey())
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "glowstone_wall_torch")))
                 )
         );
 
@@ -53,7 +47,6 @@ public class BlockRegistry {
                 "glowstone_lantern",
                 new LanternBlock(
                         Settings.copy(Blocks.LANTERN)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "glowstone_lantern")))
                 )
         );
 
@@ -62,7 +55,6 @@ public class BlockRegistry {
                 new CarvedPumpkinBlock(
                         Settings.copy(Blocks.JACK_O_LANTERN)
                                 .luminance(state -> 0)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_jack_o_lantern")))
                 )
         );
 
@@ -71,7 +63,6 @@ public class BlockRegistry {
                 new LanternBlock(
                         Settings.copy(Blocks.LANTERN)
                                 .luminance(state -> 0)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_lantern")))
                 )
         );
 
@@ -79,7 +70,6 @@ public class BlockRegistry {
                 "unlit_soul_lantern",
                 new LanternBlock(
                         Settings.copy(UNLIT_LANTERN)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_soul_lantern")))
                 )
         );
 
@@ -88,7 +78,6 @@ public class BlockRegistry {
                 new NoParticleTorchBlock(
                         Settings.copy(Blocks.TORCH)
                                 .luminance(state -> 0)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_soul_torch")))
                 )
         );
 
@@ -97,9 +86,6 @@ public class BlockRegistry {
                 new NoParticleWallTorchBlock(
                         Settings.copy(Blocks.WALL_TORCH)
                                 .luminance(state -> 0)
-                                .lootTable(UNLIT_SOUL_TORCH.getLootTableKey())
-                                .overrideTranslationKey(UNLIT_SOUL_TORCH.getTranslationKey())
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_soul_wall_torch")))
                 )
         );
 
@@ -107,7 +93,6 @@ public class BlockRegistry {
                 new NoParticleTorchBlock(
                         Settings.copy(Blocks.TORCH)
                                 .luminance(state -> 0)
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_torch")))
                 )
         );
 
@@ -115,9 +100,6 @@ public class BlockRegistry {
                 new NoParticleWallTorchBlock(
                         Settings.copy(Blocks.WALL_TORCH)
                                 .luminance(state -> 0)
-                                .lootTable(UNLIT_TORCH.getLootTableKey())
-                                .overrideTranslationKey(UNLIT_TORCH.getTranslationKey())
-                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_wall_torch")))
                 )
         );
     }

@@ -26,6 +26,7 @@ import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
@@ -187,7 +188,7 @@ public class TotallyLit implements ModInitializer {
         return ActionResult.PASS;
     }
 
-    private ActionResult igniteUnlitItemInHandFromRaycast(
+    private TypedActionResult igniteUnlitItemInHandFromRaycast(
             PlayerEntity player,
             World world,
             Hand hand,
@@ -199,7 +200,7 @@ public class TotallyLit implements ModInitializer {
         final ItemStack stack = player.getStackInHand(hand);
 
         if (!world.getFluidState(pos).isIn(igniterFluids)) {
-            return ActionResult.PASS;
+            return TypedActionResult.pass(stack);
         }
 
         for (Map.Entry<Block, Block> entry : map.entrySet()) {
@@ -211,15 +212,15 @@ public class TotallyLit implements ModInitializer {
             }
 
             if (!player.giveItemStack(new ItemStack(lit))) {
-                return ActionResult.FAIL;
+                return TypedActionResult.fail(stack);
             }
 
             stack.decrement(1);
             world.playSound(null, player.getBlockPos(), SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
-            return ActionResult.SUCCESS;
+            return TypedActionResult.success(stack);
         }
 
-        return ActionResult.PASS;
+        return TypedActionResult.pass(stack);
     }
 
     private ActionResult igniteUnlitBlock(
@@ -232,7 +233,7 @@ public class TotallyLit implements ModInitializer {
     ) {
         final ItemStack stack = player.getStackInHand(hand);
         final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
-                world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(
+                world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getOrThrow(
                         Enchantments.FIRE_ASPECT
                 )
         );
