@@ -20,7 +20,7 @@ An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](h
 
 ### ⛔ Compatibility
 
-Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
+Should work with most mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
 
 - [Hardcore Torches](https://modrinth.com/mod/hardcore-torches) is incompatible.
 
