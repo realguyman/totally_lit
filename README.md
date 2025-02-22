@@ -28,7 +28,7 @@ Should work with most mods that don't modify torches, lanterns, campfires, candl
 
 Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit), [Modrinth](https://modrinth.com/mod/totally-lit), and [GitHub](https://github.com/realguyman/totally_lit).
 
-### 🛣️ Roadmap
+## 🛣️ Roadmap
 
 - [ ] Finish wiki.
 - [ ] Add events for developers.
