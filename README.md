@@ -18,23 +18,23 @@ An open source mod built for [Fabric](https://fabricmc.net/) (works on [Quilt](h
 - 👷 **Villagers prevent any extinguishing** in a configurable cubed radius, no more dark villages.
 - 📄 **Configurable with files or the settings page** provided by integration with [Mod Menu](https://modrinth.com/mod/modmenu).
 
-### ❗ Compatibility
+### ⛔ Compatibility
 
 Should work with most mods if not all mods that don't modify torches, lanterns, campfires, candles, and jack o' lanterns in an intrusive way.
 
-- [Hardcore Torches](https://modrinth.com/mod/hardcore-torches) is incompatible
-
-### 📝 Todo
-
-- Integrate
-  with [Tips](https://modrinth.com/mod/tips), [Patchouli](https://modrinth.com/mod/patchouli), [Lavender](https://modrinth.com/mod/lavender), and [Jade](https://modrinth.com/mod/jade).
-- Add events for developers.
-- Extend inventory behaviours to mobs.
-- Finish wiki.
+- [Hardcore Torches](https://modrinth.com/mod/hardcore-torches) is incompatible.
 
 ## 📥 Downloads
 
 Officially available at [CurseForge](https://www.curseforge.com/minecraft/mc-mods/totally-lit), [Modrinth](https://modrinth.com/mod/totally-lit), and [GitHub](https://github.com/realguyman/totally_lit).
+
+### 🛣️ Roadmap
+
+- [ ] Finish wiki.
+- [ ] Add events for developers.
+- [ ] Extend inventory behaviours to mobs.
+- [ ] Integrate [Jade tooltips](https://modrinth.com/mod/jade).
+- [ ] Attach to Villager and Allay AI brains to ignite unlit torches, lanterns, jack 'o lanterns, and campfires in a fun way.
 
 ## 📜 Copyright & License
 
