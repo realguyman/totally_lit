@@ -3,13 +3,13 @@ package io.github.realguyman.totally_lit.datagen;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalFluidTags;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.FluidTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class FluidTagDatagen extends FabricTagProvider.FluidTagProvider {
-    public FluidTagDatagen(
+public class TotallyLitFluidTagProvider extends FabricTagProvider.FluidTagProvider {
+    public TotallyLitFluidTagProvider(
             FabricDataOutput output,
             CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture
     ) {
@@ -19,6 +19,6 @@ public class FluidTagDatagen extends FabricTagProvider.FluidTagProvider {
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
         getOrCreateTagBuilder(TagRegistry.TORCH_IGNITER_FLUIDS)
-                .addOptionalTag(FluidTags.LAVA);
+                .addOptionalTag(ConventionalFluidTags.LAVA);
     }
 }

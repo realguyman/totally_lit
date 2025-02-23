@@ -1,5 +1,6 @@
 package io.github.realguyman.totally_lit.datagen;
 
+import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -9,16 +10,24 @@ import net.minecraft.registry.tag.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BlockTagDatagen extends FabricTagProvider.BlockTagProvider {
-    public BlockTagDatagen(
+public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvider {
+    public TotallyLitBlockTagProvider(
             FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture
+            CompletableFuture<RegistryWrapper.WrapperLookup> future
     ) {
-        super(output, registriesFuture);
+        super(output, future);
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup arg) {
+    protected void configure(RegistryWrapper.WrapperLookup lookup) {
+        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+                .setReplace(false)
+                .add(
+                        BlockRegistry.UNLIT_LANTERN,
+                        BlockRegistry.UNLIT_SOUL_LANTERN,
+                        BlockRegistry.GLOWSTONE_LANTERN
+                );
+
         getOrCreateTagBuilder(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS).add(
                 Blocks.SOUL_CAMPFIRE,
                 Blocks.SOUL_LANTERN,

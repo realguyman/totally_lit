@@ -6,8 +6,8 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
 
-public class TotallyLitFabricModelProvider extends FabricModelProvider {
-    public TotallyLitFabricModelProvider(FabricDataOutput output) {
+public class TotallyLitModelProvider extends FabricModelProvider {
+    public TotallyLitModelProvider(FabricDataOutput output) {
         super(output);
     }
 

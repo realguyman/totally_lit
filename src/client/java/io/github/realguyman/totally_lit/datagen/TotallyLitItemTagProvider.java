@@ -8,8 +8,8 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-public class ItemTagDatagen extends FabricTagProvider.ItemTagProvider {
-    public ItemTagDatagen(
+public class TotallyLitItemTagProvider extends FabricTagProvider.ItemTagProvider {
+    public TotallyLitItemTagProvider(
             FabricDataOutput output,
             CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture
     ) {

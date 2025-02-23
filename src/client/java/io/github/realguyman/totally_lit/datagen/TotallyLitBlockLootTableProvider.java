@@ -8,9 +8,12 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-public class BlockLootTableDatagen extends FabricBlockLootTableProvider {
-    public BlockLootTableDatagen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
-        super(dataOutput, registryLookup);
+public class TotallyLitBlockLootTableProvider extends FabricBlockLootTableProvider {
+    public TotallyLitBlockLootTableProvider(
+            FabricDataOutput output,
+            CompletableFuture<RegistryWrapper.WrapperLookup> future
+    ) {
+        super(output, future);
     }
 
     @Override

@@ -8,9 +8,12 @@ import net.minecraft.registry.RegistryWrapper;
 
 import java.util.concurrent.CompletableFuture;
 
-public class EntityTypeTagDatagen extends FabricTagProvider.EntityTypeTagProvider {
-    public EntityTypeTagDatagen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture) {
-        super(output, completableFuture);
+public class TotallyLitEntityTypeTagProvider extends FabricTagProvider.EntityTypeTagProvider {
+    public TotallyLitEntityTypeTagProvider(
+            FabricDataOutput output,
+            CompletableFuture<RegistryWrapper.WrapperLookup> future
+    ) {
+        super(output, future);
     }
 
     @Override
