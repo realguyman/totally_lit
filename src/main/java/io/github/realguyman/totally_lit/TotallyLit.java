@@ -188,7 +188,7 @@ public class TotallyLit implements ModInitializer {
         return ActionResult.PASS;
     }
 
-    private TypedActionResult igniteUnlitItemInHandFromRaycast(
+    private TypedActionResult<ItemStack> igniteUnlitItemInHandFromRaycast(
             PlayerEntity player,
             World world,
             Hand hand,
