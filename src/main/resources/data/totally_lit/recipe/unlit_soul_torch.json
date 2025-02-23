@@ -6,9 +6,19 @@
     "S"
   ],
   "key": {
-    "#": "#c:coal",
-    "|": "minecraft:stick",
-    "S": "#minecraft:soul_fire_base_blocks"
+    "#": [
+      {
+        "tag": "c:coal"
+      }
+    ],
+    "|": {
+      "item": "minecraft:stick"
+    },
+    "S": [
+      {
+        "tag": "minecraft:soul_fire_base_blocks"
+      }
+    ]
   },
   "result": {
     "id": "totally_lit:unlit_soul_torch",

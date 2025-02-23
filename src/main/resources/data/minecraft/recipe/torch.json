@@ -1,14 +1,28 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "totally_lit:unlit_torch",
+    {
+      "item": "totally_lit:unlit_torch"
+    },
     [
-      "minecraft:torch",
-      "minecraft:soul_torch",
-      "minecraft:lava_bucket",
-      "minecraft:magma_block",
-      "minecraft:lantern",
-      "minecraft:soul_lantern"
+      {
+        "item": "minecraft:torch"
+      },
+      {
+        "item": "minecraft:soul_torch"
+      },
+      {
+        "item": "minecraft:lava_bucket"
+      },
+      {
+        "item": "minecraft:magma_block"
+      },
+      {
+        "item": "minecraft:lantern"
+      },
+      {
+        "item": "minecraft:soul_lantern"
+      }
     ]
   ],
   "result": {

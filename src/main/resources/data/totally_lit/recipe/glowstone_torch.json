@@ -5,8 +5,14 @@
     "|"
   ],
   "key": {
-    "#": "minecraft:glowstone_dust",
-    "|": "minecraft:stick"
+    "#": [
+      {
+        "item": "minecraft:glowstone_dust"
+      }
+    ],
+    "|": {
+      "item": "minecraft:stick"
+    }
   },
   "result": {
     "id": "totally_lit:glowstone_torch",

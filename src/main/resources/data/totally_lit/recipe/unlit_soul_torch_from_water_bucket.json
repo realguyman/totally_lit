@@ -1,8 +1,12 @@
 {
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
-    "minecraft:soul_torch",
-    "minecraft:water_bucket"
+    {
+      "item": "minecraft:soul_torch"
+    },
+    {
+      "item": "minecraft:water_bucket"
+    }
   ],
   "result": {
     "id": "totally_lit:unlit_soul_torch"
