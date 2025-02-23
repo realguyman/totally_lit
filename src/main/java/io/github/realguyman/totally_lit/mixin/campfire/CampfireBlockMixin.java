@@ -14,8 +14,8 @@ import net.minecraft.registry.RegistryKeys;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemActionResult;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -36,7 +36,7 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
     }
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
-    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ItemActionResult> cir) {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
         final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
                 world.getRegistryManager().get(RegistryKeys.ENCHANTMENT).getOrThrow(
@@ -53,12 +53,12 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
         }
 
         if (!world.setBlockState(pos, state.with(CampfireBlock.LIT, true))) {
-            cir.setReturnValue(ActionResult.FAIL);
+            cir.setReturnValue(ItemActionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION);
         }
 
         stack.damage(1, player, EquipmentSlot.values()[hand.ordinal()]);
         world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
         player.incrementStat(Stats.INTERACT_WITH_CAMPFIRE);
-        cir.setReturnValue(ActionResult.SUCCESS);
+        cir.setReturnValue(ItemActionResult.SUCCESS);
     }
 }
