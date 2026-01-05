@@ -84,8 +84,9 @@ public class BlockRegistry {
         UNLIT_SOUL_WALL_TORCH = add(
                 "unlit_soul_wall_torch",
                 new NoParticleWallTorchBlock(
-                        Settings.copy(Blocks.WALL_TORCH)
+                        Settings.copy(Blocks.SOUL_WALL_TORCH)
                                 .luminance(state -> 0)
+                                .dropsLike(UNLIT_SOUL_TORCH)
                 )
         );
 
@@ -100,6 +101,7 @@ public class BlockRegistry {
                 new NoParticleWallTorchBlock(
                         Settings.copy(Blocks.WALL_TORCH)
                                 .luminance(state -> 0)
+                                .dropsLike(UNLIT_TORCH)
                 )
         );
     }
