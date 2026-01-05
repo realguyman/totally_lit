@@ -49,13 +49,19 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
     private static void trackTicksBurntFor(World world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, CallbackInfo ci) {
-        var caretakers = world.getEntitiesByClass(
-                Entity.class,
-                new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                EntityPredicates.VALID_LIVING_ENTITY
-        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+        if (TotallyLit.CONFIG.caretakers()) {
+            var caretakers = world.getEntitiesByClass(
+                    Entity.class,
+                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                    EntityPredicates.VALID_LIVING_ENTITY
+            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (!caretakers.isEmpty() || !TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
+            if (!caretakers.isEmpty()) {
+                return;
+            }
+        }
+
+        if (!TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             return;
         }
 

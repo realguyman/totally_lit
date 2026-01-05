@@ -55,13 +55,19 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        var caretakers = world.getEntitiesByClass(
-                Entity.class,
-                new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                EntityPredicates.VALID_LIVING_ENTITY
-        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+        if (TotallyLit.CONFIG.caretakers()) {
+            var caretakers = world.getEntitiesByClass(
+                    Entity.class,
+                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                    EntityPredicates.VALID_LIVING_ENTITY
+            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (AbstractCandleBlock.isLitCandle(state) && caretakers.isEmpty()) {
+            if (!caretakers.isEmpty()) {
+                return;
+            }
+        }
+
+        if (AbstractCandleBlock.isLitCandle(state)) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
         }
     }

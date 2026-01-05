@@ -52,14 +52,16 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        var caretakers = world.getEntitiesByClass(
-                Entity.class,
-                new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                EntityPredicates.VALID_LIVING_ENTITY
-        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+        if (TotallyLit.CONFIG.caretakers()) {
+            var caretakers = world.getEntitiesByClass(
+                    Entity.class,
+                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                    EntityPredicates.VALID_LIVING_ENTITY
+            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (!caretakers.isEmpty()) {
-            return;
+            if (!caretakers.isEmpty()) {
+                return;
+            }
         }
 
         TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {

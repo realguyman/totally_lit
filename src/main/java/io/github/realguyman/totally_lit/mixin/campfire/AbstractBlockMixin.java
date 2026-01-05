@@ -39,14 +39,16 @@ public abstract class AbstractBlockMixin {
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
             final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
 
-            var caretakers = world.getEntitiesByClass(
-                    Entity.class,
-                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                    EntityPredicates.VALID_LIVING_ENTITY
-            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+            if (TotallyLit.CONFIG.caretakers()) {
+                var caretakers = world.getEntitiesByClass(
+                        Entity.class,
+                        new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                        EntityPredicates.VALID_LIVING_ENTITY
+                ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-            if (!caretakers.isEmpty()) {
-                return;
+                if (!caretakers.isEmpty()) {
+                    return;
+                }
             }
 
             if (isRaining && isLitCampfire && isCampfireBlockEntity && isChanceInFavor && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {

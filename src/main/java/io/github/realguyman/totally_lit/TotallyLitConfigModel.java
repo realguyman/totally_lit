@@ -13,6 +13,7 @@ public class TotallyLitConfigModel {
     public boolean fireAspectIgnitesUnlitVariants = true;
     @RangeConstraint(min = 0, max = 128)
     public int caretakerCheckRadius = 32;
+    public boolean caretakers = false;
 
     @SectionHeader("extinguishables")
     @Nest
