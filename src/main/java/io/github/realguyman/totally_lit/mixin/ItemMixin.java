@@ -4,6 +4,7 @@ import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -84,7 +85,7 @@ public abstract class ItemMixin {
             player.getInventory().setStack(40, new ItemStack(unlit.asItem(), player.getInventory().getStack(40).getCount()));
         }
 
-        if (player.getInventory().getStack(slot).isOf(lit.asItem())) {
+        if (slot > -1 && slot <= PlayerInventory.MAIN_SIZE && player.getInventory().getStack(slot).isOf(lit.asItem())) {
             player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), player.getInventory().getStack(slot).getCount()));
         }
     }
