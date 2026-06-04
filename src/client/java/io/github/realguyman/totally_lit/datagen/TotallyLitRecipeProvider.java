@@ -12,6 +12,7 @@ import net.minecraft.recipe.RecipeSerializer;
 import net.minecraft.recipe.book.RecipeCategory;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.ItemTags;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -24,9 +25,9 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
     }
 
     @Override
-    protected RecipeGenerator getRecipeGenerator(
-            RegistryWrapper.WrapperLookup lookup,
-            RecipeExporter exporter
+    protected @NonNull RecipeGenerator getRecipeGenerator(
+            RegistryWrapper.@NonNull WrapperLookup lookup,
+            @NonNull RecipeExporter exporter
     ) {
         return new RecipeGenerator(lookup, exporter) {
             @Override

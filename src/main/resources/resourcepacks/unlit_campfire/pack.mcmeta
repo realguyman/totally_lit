@@ -1,6 +1,7 @@
 {
   "pack": {
-    "pack_format": 46,
-    "description": "Replace Minecraft's campfire item textures with unlit variants"
+    "description": "Replace Minecraft's campfire item textures with unlit variants",
+    "min_format": 75.0,
+    "max_format": 75.0
   }
 }

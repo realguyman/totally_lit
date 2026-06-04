@@ -1,11 +1,11 @@
 package io.github.realguyman.totally_lit;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
+import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.render.RenderLayer;
+import net.minecraft.client.render.BlockRenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -17,16 +17,16 @@ public class TotallyLitClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
-            ResourceManagerHelper.registerBuiltinResourcePack(
+            ResourceLoader.registerBuiltinPack(
                     Identifier.of(MOD_ID, "unlit_campfire"),
                     modContainer,
                     Text.translatable("resourcePack.totally_lit.unlit_campfire.name"),
-                    ResourcePackActivationType.DEFAULT_ENABLED
+                    PackActivationType.DEFAULT_ENABLED
             );
         });
 
-        BlockRenderLayerMap.INSTANCE.putBlocks(
-                RenderLayer.getCutout(),
+        BlockRenderLayerMap.putBlocks(
+                BlockRenderLayer.CUTOUT,
                 GLOWSTONE_LANTERN,
                 GLOWSTONE_TORCH,
                 GLOWSTONE_WALL_TORCH,

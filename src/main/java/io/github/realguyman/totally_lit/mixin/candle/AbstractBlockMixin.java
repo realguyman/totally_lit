@@ -2,7 +2,10 @@ package io.github.realguyman.totally_lit.mixin.candle;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import net.minecraft.block.*;
+import net.minecraft.block.AbstractBlock;
+import net.minecraft.block.AbstractCandleBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
@@ -55,13 +58,23 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        var caretakers = world.getEntitiesByClass(
-                Entity.class,
-                new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                EntityPredicates.VALID_LIVING_ENTITY
-        ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
+            var caretakers = world.getEntitiesByClass(
+                    Entity.class,
+                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                    EntityPredicates.VALID_LIVING_ENTITY
+            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-        if (AbstractCandleBlock.isLitCandle(state) && caretakers.isEmpty()) {
+            if (!caretakers.isEmpty()) {
+                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
+                return;
+            }
+        }
+
+        if (
+                AbstractCandleBlock.isLitCandle(state) &&
+                        !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)
+        ) {
             AbstractCandleBlock.extinguish(null, state, world, pos);
         }
     }

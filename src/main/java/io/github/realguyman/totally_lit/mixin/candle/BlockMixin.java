@@ -1,6 +1,9 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
-import net.minecraft.block.*;
+import io.github.realguyman.totally_lit.TotallyLit;
+import net.minecraft.block.AbstractCandleBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockBox;
@@ -17,6 +20,7 @@ public abstract class BlockMixin {
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && AbstractCandleBlock.isLitCandle(state)) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
+            TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
         }
     }
 }

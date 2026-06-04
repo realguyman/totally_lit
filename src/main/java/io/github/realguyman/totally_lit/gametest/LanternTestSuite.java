@@ -4,17 +4,16 @@ import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
-import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
+import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.Items;
-import net.minecraft.test.GameTest;
 import net.minecraft.test.TestContext;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.GameMode;
 
 public class LanternTestSuite {
-    @GameTest(
-            templateName = FabricGameTest.EMPTY_STRUCTURE,
-            tickLimit = TotallyLit.MAX_TICKS_TO_BURN_FOR
-    )
+    @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
     public void lanternBlockDoesExtinguishOverTime(TestContext context) {
         TestUtil.blockDoesExtinguishOverTime(
                 context,
@@ -23,7 +22,7 @@ public class LanternTestSuite {
         );
     }
 
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    @GameTest
     public void lanternItemEntityDoesExtinguishWhenSubmergedInWater(
             TestContext context
     ) {
@@ -34,7 +33,7 @@ public class LanternTestSuite {
         );
     }
 
-    @GameTest(templateName = FabricGameTest.EMPTY_STRUCTURE)
+    @GameTest
     public void lanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(
             TestContext context
     ) {
@@ -43,5 +42,17 @@ public class LanternTestSuite {
                 Blocks.LANTERN,
                 BlockRegistry.UNLIT_LANTERN
         );
+    }
+
+    @GameTest
+    public void playerCanIgniteUnlitLanternOnGroundWithFlintAndSteelInHand(TestContext context) {
+        var pos = new BlockPos(0, 0, 0);
+        var player = context.createMockPlayer(GameMode.SURVIVAL);
+
+        context.setBlockState(pos, BlockRegistry.UNLIT_LANTERN.getDefaultState());
+        player.setStackInHand(Hand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultStack());
+        context.useBlock(pos, player);
+
+        context.expectBlockAtEnd(Blocks.LANTERN, pos);
     }
 }

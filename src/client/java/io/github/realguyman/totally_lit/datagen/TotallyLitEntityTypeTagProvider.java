@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.entity.EntityType;
 import net.minecraft.registry.RegistryWrapper;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,8 +18,8 @@ public class TotallyLitEntityTypeTagProvider extends FabricTagProvider.EntityTyp
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup wrapperLookup) {
-        getOrCreateTagBuilder(TagRegistry.CARETAKERS)
+    protected void configure(RegistryWrapper.@NonNull WrapperLookup wrapperLookup) {
+        valueLookupBuilder(TagRegistry.CARETAKERS)
                 .add(EntityType.ILLUSIONER)
                 .add(EntityType.PILLAGER)
                 .add(EntityType.VILLAGER)

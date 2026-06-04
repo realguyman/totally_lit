@@ -3,8 +3,10 @@ package io.github.realguyman.totally_lit.datagen;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
+import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.item.Items;
 import net.minecraft.registry.RegistryWrapper;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -17,40 +19,37 @@ public class TotallyLitItemTagProvider extends FabricTagProvider.ItemTagProvider
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup lookup) {
-        getOrCreateTagBuilder(TagRegistry.CAMPFIRE_IGNITER_ITEMS).add(
+    protected void configure(RegistryWrapper.@NonNull WrapperLookup lookup) {
+        valueLookupBuilder(TagRegistry.CAMPFIRE_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,
                 Items.LAVA_BUCKET,
                 Items.MAGMA_BLOCK
-        );
+        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
-        getOrCreateTagBuilder(TagRegistry.JACK_O_LANTERN_IGNITER_ITEMS).add(
+        valueLookupBuilder(TagRegistry.JACK_O_LANTERN_IGNITER_ITEMS).add(
                 Items.TORCH,
-                Items.SOUL_TORCH,
-                Items.FLINT_AND_STEEL
-        );
+                Items.SOUL_TORCH
+        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
-        getOrCreateTagBuilder(TagRegistry.LANTERN_IGNITER_ITEMS).add(
+        valueLookupBuilder(TagRegistry.LANTERN_IGNITER_ITEMS).add(
                 Items.TORCH,
-                Items.SOUL_TORCH,
-                Items.FLINT_AND_STEEL
-        );
+                Items.SOUL_TORCH
+        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
-        getOrCreateTagBuilder(TagRegistry.TORCH_IGNITER_ITEMS).add(
+        valueLookupBuilder(TagRegistry.TORCH_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,
                 Items.LANTERN,
                 Items.SOUL_LANTERN,
                 Items.LAVA_BUCKET,
-                Items.MAGMA_BLOCK,
-                Items.FLINT_AND_STEEL
-        );
+                Items.MAGMA_BLOCK
+        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
-        getOrCreateTagBuilder(TagRegistry.SOUL_FIRE_VARIANT_ITEMS).add(
+        valueLookupBuilder(TagRegistry.SOUL_FIRE_VARIANT_ITEMS).add(
                 Items.SOUL_TORCH,
                 Items.SOUL_LANTERN,
                 Items.SOUL_CAMPFIRE
-        );
+        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
     }
 }

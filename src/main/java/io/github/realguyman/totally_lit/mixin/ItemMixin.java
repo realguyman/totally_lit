@@ -3,10 +3,12 @@ package io.github.realguyman.totally_lit.mixin;
 import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -18,9 +20,11 @@ import java.util.Random;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
+
+    // TODO: Fix items not extinguishing in inventory
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    private void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected, CallbackInfo ci) {
-        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
+    private void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
+        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer() || slot == null) {
             return;
         }
 
@@ -36,7 +40,7 @@ public abstract class ItemMixin {
             TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
                                 TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance(),
-                                lit, unlit, stack, player, slot, world
+                                lit, unlit, stack, player, slot.getIndex(), world
                         );
                     }
             );
@@ -44,7 +48,7 @@ public abstract class ItemMixin {
             TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
                                 TotallyLit.CONFIG.lanterns.extinguishInRainChance(),
-                                lit, unlit, stack, player, slot, world
+                                lit, unlit, stack, player, slot.getIndex(), world
                         );
                     }
             );
@@ -52,7 +56,7 @@ public abstract class ItemMixin {
             TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
                 extinguish(
                         TotallyLit.CONFIG.torches.extinguishInRainChance(),
-                        lit, unlit, stack, player, slot, world
+                        lit, unlit, stack, player, slot.getIndex(), world
                     );
                 }
             );

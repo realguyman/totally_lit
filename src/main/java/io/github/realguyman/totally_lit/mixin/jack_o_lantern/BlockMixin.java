@@ -1,7 +1,8 @@
 package io.github.realguyman.totally_lit.mixin.jack_o_lantern;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockBox;
@@ -18,6 +19,7 @@ public abstract class BlockMixin {
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && TotallyLit.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
+            TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
         }
     }
 }

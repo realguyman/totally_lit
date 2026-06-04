@@ -7,6 +7,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.block.Blocks;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.BlockTags;
+import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
@@ -19,8 +20,8 @@ public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvid
     }
 
     @Override
-    protected void configure(RegistryWrapper.WrapperLookup lookup) {
-        getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
+    protected void configure(RegistryWrapper.@NonNull WrapperLookup lookup) {
+        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
                 .setReplace(false)
                 .add(
                         BlockRegistry.UNLIT_LANTERN,
@@ -28,21 +29,21 @@ public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvid
                         BlockRegistry.GLOWSTONE_LANTERN
                 );
 
-        getOrCreateTagBuilder(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS).add(
+        valueLookupBuilder(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS).add(
                 Blocks.SOUL_CAMPFIRE,
                 Blocks.SOUL_LANTERN,
                 Blocks.SOUL_TORCH,
                 Blocks.SOUL_WALL_TORCH
         );
 
-        getOrCreateTagBuilder(TagRegistry.LANTERN_IGNITER_BLOCKS).add(
+        valueLookupBuilder(TagRegistry.LANTERN_IGNITER_BLOCKS).add(
                 Blocks.TORCH,
                 Blocks.WALL_TORCH,
                 Blocks.SOUL_TORCH,
                 Blocks.SOUL_WALL_TORCH
         ).addOptionalTag(BlockTags.FIRE);
 
-        getOrCreateTagBuilder(TagRegistry.TORCH_IGNITER_BLOCKS).add(
+        valueLookupBuilder(TagRegistry.TORCH_IGNITER_BLOCKS).add(
                 Blocks.TORCH,
                 Blocks.WALL_TORCH,
                 Blocks.SOUL_TORCH,

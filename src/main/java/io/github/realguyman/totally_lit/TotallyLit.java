@@ -5,6 +5,7 @@ import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -34,11 +35,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
 // TODO: Test: Implement more gametests and testmod
+// TODO: cache torches/lanterns/etc with caretakers
+// TODO: Optimize box size for caretaker radius
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
@@ -48,6 +52,8 @@ public class TotallyLit implements ModInitializer {
     public static final Map<Block, Block> JACK_O_LANTERN_MAP = new HashMap<>();
     public static final Map<Block, Block> LANTERN_MAP = new HashMap<>();
     public static final Map<Block, Block> TORCH_MAP = new HashMap<>();
+
+    public static final HashSet<BlockPos> CACHED_PRESENT_CARETAKER_BLOCKS = new HashSet<>();
 
     @Override
     public void onInitialize() {
@@ -67,15 +73,15 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
         });
 
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, LANTERN_MAP, TagRegistry.LANTERN_IGNITER_ITEMS);
         });
 
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, JACK_O_LANTERN_MAP, TagRegistry.JACK_O_LANTERN_IGNITER_ITEMS);
         });
 
-        UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, TORCH_MAP, TagRegistry.TORCH_IGNITER_ITEMS);
         });
 
@@ -231,18 +237,22 @@ public class TotallyLit implements ModInitializer {
             TagKey<Item> igniters
     ) {
         final ItemStack stack = player.getStackInHand(hand);
-        final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
+
+        final boolean hasFireAspect = stack.getEnchantments().getEnchantments().contains(
                 world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(
                         Enchantments.FIRE_ASPECT
                 )
         );
 
         if (player.isSneaking()) {
-            return ActionResult.PASS;
+            return null;
         }
 
-        if (!stack.isIn(igniters) && (!TotallyLit.CONFIG.fireAspectIgnitesUnlitVariants() || !stackHasFireAspect)) {
-            return ActionResult.PASS;
+        if (
+                !stack.isIn(igniters) &&
+                        (!TotallyLit.CONFIG.fireAspectIgnitesUnlitVariants() || !hasFireAspect)
+        ) {
+            return null;
         }
 
         final BlockPos pos = hitResult.getBlockPos();
@@ -265,6 +275,6 @@ public class TotallyLit implements ModInitializer {
             return ActionResult.SUCCESS;
         }
 
-        return ActionResult.PASS;
+        return null;
     }
 }

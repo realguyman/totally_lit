@@ -39,20 +39,24 @@ public abstract class AbstractBlockMixin {
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
             final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
 
-            var caretakers = world.getEntitiesByClass(
-                    Entity.class,
-                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                    EntityPredicates.VALID_LIVING_ENTITY
-            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+            if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
+                var caretakers = world.getEntitiesByClass(
+                        Entity.class,
+                        new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                        EntityPredicates.VALID_LIVING_ENTITY
+                ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
 
-            if (!caretakers.isEmpty()) {
-                return;
+                if (!caretakers.isEmpty()) {
+                    TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
+                    return;
+                }
             }
 
             if (isRaining && isLitCampfire && isCampfireBlockEntity && isChanceInFavor && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
                 CampfireBlock.extinguish(null, world, pos, state);
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 ((CampfireBlockEntityAccess) blockEntity).totally_lit$setTicksBurntFor(0);
+                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
             }
         }
     }

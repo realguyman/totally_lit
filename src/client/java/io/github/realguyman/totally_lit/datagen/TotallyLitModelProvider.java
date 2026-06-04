@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.client.data.BlockStateModelGenerator;
 import net.minecraft.client.data.ItemModelGenerator;
+import org.jspecify.annotations.NonNull;
 
 public class TotallyLitModelProvider extends FabricModelProvider {
     public TotallyLitModelProvider(FabricDataOutput output) {
@@ -22,5 +23,6 @@ public class TotallyLitModelProvider extends FabricModelProvider {
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerator itemModelGenerator) {}
+    public void generateItemModels(@NonNull ItemModelGenerator itemModelGenerator) {
+    }
 }
