@@ -9,6 +9,7 @@ public class TotallyLitConfigModel {
     @SectionHeader("behaviors")
     public boolean itemEntitiesExtinguishWhenSubmerged = true;
     public boolean itemsCanExtinguishInPlayerInventory = true;
+    public boolean replaceWithUnlitVariantsInBundles = true;
     public boolean replaceWithUnlitVariantsInContainers = false;
     public boolean fireAspectIgnitesUnlitVariants = true;
     @RangeConstraint(min = 0, max = 64)
