@@ -40,8 +40,6 @@ fabricApi {
     }
 
     configureTests {
-        enableGameTests = true
-        enableClientGameTests = true
         eula = true
     }
 }
