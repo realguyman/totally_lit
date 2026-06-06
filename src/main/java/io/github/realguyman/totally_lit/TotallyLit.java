@@ -69,6 +69,7 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.JACK_O_LANTERN, ItemRegistry.UNLIT_JACK_O_LANTERN);
             listener.addAfter(Items.TORCH, ItemRegistry.UNLIT_TORCH);
             listener.addAfter(Items.SOUL_TORCH, ItemRegistry.UNLIT_SOUL_TORCH, ItemRegistry.GLOWSTONE_TORCH);
+            listener.addAfter(Items.COPPER_TORCH, ItemRegistry.UNLIT_COPPER_TORCH);
             listener.addAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
             listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
         });
