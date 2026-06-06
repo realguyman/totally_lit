@@ -22,7 +22,6 @@ public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvid
     @Override
     protected void configure(RegistryWrapper.@NonNull WrapperLookup lookup) {
         valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
-                .setReplace(false)
                 .add(
                         BlockRegistry.UNLIT_LANTERN,
                         BlockRegistry.UNLIT_SOUL_LANTERN,
