@@ -52,6 +52,17 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(Items.SOUL_SAND), conditionsFromItem(Items.SOUL_SAND))
                         .offerTo(exporter);
 
+                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_TORCH, 4)
+                        .pattern("c")
+                        .pattern("#")
+                        .pattern("|")
+                        .input('c', ConventionalItemTags.COPPER_NUGGETS)
+                        .input('#', ItemTags.COALS)
+                        .input('|', Items.STICK)
+                        .group("multi_bench")
+                        .criterion(hasItem(Items.COPPER_NUGGET), conditionsFromItem(Items.COPPER_NUGGET))
+                        .offerTo(exporter);
+
                 createShaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_TORCH, 4)
                         .pattern("#")
                         .pattern("|")
@@ -117,6 +128,16 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         20,
                         ItemRegistry.UNLIT_SOUL_TORCH,
                         Items.SOUL_TORCH,
+                        0
+                );
+
+                offerFoodCookingRecipe(
+                        "campfire_cooking",
+                        RecipeSerializer.CAMPFIRE_COOKING,
+                        CampfireCookingRecipe::new,
+                        20,
+                        ItemRegistry.UNLIT_COPPER_TORCH,
+                        Items.COPPER_TORCH,
                         0
                 );
             }

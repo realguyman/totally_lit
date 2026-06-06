@@ -67,6 +67,15 @@ public class ItemRegistry {
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TotallyLit.MOD_ID, "unlit_torch")))
     );
 
+    public static final Item UNLIT_COPPER_TORCH = new VerticallyAttachableBlockItem(
+            BlockRegistry.UNLIT_COPPER_TORCH,
+            BlockRegistry.UNLIT_COPPER_WALL_TORCH,
+            Direction.DOWN,
+            new Item.Settings()
+                    .useBlockPrefixedTranslationKey()
+                    .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TotallyLit.MOD_ID, "unlit_copper_torch")))
+    );
+
     private static Item add(String path, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(TotallyLit.MOD_ID, path), item);
     }
@@ -79,5 +88,6 @@ public class ItemRegistry {
         add("unlit_soul_lantern", UNLIT_SOUL_LANTERN);
         add("unlit_soul_torch", UNLIT_SOUL_TORCH);
         add("unlit_torch", UNLIT_TORCH);
+        add("unlit_copper_torch", UNLIT_COPPER_TORCH);
     }
 }

@@ -25,6 +25,8 @@ public class BlockRegistry {
     public static final Block UNLIT_SOUL_WALL_TORCH;
     public static final Block UNLIT_TORCH;
     public static final Block UNLIT_WALL_TORCH;
+    public static final Block UNLIT_COPPER_TORCH;
+    public static final Block UNLIT_COPPER_WALL_TORCH;
 
     private static Block add(String path, Block block) {
         return Registry.register(Registries.BLOCK, Identifier.of(TotallyLit.MOD_ID, path), block);
@@ -118,6 +120,24 @@ public class BlockRegistry {
                                 .lootTable(UNLIT_TORCH.getLootTableKey())
                                 .overrideTranslationKey(UNLIT_TORCH.getTranslationKey())
                                 .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_wall_torch")))
+                )
+        );
+
+        UNLIT_COPPER_TORCH = add("unlit_copper_torch",
+                new NoParticleTorchBlock(
+                        Settings.copy(Blocks.COPPER_TORCH)
+                                .luminance(state -> 0)
+                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_copper_torch")))
+                )
+        );
+
+        UNLIT_COPPER_WALL_TORCH = add("unlit_copper_wall_torch",
+                new NoParticleWallTorchBlock(
+                        Settings.copy(Blocks.COPPER_WALL_TORCH)
+                                .luminance(state -> 0)
+                                .lootTable(UNLIT_COPPER_TORCH.getLootTableKey())
+                                .overrideTranslationKey(UNLIT_COPPER_TORCH.getTranslationKey())
+                                .registryKey(RegistryKey.of(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, "unlit_copper_wall_torch")))
                 )
         );
     }

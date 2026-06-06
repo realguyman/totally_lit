@@ -34,6 +34,8 @@ public class TotallyLitClient implements ClientModInitializer {
                 UNLIT_SOUL_LANTERN,
                 UNLIT_SOUL_TORCH,
                 UNLIT_SOUL_WALL_TORCH,
+                UNLIT_COPPER_TORCH,
+                UNLIT_COPPER_WALL_TORCH,
                 UNLIT_TORCH,
                 UNLIT_WALL_TORCH
         );

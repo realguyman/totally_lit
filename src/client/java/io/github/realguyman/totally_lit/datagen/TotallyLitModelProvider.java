@@ -16,6 +16,7 @@ public class TotallyLitModelProvider extends FabricModelProvider {
     public void generateBlockStateModels(BlockStateModelGenerator generator) {
         generator.registerTorch(BlockRegistry.UNLIT_TORCH, BlockRegistry.UNLIT_WALL_TORCH);
         generator.registerTorch(BlockRegistry.UNLIT_SOUL_TORCH, BlockRegistry.UNLIT_SOUL_WALL_TORCH);
+        generator.registerTorch(BlockRegistry.UNLIT_COPPER_TORCH, BlockRegistry.UNLIT_COPPER_WALL_TORCH);
         generator.registerTorch(BlockRegistry.GLOWSTONE_TORCH, BlockRegistry.GLOWSTONE_WALL_TORCH);
         generator.registerLantern(BlockRegistry.UNLIT_LANTERN);
         generator.registerLantern(BlockRegistry.UNLIT_SOUL_LANTERN);

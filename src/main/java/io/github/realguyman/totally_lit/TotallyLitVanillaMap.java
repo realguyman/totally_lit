@@ -16,5 +16,7 @@ public class TotallyLitVanillaMap implements TotallyLitEntrypoint {
         addTorch(Blocks.WALL_TORCH, BlockRegistry.UNLIT_WALL_TORCH);
         addTorch(Blocks.SOUL_TORCH, BlockRegistry.UNLIT_SOUL_TORCH);
         addTorch(Blocks.SOUL_WALL_TORCH, BlockRegistry.UNLIT_SOUL_WALL_TORCH);
+        addTorch(Blocks.COPPER_TORCH, BlockRegistry.UNLIT_COPPER_TORCH);
+        addTorch(Blocks.COPPER_WALL_TORCH, BlockRegistry.UNLIT_COPPER_WALL_TORCH);
     }
 }

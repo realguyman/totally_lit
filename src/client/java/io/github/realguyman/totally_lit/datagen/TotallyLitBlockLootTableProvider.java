@@ -21,6 +21,7 @@ public class TotallyLitBlockLootTableProvider extends FabricBlockLootTableProvid
         addDrops(
                 BlockRegistry.UNLIT_TORCH,
                 BlockRegistry.UNLIT_SOUL_TORCH,
+                BlockRegistry.UNLIT_COPPER_TORCH,
                 BlockRegistry.UNLIT_LANTERN,
                 BlockRegistry.UNLIT_SOUL_LANTERN,
                 BlockRegistry.UNLIT_JACK_O_LANTERN,
