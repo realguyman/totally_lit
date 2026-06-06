@@ -9,6 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
@@ -24,7 +25,7 @@ public abstract class ItemMixin {
     // TODO: Fix items not extinguishing in inventory
     @Inject(method = "inventoryTick", at = @At("HEAD"))
     private void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
-        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer() || slot == null) {
+        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
             return;
         }
 
@@ -40,7 +41,7 @@ public abstract class ItemMixin {
             TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
                                 TotallyLit.CONFIG.jackOLanterns.extinguishInRainChance(),
-                                lit, unlit, stack, player, slot.getIndex(), world
+                                lit, unlit, stack, player, world
                         );
                     }
             );
@@ -48,7 +49,7 @@ public abstract class ItemMixin {
             TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
                                 TotallyLit.CONFIG.lanterns.extinguishInRainChance(),
-                                lit, unlit, stack, player, slot.getIndex(), world
+                                lit, unlit, stack, player, world
                         );
                     }
             );
@@ -56,7 +57,7 @@ public abstract class ItemMixin {
             TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
                 extinguish(
                         TotallyLit.CONFIG.torches.extinguishInRainChance(),
-                        lit, unlit, stack, player, slot.getIndex(), world
+                        lit, unlit, stack, player, world
                     );
                 }
             );
@@ -80,17 +81,31 @@ public abstract class ItemMixin {
     }
 
     @Unique
-    private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, PlayerEntity player, int slot, World world) {
-        if (!shouldExtinguish(chance, lit, player, world)) {
+    private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, PlayerEntity player, World world) {
+        if (!shouldExtinguish(chance, lit, player, world) || !stack.isOf(lit.asItem())) {
             return;
         }
 
-        if (player.getInventory().getStack(PlayerInventory.OFF_HAND_SLOT).isOf(lit.asItem())) {
-            player.getInventory().setStack(PlayerInventory.OFF_HAND_SLOT, new ItemStack(unlit.asItem(), player.getInventory().getStack(PlayerInventory.OFF_HAND_SLOT).getCount()));
+        PlayerInventory inventory = player.getInventory();
+
+        ItemStack offHandStack = inventory.getStack(PlayerInventory.OFF_HAND_SLOT);
+
+        if (ItemStack.areEqual(offHandStack, stack)) {
+            inventory.setStack(PlayerInventory.OFF_HAND_SLOT, stack.withItem(unlit.asItem()));
+            return;
         }
 
-        if (slot > -1 && slot <= PlayerInventory.MAIN_SIZE && player.getInventory().getStack(slot).isOf(lit.asItem())) {
-            player.getInventory().setStack(slot, new ItemStack(unlit.asItem(), player.getInventory().getStack(slot).getCount()));
+        DefaultedList<ItemStack> inventoryStacks = inventory.getMainStacks();
+
+        for (int slot = 0; slot < PlayerInventory.MAIN_SIZE; slot++) {
+            var inventoryStack = inventoryStacks.get(slot);
+
+            if (!ItemStack.areEqual(inventoryStack, stack)) {
+                continue;
+            }
+
+            inventoryStacks.set(slot, stack.withItem(unlit.asItem()));
+            break;
         }
     }
 }
