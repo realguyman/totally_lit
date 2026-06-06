@@ -73,15 +73,15 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
         });
 
-        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, LANTERN_MAP, TagRegistry.LANTERN_IGNITER_ITEMS);
         });
 
-        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, JACK_O_LANTERN_MAP, TagRegistry.JACK_O_LANTERN_IGNITER_ITEMS);
         });
 
-        BlockEvents.USE_ITEM_ON.register((itemStack, state, world, blockPos, player, hand, hitResult) -> {
+        BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, TORCH_MAP, TagRegistry.TORCH_IGNITER_ITEMS);
         });
 
