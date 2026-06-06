@@ -23,23 +23,27 @@ public class TotallyLitItemTagProvider extends FabricTagProvider.ItemTagProvider
         valueLookupBuilder(TagRegistry.CAMPFIRE_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,
+                Items.COPPER_TORCH,
                 Items.LAVA_BUCKET,
                 Items.MAGMA_BLOCK
         ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
         valueLookupBuilder(TagRegistry.JACK_O_LANTERN_IGNITER_ITEMS).add(
                 Items.TORCH,
-                Items.SOUL_TORCH
+                Items.SOUL_TORCH,
+                Items.COPPER_TORCH
         ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
         valueLookupBuilder(TagRegistry.LANTERN_IGNITER_ITEMS).add(
                 Items.TORCH,
-                Items.SOUL_TORCH
+                Items.SOUL_TORCH,
+                Items.COPPER_TORCH
         ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
 
         valueLookupBuilder(TagRegistry.TORCH_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,
+                Items.COPPER_TORCH,
                 Items.LANTERN,
                 Items.SOUL_LANTERN,
                 Items.LAVA_BUCKET,

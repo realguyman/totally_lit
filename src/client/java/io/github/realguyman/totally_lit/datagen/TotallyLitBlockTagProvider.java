@@ -40,7 +40,9 @@ public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvid
                 Blocks.TORCH,
                 Blocks.WALL_TORCH,
                 Blocks.SOUL_TORCH,
-                Blocks.SOUL_WALL_TORCH
+                Blocks.SOUL_WALL_TORCH,
+                Blocks.COPPER_TORCH,
+                Blocks.COPPER_WALL_TORCH
         ).addOptionalTag(BlockTags.FIRE);
 
         valueLookupBuilder(TagRegistry.TORCH_IGNITER_BLOCKS).add(
@@ -48,6 +50,8 @@ public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvid
                 Blocks.WALL_TORCH,
                 Blocks.SOUL_TORCH,
                 Blocks.SOUL_WALL_TORCH,
+                Blocks.COPPER_TORCH,
+                Blocks.COPPER_WALL_TORCH,
                 Blocks.LAVA_CAULDRON,
                 Blocks.MAGMA_BLOCK
         ).addOptionalTag(BlockTags.FIRE);
