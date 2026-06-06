@@ -5,6 +5,7 @@
     [
       "minecraft:torch",
       "minecraft:soul_torch",
+      "minecraft:copper_torch",
       "minecraft:lava_bucket",
       "minecraft:magma_block",
       "minecraft:lantern",
@@ -17,6 +18,7 @@
   "owo:remainders": {
     "minecraft:torch": "minecraft:torch",
     "minecraft:soul_torch": "minecraft:soul_torch",
+    "minecraft:copper_torch": "minecraft:copper_torch",
     "minecraft:lava_bucket": "minecraft:lava_bucket",
     "minecraft:magma_block": "minecraft:magma_block",
     "minecraft:lantern": "minecraft:lantern",
