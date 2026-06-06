@@ -50,6 +50,6 @@ public class TotallyLitItemTagProvider extends FabricTagProvider.ItemTagProvider
                 Items.SOUL_TORCH,
                 Items.SOUL_LANTERN,
                 Items.SOUL_CAMPFIRE
-        ).addOptionalTag(ConventionalItemTags.IGNITER_TOOLS);
+        );
     }
 }
