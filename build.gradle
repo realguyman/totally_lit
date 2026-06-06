@@ -63,15 +63,6 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
-jar {
-    def projectName = project.name
-    inputs.property "projectName", projectName
-
-    from("LICENSE") {
-        rename { "${it}_$projectName" }
-    }
-}
-
 processResources {
     inputs.property "version", project.version
 
@@ -82,6 +73,10 @@ processResources {
 
 tasks.withType(JavaCompile).configureEach {
     it.options.release = 21
+}
+
+tasks.withType(Jar).configureEach {
+    from("LICENSE")
 }
 
 modrinth {
