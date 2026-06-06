@@ -42,7 +42,7 @@ public class TorchTestSuite {
     public void torchItemDoesNotExtinguishWhenSubmergedInWater(
             TestContext context
     ) {
-        BlockPos pos = new BlockPos(0, 0, 0);
+        BlockPos pos = new BlockPos(1, 1, 1);
         context.setBlockState(pos, Blocks.WATER);
         context.spawnItem(Items.TORCH, pos);
         context.expectEntityWithDataEnd(pos, EntityType.ITEM, entity -> entity.getStack().getItem(), Items.TORCH);
@@ -69,7 +69,7 @@ public class TorchTestSuite {
 
     @GameTest
     public void playerCanIgniteUnlitTorchOnGroundWithLitTorchInHand(TestContext context) {
-        var pos = new BlockPos(0, 0, 0);
+        var pos = new BlockPos(1, 1, 1);
         var player = context.createMockPlayer(GameMode.SURVIVAL);
 
         context.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
