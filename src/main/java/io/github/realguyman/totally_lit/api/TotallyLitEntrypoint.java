@@ -16,6 +16,12 @@ public interface TotallyLitEntrypoint {
      * @param unlit The torch considered extinguished.
      */
     default void addTorch(Block lit, Block unlit) {
+        TotallyLit.LOGGER.debug("Correlating lit torch: {}, to: {}", lit.toString(), unlit.toString());
+
+        if (TotallyLit.TORCH_MAP.containsKey(lit)) {
+            TotallyLit.LOGGER.warn("Lit torch: {}, is already correlated to: {}! Unexpected behaviour likely could occur!", lit, TotallyLit.TORCH_MAP.get(lit).toString());
+        }
+
         TotallyLit.TORCH_MAP.put(lit, unlit);
     }
 
@@ -26,6 +32,12 @@ public interface TotallyLitEntrypoint {
      * @param unlit The lantern considered extinguished.
      */
     default void addLantern(Block lit, Block unlit) {
+        TotallyLit.LOGGER.debug("Correlating lit lantern: {}, to: {}", lit.toString(), unlit.toString());
+
+        if (TotallyLit.LANTERN_MAP.containsKey(lit)) {
+            TotallyLit.LOGGER.warn("Lit lantern: {}, is already correlated to: {}! Unexpected behaviour likely could occur!", lit, TotallyLit.LANTERN_MAP.get(lit).toString());
+        }
+
         TotallyLit.LANTERN_MAP.put(lit, unlit);
     }
 
@@ -36,6 +48,12 @@ public interface TotallyLitEntrypoint {
      * @param unlit The jack o'lantern considered extinguished.
      */
     default void addJackOLantern(Block lit, Block unlit) {
+        TotallyLit.LOGGER.debug("Correlating lit jack o'lantern: {}, to: {}", lit.toString(), unlit.toString());
+
+        if (TotallyLit.JACK_O_LANTERN_MAP.containsKey(lit)) {
+            TotallyLit.LOGGER.warn("Lit jack o'lantern: {}, is already correlated to: {}! Unexpected behaviour likely could occur!", lit, TotallyLit.JACK_O_LANTERN_MAP.get(lit).toString());
+        }
+
         TotallyLit.JACK_O_LANTERN_MAP.put(lit, unlit);
     }
 }
