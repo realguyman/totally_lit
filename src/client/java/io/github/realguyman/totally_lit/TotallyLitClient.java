@@ -39,5 +39,9 @@ public class TotallyLitClient implements ClientModInitializer {
                 UNLIT_TORCH,
                 UNLIT_WALL_TORCH
         );
+
+        UNLIT_COPPER_LANTERNS.forEach(block -> {
+            BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
+        });
     }
 }

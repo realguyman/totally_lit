@@ -21,6 +21,7 @@
     "jack_o_lantern.BlockMixin",
     "lantern.AbstractBlockMixin",
     "lantern.BlockMixin",
+    "lantern.OxidizableLanternBlockMixin",
     "torch.AbstractBlockMixin",
     "torch.BlockMixin"
   ],

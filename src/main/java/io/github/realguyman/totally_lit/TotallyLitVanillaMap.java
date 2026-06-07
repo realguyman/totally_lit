@@ -18,5 +18,14 @@ public class TotallyLitVanillaMap implements TotallyLitEntrypoint {
         addTorch(Blocks.SOUL_WALL_TORCH, BlockRegistry.UNLIT_SOUL_WALL_TORCH);
         addTorch(Blocks.COPPER_TORCH, BlockRegistry.UNLIT_COPPER_TORCH);
         addTorch(Blocks.COPPER_WALL_TORCH, BlockRegistry.UNLIT_COPPER_WALL_TORCH);
+
+        addLantern(Blocks.COPPER_LANTERNS.unaffected(), BlockRegistry.UNLIT_COPPER_LANTERNS.unaffected());
+        addLantern(Blocks.COPPER_LANTERNS.oxidized(), BlockRegistry.UNLIT_COPPER_LANTERNS.oxidized());
+        addLantern(Blocks.COPPER_LANTERNS.weathered(), BlockRegistry.UNLIT_COPPER_LANTERNS.weathered());
+        addLantern(Blocks.COPPER_LANTERNS.exposed(), BlockRegistry.UNLIT_COPPER_LANTERNS.exposed());
+        addLantern(Blocks.COPPER_LANTERNS.waxed(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxed());
+        addLantern(Blocks.COPPER_LANTERNS.waxedOxidized(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
+        addLantern(Blocks.COPPER_LANTERNS.waxedWeathered(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
+        addLantern(Blocks.COPPER_LANTERNS.waxedExposed(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
     }
 }

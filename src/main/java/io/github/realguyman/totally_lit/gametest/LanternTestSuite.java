@@ -22,6 +22,28 @@ public class LanternTestSuite {
         );
     }
 
+    @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    public void unwaxedCopperLanternBlockDoesExtinguishOverTime(TestContext context) {
+        context.getWorld().getTickManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
+
+        BlockPos pos = new BlockPos(1, 1, 1);
+        context.setBlockState(pos, Blocks.COPPER_LANTERNS.unaffected());
+        context.forceRandomTick(pos);
+
+        context.addInstantFinalTask(() -> {
+            context.assertTrue(BlockRegistry.UNLIT_COPPER_LANTERNS.getAll().contains(context.getBlockState(pos).getBlock()), "Was not one of the unwaxed unlit copper lanterns");
+        });
+    }
+
+    @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
+    public void waxedCopperLanternBlockDoesExtinguishOverTime(TestContext context) {
+        TestUtil.blockDoesExtinguishOverTime(
+                context,
+                Blocks.COPPER_LANTERNS.waxed(),
+                BlockRegistry.UNLIT_COPPER_LANTERNS.waxed()
+        );
+    }
+
     @GameTest
     public void lanternItemEntityDoesExtinguishWhenSubmergedInWater(
             TestContext context

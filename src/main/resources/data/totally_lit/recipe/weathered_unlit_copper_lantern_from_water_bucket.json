@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    "minecraft:weathered_copper_lantern",
+    "minecraft:water_bucket"
+  ],
+  "result": {
+    "id": "totally_lit:weathered_unlit_copper_lantern"
+  },
+  "owo:remainders": {
+    "minecraft:water_bucket": "minecraft:water_bucket"
+  }
+}

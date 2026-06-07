@@ -1,9 +1,7 @@
 package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.VerticallyAttachableBlockItem;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -75,6 +73,8 @@ public class ItemRegistry {
                     .useBlockPrefixedTranslationKey()
                     .registryKey(RegistryKey.of(RegistryKeys.ITEM, Identifier.of(TotallyLit.MOD_ID, "unlit_copper_torch")))
     );
+
+    public static final CopperBlockItemSet UNLIT_COPPER_LANTERNS = CopperBlockItemSet.create(BlockRegistry.UNLIT_COPPER_LANTERNS, Items::register);
 
     private static Item add(String path, Item item) {
         return Registry.register(Registries.ITEM, Identifier.of(TotallyLit.MOD_ID, path), item);

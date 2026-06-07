@@ -43,6 +43,8 @@ import java.util.Map;
 // TODO: Test: Implement more gametests and testmod
 // TODO: cache torches/lanterns/etc with caretakers
 // TODO: Optimize box size for caretaker radius
+// FIXME: Fix unwaxed copper lanterns not being waxable. When right-clicking on unwaxed lanterns with a honeycomb
+//        it does not wax them.
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
@@ -72,6 +74,15 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.COPPER_TORCH, ItemRegistry.UNLIT_COPPER_TORCH);
             listener.addAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
             listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
+
+            listener.addAfter(Items.COPPER_LANTERNS.exposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.exposed());
+            listener.addAfter(Items.COPPER_LANTERNS.oxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.oxidized());
+            listener.addAfter(Items.COPPER_LANTERNS.weathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.weathered());
+            listener.addAfter(Items.COPPER_LANTERNS.unaffected(), ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected());
+            listener.addAfter(Items.COPPER_LANTERNS.waxedExposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
+            listener.addAfter(Items.COPPER_LANTERNS.waxedOxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
+            listener.addAfter(Items.COPPER_LANTERNS.waxedWeathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
+            listener.addAfter(Items.COPPER_LANTERNS.waxed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxed());
         });
 
         BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
