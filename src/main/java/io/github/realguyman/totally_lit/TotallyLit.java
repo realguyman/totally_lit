@@ -54,6 +54,9 @@ import java.util.Map;
 //       lanterns, and jack o'lanterns to be better prepared for more
 //       advanced features: such as modifying burn rates under certain
 //       conditions.
+// TODO: Consider using precipitation ticks instead of random ticks to
+//       extinguish in the rain. May be better for performance and
+//       semantics.
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
