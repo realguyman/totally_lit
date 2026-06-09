@@ -59,8 +59,11 @@ public class TotallyLit implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        FabricLoader.getInstance().getEntrypointContainers(MOD_ID, TotallyLitEntrypoint.class)
-                .stream().map(EntrypointContainer::getEntrypoint).forEach(entrypoint -> {
+        FabricLoader.getInstance()
+                .getEntrypointContainers(MOD_ID, TotallyLitEntrypoint.class)
+                .stream()
+                .map(EntrypointContainer::getEntrypoint)
+                .forEach(entrypoint -> {
                     entrypoint.buildMap();
                     LOGGER.debug("Built map for {}", entrypoint.getClass().getName());
                 });
