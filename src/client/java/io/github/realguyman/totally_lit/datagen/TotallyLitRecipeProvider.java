@@ -92,6 +92,16 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         .criterion(hasItem(ItemRegistry.UNLIT_SOUL_TORCH), conditionsFromItem(ItemRegistry.UNLIT_SOUL_TORCH))
                         .offerTo(exporter);
 
+                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected())
+                        .pattern("nnn")
+                        .pattern("ntn")
+                        .pattern("nnn")
+                        .input('n', ConventionalItemTags.COPPER_NUGGETS)
+                        .input('t', ItemRegistry.UNLIT_COPPER_TORCH)
+                        .group("multi_bench")
+                        .criterion(hasItem(ItemRegistry.UNLIT_COPPER_TORCH), conditionsFromItem(ItemRegistry.UNLIT_COPPER_TORCH))
+                        .offerTo(exporter);
+
                 createShaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_LANTERN)
                         .pattern("nnn")
                         .pattern("ntn")
