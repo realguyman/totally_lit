@@ -1,17 +1,13 @@
 package io.github.realguyman.totally_lit.mixin.candle;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.AbstractCandleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.state.property.Properties;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,6 +23,10 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        if (!AbstractCandleBlock.isLitCandle(state)) {
+            return;
+        }
+
         cir.setReturnValue(true);
     }
 
@@ -58,24 +58,15 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
-            var caretakers = world.getEntitiesByClass(
-                    Entity.class,
-                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                    EntityPredicates.VALID_LIVING_ENTITY
-            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
-
-            if (!caretakers.isEmpty()) {
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
-                return;
-            }
+        if (!AbstractCandleBlock.isLitCandle(state)) {
+            return;
         }
 
-        if (
-                AbstractCandleBlock.isLitCandle(state) &&
-                        !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)
-        ) {
-            AbstractCandleBlock.extinguish(null, state, world, pos);
+        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && TotallyLit.isCaretakerPresent(pos, world)) {
+            return;
         }
+
+        AbstractCandleBlock.extinguish(null, state, world, pos);
+        TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
     }
 }

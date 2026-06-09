@@ -20,7 +20,7 @@ public abstract class BlockMixin {
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && AbstractCandleBlock.isLitCandle(state)) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
-            TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+            TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
         }
     }
 }

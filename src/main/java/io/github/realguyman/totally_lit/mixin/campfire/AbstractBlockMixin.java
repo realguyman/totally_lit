@@ -2,20 +2,16 @@ package io.github.realguyman.totally_lit.mixin.campfire;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.access.CampfireBlockEntityAccess;
-import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,24 +35,15 @@ public abstract class AbstractBlockMixin {
             final boolean isLitCampfire = CampfireBlock.isLitCampfire(state);
             final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.campfires.extinguishInRainChance();
 
-            if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
-                var caretakers = world.getEntitiesByClass(
-                        Entity.class,
-                        new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                        EntityPredicates.VALID_LIVING_ENTITY
-                ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
-
-                if (!caretakers.isEmpty()) {
-                    TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
-                    return;
-                }
+            if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && TotallyLit.isCaretakerPresent(pos, world)) {
+                return;
             }
 
             if (isRaining && isLitCampfire && isCampfireBlockEntity && isChanceInFavor && world.setBlockState(pos, state.with(CampfireBlock.LIT, false))) {
                 CampfireBlock.extinguish(null, world, pos, state);
                 world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 ((CampfireBlockEntityAccess) blockEntity).totally_lit$setTicksBurntFor(0);
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+                TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
             }
         }
     }

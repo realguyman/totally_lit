@@ -6,8 +6,6 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.CampfireBlock;
 import net.minecraft.block.entity.CampfireBlockEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.recipe.CampfireCookingRecipe;
 import net.minecraft.recipe.ServerRecipeManager;
 import net.minecraft.recipe.input.SingleStackRecipeInput;
@@ -18,7 +16,6 @@ import net.minecraft.state.property.Properties;
 import net.minecraft.storage.ReadView;
 import net.minecraft.storage.WriteView;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,23 +31,11 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
 
     @Inject(method = "litServerTick", at = @At("RETURN"))
     private static void trackTicksBurntFor(ServerWorld world, BlockPos pos, BlockState state, CampfireBlockEntity campfire, ServerRecipeManager.MatchGetter<SingleStackRecipeInput, CampfireCookingRecipe> recipeMatchGetter, CallbackInfo ci) {
-        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
-            var caretakers = world.getEntitiesByClass(
-                    Entity.class,
-                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                    EntityPredicates.VALID_LIVING_ENTITY
-            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
-
-            if (!caretakers.isEmpty()) {
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
-            }
+        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && TotallyLit.isCaretakerPresent(pos, world)) {
+            return;
         }
 
-        if (
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos) ||
-                        !TotallyLit.CONFIG.campfires.extinguishOverTime() ||
-                        state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)
-        ) {
+        if (!TotallyLit.CONFIG.campfires.extinguishOverTime() || state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
             return;
         }
 
@@ -62,7 +47,7 @@ public abstract class CampfireBlockEntityMixin implements CampfireBlockEntityAcc
             CampfireBlock.extinguish(null, world, pos, state);
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 1.0F, 1.0F);
             campfireAccessed.totally_lit$setTicksBurntFor(0);
-            TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+            TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
         } else if (ticksBurntFor.orElse(0) % 300 == 0) {
             campfire.markDirty();
         }

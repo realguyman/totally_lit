@@ -6,13 +6,10 @@ import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LanternBlock;
-import net.minecraft.entity.Entity;
-import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.math.random.Random;
 import net.minecraft.world.tick.WorldTickScheduler;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,6 +25,10 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
     private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
+            return;
+        }
+
         cir.setReturnValue(true);
     }
 
@@ -55,23 +56,18 @@ public abstract class AbstractBlockMixin {
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
     private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
-        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && !TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.contains(pos)) {
-            var caretakers = world.getEntitiesByClass(
-                    Entity.class,
-                    new Box(pos).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
-                    EntityPredicates.VALID_LIVING_ENTITY
-            ).stream().filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS)).toList();
+        if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
+            return;
+        }
 
-            if (!caretakers.isEmpty()) {
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.add(pos);
-                return;
-            }
+        if (TotallyLit.CONFIG.caretakerCheckRadius() > 0 && TotallyLit.isCaretakerPresent(pos, world)) {
+            return;
         }
 
         TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
             if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
                 world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+                TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
             }
         });
     }

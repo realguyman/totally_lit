@@ -1,6 +1,7 @@
 package io.github.realguyman.totally_lit;
 
-import io.github.realguyman.totally_lit.TotallyLitConfig;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
@@ -14,6 +15,7 @@ import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
@@ -21,8 +23,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.predicate.entity.EntityPredicates;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
@@ -30,21 +34,26 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
-// TODO: Test: Implement more gametests and testmod
-// TODO: cache torches/lanterns/etc with caretakers
-// TODO: Optimize box size for caretaker radius
 // FIXME: Fix unwaxed copper lanterns not being waxable. When right-clicking on unwaxed lanterns with a honeycomb
 //        it does not wax them.
+// TODO: Implement Game Tests for caretaker functionality.
+// TODO: Add recipes for all copper lanterns.
+// TODO: Ensure all recipes function correctly.
+// TODO: Consider implementing block entities to store data for torches,
+//       lanterns, and jack o'lanterns to be better prepared for more
+//       advanced features: such as modifying burn rates under certain
+//       conditions.
 public class TotallyLit implements ModInitializer {
     public static final String MOD_ID = "totally_lit";
     public static final TotallyLitConfig CONFIG = TotallyLitConfig.createAndLoad();
@@ -55,7 +64,24 @@ public class TotallyLit implements ModInitializer {
     public static final Map<Block, Block> LANTERN_MAP = new HashMap<>();
     public static final Map<Block, Block> TORCH_MAP = new HashMap<>();
 
-    public static final HashSet<BlockPos> CACHED_PRESENT_CARETAKER_BLOCKS = new HashSet<>();
+    public static final Cache<BlockPos, Boolean> CACHED_CARETAKER_BLOCKS = Caffeine.newBuilder()
+            .expireAfterWrite(Duration.ofMinutes(5))
+            .maximumSize(16_384)
+            .build();
+
+    public static boolean isCaretakerPresent(BlockPos pos, ServerWorld world) {
+        return CACHED_CARETAKER_BLOCKS.get(
+                pos,
+                key -> !world.getEntitiesByClass(
+                                Entity.class,
+                                new Box(key).expand(TotallyLit.CONFIG.caretakerCheckRadius()),
+                                EntityPredicates.VALID_LIVING_ENTITY
+                        ).stream()
+                        .filter(entity -> entity.getType().isIn(TagRegistry.CARETAKERS))
+                        .toList()
+                        .isEmpty()
+        );
+    }
 
     @Override
     public void onInitialize() {

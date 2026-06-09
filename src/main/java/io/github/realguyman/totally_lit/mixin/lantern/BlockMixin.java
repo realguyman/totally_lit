@@ -31,7 +31,7 @@ public abstract class BlockMixin {
         TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
             if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
                 world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, world.getRandom().nextFloat() * 0.5F + 0.125F);
-                TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+                TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
             }
         });
     }
@@ -40,7 +40,7 @@ public abstract class BlockMixin {
     private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
-            TotallyLit.CACHED_PRESENT_CARETAKER_BLOCKS.remove(pos);
+            TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
         }
     }
 }

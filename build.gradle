@@ -26,6 +26,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
     annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib}")
+    implementation "com.github.ben-manes.caffeine:caffeine:3.2.4"
+    include "com.github.ben-manes.caffeine:caffeine:3.2.4"
 
     // Local dependencies
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu}"
