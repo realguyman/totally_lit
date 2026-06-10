@@ -3,6 +3,7 @@ package io.github.realguyman.totally_lit;
 import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
+import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.api.ModInitializer;
@@ -10,6 +11,7 @@ import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
 import net.minecraft.block.Block;
@@ -45,8 +47,6 @@ import java.util.Map;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
-// FIXME: Fix unwaxed copper lanterns not being waxable. When right-clicking on unwaxed lanterns with a honeycomb
-//        it does not wax them.
 // TODO: Consider implementing block entities to store data for torches,
 //       lanterns, and jack o'lanterns to be better prepared for more
 //       advanced features: such as modifying burn rates under certain
@@ -113,6 +113,8 @@ public class TotallyLit implements ModInitializer {
             listener.addAfter(Items.COPPER_LANTERNS.waxedWeathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
             listener.addAfter(Items.COPPER_LANTERNS.waxed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxed());
         });
+
+        OxidizableBlocksRegistry.registerCopperBlockSet(BlockRegistry.UNLIT_COPPER_LANTERNS);
 
         BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, LANTERN_MAP, TagRegistry.LANTERN_IGNITER_ITEMS);
