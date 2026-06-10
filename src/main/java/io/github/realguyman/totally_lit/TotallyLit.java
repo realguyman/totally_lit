@@ -47,7 +47,6 @@ import java.util.Map;
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
 // FIXME: Fix unwaxed copper lanterns not being waxable. When right-clicking on unwaxed lanterns with a honeycomb
 //        it does not wax them.
-// TODO: Implement Game Tests for caretaker functionality.
 // TODO: Consider implementing block entities to store data for torches,
 //       lanterns, and jack o'lanterns to be better prepared for more
 //       advanced features: such as modifying burn rates under certain

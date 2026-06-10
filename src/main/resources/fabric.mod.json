@@ -41,7 +41,8 @@
       "io.github.realguyman.totally_lit.gametest.LanternTestSuite",
       "io.github.realguyman.totally_lit.gametest.SoulLanternTestSuite",
       "io.github.realguyman.totally_lit.gametest.SoulTorchTestSuite",
-      "io.github.realguyman.totally_lit.gametest.TorchTestSuite"
+      "io.github.realguyman.totally_lit.gametest.TorchTestSuite",
+      "io.github.realguyman.totally_lit.gametest.CaretakerTestSuite"
     ],
     "main": [
       "io.github.realguyman.totally_lit.TotallyLit"
