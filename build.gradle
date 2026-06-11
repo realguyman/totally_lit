@@ -7,10 +7,6 @@ plugins {
 version = project.mod_version
 group = project.maven_group
 
-base {
-    archivesName = project.archives_base_name
-}
-
 repositories {
     maven { url "https://maven.terraformersmc.com/" }
     maven { url "https://maven.wispforest.io/" }
@@ -105,7 +101,6 @@ modrinth {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = project.archives_base_name
             from components.java
         }
     }
