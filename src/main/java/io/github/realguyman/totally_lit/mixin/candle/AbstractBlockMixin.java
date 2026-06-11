@@ -31,7 +31,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void scheduleCandle(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!AbstractCandleBlock.isLitCandle(state)) {
             return;
         }
@@ -57,7 +57,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
-    private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void extinguishCandle(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!AbstractCandleBlock.isLitCandle(state)) {
             return;
         }

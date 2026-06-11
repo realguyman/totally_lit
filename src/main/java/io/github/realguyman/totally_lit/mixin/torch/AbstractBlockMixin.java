@@ -24,7 +24,7 @@ public abstract class AbstractBlockMixin {
     protected abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random);
 
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
-    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    private void canScheduleTorch(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -33,7 +33,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void scheduleTorch(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -55,7 +55,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
-    private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void extinguishTorch(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.TORCH_MAP.containsKey(state.getBlock())) {
             return;
         }

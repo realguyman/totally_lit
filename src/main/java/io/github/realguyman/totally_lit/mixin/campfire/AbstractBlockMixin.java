@@ -27,7 +27,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void extinguishCampfireFromRain(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (state.isIn(BlockTags.CAMPFIRES)) {
             final BlockEntity blockEntity = world.getBlockEntity(pos);
             final boolean isRaining = world.hasRain(pos.up());

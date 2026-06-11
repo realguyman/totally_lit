@@ -24,7 +24,7 @@ public abstract class AbstractBlockMixin {
     @Shadow protected abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random);
 
     @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
-    private void canSchedule(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+    private void canScheduleLantern(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -33,7 +33,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void scheduleLantern(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -55,7 +55,7 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "scheduledTick", at = @At("HEAD"))
-    private void extinguish(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void extinguishLantern(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }

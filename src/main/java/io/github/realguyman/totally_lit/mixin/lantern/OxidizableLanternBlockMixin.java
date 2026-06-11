@@ -20,7 +20,7 @@ public class OxidizableLanternBlockMixin extends LanternBlock {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void schedule(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void scheduleCopperLantern(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -42,7 +42,7 @@ public class OxidizableLanternBlockMixin extends LanternBlock {
     }
 
     @ModifyExpressionValue(method = "hasRandomTicks", at = @At(value = "INVOKE", target = "java/util/Optional.isPresent()Z"))
-    private boolean modifyLantern(boolean original) {
+    private boolean canScheduleCopperLantern(boolean original) {
         return original || TotallyLit.CONFIG.lanterns.extinguishOverTime() || TotallyLit.CONFIG.lanterns.extinguishInRainChance() > 0.0F;
     }
 }

@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Block.class)
 public abstract class BlockMixin {
     @Inject(method = "onPlaced", at = @At("HEAD"))
-    private void extinguishWhenPlacedInWater(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
+    private void extinguishLanternWhenPlacedInWater(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack itemStack, CallbackInfo ci) {
         if (world.isClient() || !state.contains(Properties.WATERLOGGED) || !state.get(Properties.WATERLOGGED)) {
             return;
         }
@@ -37,7 +37,7 @@ public abstract class BlockMixin {
     }
 
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
+    private void clearNextScheduledExtinguishForLantern(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
             TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);

@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(Block.class)
 public abstract class BlockMixin {
     @Inject(method = "onBreak", at = @At("HEAD"))
-    private void clearNextScheduledExtinguish(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
+    private void clearNextScheduledExtinguishForJackOLantern(World world, BlockPos pos, BlockState state, PlayerEntity player, CallbackInfoReturnable<BlockState> cir) {
         if (!world.isClient() && TotallyLit.JACK_O_LANTERN_MAP.containsKey(state.getBlock())) {
             ((ServerWorld) world).getBlockTickScheduler().clearNextTicks(new BlockBox(pos));
             TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);

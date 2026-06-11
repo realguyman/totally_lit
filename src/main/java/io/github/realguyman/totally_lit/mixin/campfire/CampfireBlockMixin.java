@@ -31,12 +31,12 @@ public abstract class CampfireBlockMixin extends BlockWithEntity {
     }
 
     @ModifyReturnValue(method = "getPlacementState", at = @At("RETURN"))
-    private BlockState litStateWhenPlaced(BlockState original) {
+    private BlockState setDefaultLitStateForCampfire(BlockState original) {
         return original.with(CampfireBlock.LIT, TotallyLit.CONFIG.campfires.defaultLitStateWhenPlaced());
     }
 
     @Inject(method = "onUseWithItem", at = @At("HEAD"), cancellable = true)
-    private void ignite(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
+    private void igniteUnlitCampfireFromLitItem(ItemStack stack, BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
         final boolean canBeIgnited = CampfireBlock.canBeLit(state);
         final boolean stackHasFireAspect = stack.getEnchantments().getEnchantments().contains(
                 world.getRegistryManager().getOrThrow(RegistryKeys.ENCHANTMENT).getOrThrow(
