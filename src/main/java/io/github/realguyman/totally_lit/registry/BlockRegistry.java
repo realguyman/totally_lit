@@ -31,10 +31,6 @@ public class BlockRegistry {
     public static final Block UNLIT_COPPER_WALL_TORCH;
     public static final WeatheringCopperBlocks UNLIT_COPPER_LANTERNS;
 
-    private static Block add(String path, Block block) {
-        return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, path), block);
-    }
-
     static {
         GLOWSTONE_TORCH = add(
                 "glowstone_torch",
@@ -158,6 +154,10 @@ public class BlockRegistry {
                         .noOcclusion()
                         .pushReaction(PushReaction.DESTROY)
         );
+    }
+
+    private static Block add(String path, Block block) {
+        return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, path), block);
     }
 
     private static Block addCopperSet(

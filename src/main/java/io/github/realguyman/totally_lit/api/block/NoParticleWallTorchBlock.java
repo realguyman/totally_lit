@@ -15,5 +15,6 @@ public class NoParticleWallTorchBlock extends WallTorchBlock {
     }
 
     @Override
-    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {}
+    public void animateTick(BlockState state, Level world, BlockPos pos, RandomSource random) {
+    }
 }

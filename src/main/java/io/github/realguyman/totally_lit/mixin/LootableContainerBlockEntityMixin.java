@@ -14,7 +14,8 @@ import java.util.function.BiConsumer;
 
 @Mixin(RandomizableContainerBlockEntity.class)
 public abstract class LootableContainerBlockEntityMixin {
-    @Shadow public abstract void setItem(int slot, ItemStack stack);
+    @Shadow
+    public abstract void setItem(int slot, ItemStack stack);
 
     @Inject(at = @At("TAIL"), method = "setItem")
     private void replaceWithUnlitVariant(int slot, ItemStack stack, CallbackInfo ci) {

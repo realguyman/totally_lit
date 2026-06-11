@@ -21,9 +21,11 @@ public abstract class ItemEntityMixin extends Entity {
         super(type, world);
     }
 
-    @Shadow public abstract ItemStack getItem();
+    @Shadow
+    public abstract ItemStack getItem();
 
-    @Shadow public abstract void setItem(ItemStack stack);
+    @Shadow
+    public abstract void setItem(ItemStack stack);
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void tick(CallbackInfo ci) {

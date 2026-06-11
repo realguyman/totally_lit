@@ -33,10 +33,10 @@ public abstract class ItemMixin {
 
         if (
                 !world.isClientSide()
-                && !player.isCreative()  // Do not extinguish items if in creative mode
-                && !player.isSpectator() // Do not extinguish items if in spectator mode
-                && player.tickCount % 20 == 0  // Only check once a second
-                && player.isInWaterOrRain()
+                        && !player.isCreative()  // Do not extinguish items if in creative mode
+                        && !player.isSpectator() // Do not extinguish items if in spectator mode
+                        && player.tickCount % 20 == 0  // Only check once a second
+                        && player.isInWaterOrRain()
         ) {
             TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
@@ -55,11 +55,11 @@ public abstract class ItemMixin {
             );
 
             TotallyLit.TORCH_MAP.forEach((lit, unlit) -> {
-                extinguish(
-                        TotallyLit.CONFIG.torches.extinguishInRainChance(),
-                        lit, unlit, stack, player, world
-                    );
-                }
+                        extinguish(
+                                TotallyLit.CONFIG.torches.extinguishInRainChance(),
+                                lit, unlit, stack, player, world
+                        );
+                    }
             );
         }
     }
