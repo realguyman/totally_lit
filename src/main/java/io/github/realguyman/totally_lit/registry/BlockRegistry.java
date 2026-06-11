@@ -172,7 +172,5 @@ public class BlockRegistry {
 
 
         return add(id, block);
-//        return (Block) factory.apply(settings.registryKey(RegistryKeys.BLOCK, Identifier.of(TotallyLit.MOD_ID, copper_base)));
-//        return RegistryKey.of(RegistryKeys.BLOCK, Identifier.ofVanilla(id));
     }
 }
