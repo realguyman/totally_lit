@@ -17,19 +17,19 @@ repositories {
 
 dependencies {
     // Required dependencies
-    minecraft "com.mojang:minecraft:${project.minecraft}"
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
-    annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib}")
+    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib_version}")
     implementation "com.github.ben-manes.caffeine:caffeine:3.2.4"
     include "com.github.ben-manes.caffeine:caffeine:3.2.4"
 
     // Local dependencies
-    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu}"
-    modLocalRuntime "maven.modrinth:sodium:${project.sodium}"
-    modLocalRuntime "maven.modrinth:lithium:${project.lithium}"
-    modLocalRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${project.lambdynamiclights}"
+    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+    modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
+    modLocalRuntime "maven.modrinth:lithium:${project.lithium_version}"
+    modLocalRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${project.lambdynamiclights_version}"
 }
 
 fabricApi {
