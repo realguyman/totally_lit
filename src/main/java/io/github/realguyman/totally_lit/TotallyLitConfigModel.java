@@ -10,7 +10,7 @@ public class TotallyLitConfigModel {
     public boolean itemEntitiesExtinguishWhenSubmerged = true;
     public boolean itemsCanExtinguishInPlayerInventory = true;
     public boolean replaceWithUnlitVariantsInBundles = true;
-    public boolean replaceWithUnlitVariantsInContainers = false;
+    public boolean replaceWithUnlitVariantsInContainers = true;
     public boolean fireAspectIgnitesUnlitVariants = true;
     @RangeConstraint(min = 0, max = 64)
     public int caretakerCheckRadius = 16;
