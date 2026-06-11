@@ -3,7 +3,6 @@ package io.github.realguyman.totally_lit.mixin.lantern;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import net.minecraft.world.level.block.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;

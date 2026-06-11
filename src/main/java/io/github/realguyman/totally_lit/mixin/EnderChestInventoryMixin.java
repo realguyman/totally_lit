@@ -1,13 +1,13 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import org.spongepowered.asm.mixin.Mixin;
-
-import java.util.function.BiConsumer;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.inventory.PlayerEnderChestContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import org.spongepowered.asm.mixin.Mixin;
+
+import java.util.function.BiConsumer;
 
 @Mixin(PlayerEnderChestContainer.class)
 public abstract class EnderChestInventoryMixin extends SimpleContainer {
