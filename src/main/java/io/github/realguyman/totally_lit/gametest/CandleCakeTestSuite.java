@@ -3,13 +3,13 @@ package io.github.realguyman.totally_lit.gametest;
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.util.TestUtil;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
-import net.minecraft.block.AbstractCandleBlock;
-import net.minecraft.block.Blocks;
-import net.minecraft.test.TestContext;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.level.block.AbstractCandleBlock;
+import net.minecraft.world.level.block.Blocks;
 
 public class CandleCakeTestSuite {
     @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-    public void candleCakeBlockDoesExtinguishOverTime(TestContext context) {
+    public void candleCakeBlockDoesExtinguishOverTime(GameTestHelper context) {
         TestUtil.abstractCandleBlockDoesExtinguishOverTime(
                 context,
                 (AbstractCandleBlock) Blocks.CANDLE_CAKE

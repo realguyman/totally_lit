@@ -1,5 +1,5 @@
 plugins {
-    id "net.fabricmc.fabric-loom-remap" version "${loom}"
+    id "net.fabricmc.fabric-loom-remap" version "${loom_version}"
     id "com.modrinth.minotaur" version "2.+"
     id "maven-publish"
 }
@@ -18,7 +18,7 @@ repositories {
 dependencies {
     // Required dependencies
     minecraft "com.mojang:minecraft:${project.minecraft}"
-    mappings "net.fabricmc:yarn:${project.mappings}:v2"
+    mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api}"
     annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib}")

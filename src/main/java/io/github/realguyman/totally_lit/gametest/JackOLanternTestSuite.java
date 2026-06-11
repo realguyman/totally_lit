@@ -5,13 +5,13 @@ import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
-import net.minecraft.test.TestContext;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public class JackOLanternTestSuite {
     @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-    public void jackOLanternBlockDoesExtinguishOverTime(TestContext context) {
+    public void jackOLanternBlockDoesExtinguishOverTime(GameTestHelper context) {
         TestUtil.blockDoesExtinguishOverTime(
                 context,
                 Blocks.JACK_O_LANTERN,
@@ -21,7 +21,7 @@ public class JackOLanternTestSuite {
 
     @GameTest
     public void jackOLanternItemEntityDoesExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
                 context,

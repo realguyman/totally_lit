@@ -3,15 +3,14 @@ package io.github.realguyman.totally_lit.datagen;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
-import net.minecraft.block.Block;
-import net.minecraft.registry.RegistryWrapper;
-
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.level.block.Block;
 import java.util.concurrent.CompletableFuture;
 
 public class TotallyLitBlockLootTableProvider extends FabricBlockLootTableProvider {
     public TotallyLitBlockLootTableProvider(
             FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> future
+            CompletableFuture<HolderLookup.Provider> future
     ) {
         super(output, future);
     }
@@ -31,6 +30,6 @@ public class TotallyLitBlockLootTableProvider extends FabricBlockLootTableProvid
     }
 
     private void addDrops(Block ...blocks) {
-        for (Block block : blocks) addDrop(block);
+        for (Block block : blocks) dropSelf(block);
     }
 }

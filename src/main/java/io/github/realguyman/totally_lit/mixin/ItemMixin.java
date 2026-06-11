@@ -1,16 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.collection.DefaultedList;
-import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,25 +8,35 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Random;
+import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 @Mixin(Item.class)
 public abstract class ItemMixin {
 
     // TODO: Fix items not extinguishing in inventory
     @Inject(method = "inventoryTick", at = @At("HEAD"))
-    private void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
-        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isPlayer()) {
+    private void inventoryTick(ItemStack stack, ServerLevel world, Entity entity, EquipmentSlot slot, CallbackInfo ci) {
+        if (!TotallyLit.CONFIG.itemsCanExtinguishInPlayerInventory() || !entity.isAlwaysTicking()) {
             return;
         }
 
-        PlayerEntity player = (PlayerEntity) entity;
+        Player player = (Player) entity;
 
         if (
-                !world.isClient()
+                !world.isClientSide()
                 && !player.isCreative()  // Do not extinguish items if in creative mode
                 && !player.isSpectator() // Do not extinguish items if in spectator mode
-                && player.age % 20 == 0  // Only check once a second
-                && player.isTouchingWaterOrRain()
+                && player.tickCount % 20 == 0  // Only check once a second
+                && player.isInWaterOrRain()
         ) {
             TotallyLit.JACK_O_LANTERN_MAP.forEach((lit, unlit) -> {
                         extinguish(
@@ -65,46 +65,46 @@ public abstract class ItemMixin {
     }
 
     @Unique
-    private boolean shouldExtinguish(float chance, Block lit, PlayerEntity player, World world) {
-        if (player.isSubmergedInWater() || player.isSwimming()) {
+    private boolean shouldExtinguish(float chance, Block lit, Player player, Level world) {
+        if (player.isUnderWater() || player.isSwimming()) {
             return true;
         }
 
-        if (player.isTouchingWater() && new Random().nextInt(100) == 0) {
+        if (player.isInWater() && new Random().nextInt(100) == 0) {
             return true;
         }
 
-        return player.age % 940 == 0
-                && world.hasRain(player.getBlockPos())
+        return player.tickCount % 940 == 0
+                && world.isRainingAt(player.blockPosition())
                 && world.getRandom().nextFloat() < chance
                 && TotallyLit.TORCH_MAP.containsKey(lit);
     }
 
     @Unique
-    private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, PlayerEntity player, World world) {
-        if (!shouldExtinguish(chance, lit, player, world) || !stack.isOf(lit.asItem())) {
+    private void extinguish(Float chance, Block lit, Block unlit, ItemStack stack, Player player, Level world) {
+        if (!shouldExtinguish(chance, lit, player, world) || !stack.is(lit.asItem())) {
             return;
         }
 
-        PlayerInventory inventory = player.getInventory();
+        Inventory inventory = player.getInventory();
 
-        ItemStack offHandStack = inventory.getStack(PlayerInventory.OFF_HAND_SLOT);
+        ItemStack offHandStack = inventory.getItem(Inventory.SLOT_OFFHAND);
 
-        if (ItemStack.areEqual(offHandStack, stack)) {
-            inventory.setStack(PlayerInventory.OFF_HAND_SLOT, stack.withItem(unlit.asItem()));
+        if (ItemStack.matches(offHandStack, stack)) {
+            inventory.setItem(Inventory.SLOT_OFFHAND, stack.transmuteCopy(unlit.asItem()));
             return;
         }
 
-        DefaultedList<ItemStack> inventoryStacks = inventory.getMainStacks();
+        NonNullList<ItemStack> inventoryStacks = inventory.getNonEquipmentItems();
 
-        for (int slot = 0; slot < PlayerInventory.MAIN_SIZE; slot++) {
+        for (int slot = 0; slot < Inventory.INVENTORY_SIZE; slot++) {
             var inventoryStack = inventoryStacks.get(slot);
 
-            if (!ItemStack.areEqual(inventoryStack, stack)) {
+            if (!ItemStack.matches(inventoryStack, stack)) {
                 continue;
             }
 
-            inventoryStacks.set(slot, stack.withItem(unlit.asItem()));
+            inventoryStacks.set(slot, stack.transmuteCopy(unlit.asItem()));
             break;
         }
     }

@@ -4,8 +4,8 @@ import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.item.Items;
-import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.world.item.Items;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -13,13 +13,13 @@ import java.util.concurrent.CompletableFuture;
 public class TotallyLitItemTagProvider extends FabricTagProvider.ItemTagProvider {
     public TotallyLitItemTagProvider(
             FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> completableFuture
+            CompletableFuture<HolderLookup.Provider> completableFuture
     ) {
         super(output, completableFuture);
     }
 
     @Override
-    protected void configure(RegistryWrapper.@NonNull WrapperLookup lookup) {
+    protected void addTags(HolderLookup.@NonNull Provider lookup) {
         valueLookupBuilder(TagRegistry.CAMPFIRE_IGNITER_ITEMS).add(
                 Items.TORCH,
                 Items.SOUL_TORCH,

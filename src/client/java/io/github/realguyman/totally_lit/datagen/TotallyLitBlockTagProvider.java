@@ -4,9 +4,9 @@ import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
-import net.minecraft.block.Blocks;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.BlockTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -14,14 +14,14 @@ import java.util.concurrent.CompletableFuture;
 public class TotallyLitBlockTagProvider extends FabricTagProvider.BlockTagProvider {
     public TotallyLitBlockTagProvider(
             FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> future
+            CompletableFuture<HolderLookup.Provider> future
     ) {
         super(output, future);
     }
 
     @Override
-    protected void configure(RegistryWrapper.@NonNull WrapperLookup lookup) {
-        valueLookupBuilder(BlockTags.PICKAXE_MINEABLE)
+    protected void addTags(HolderLookup.@NonNull Provider lookup) {
+        valueLookupBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(
                         BlockRegistry.UNLIT_LANTERN,
                         BlockRegistry.UNLIT_SOUL_LANTERN,

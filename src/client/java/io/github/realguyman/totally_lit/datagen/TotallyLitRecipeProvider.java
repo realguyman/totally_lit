@@ -4,14 +4,14 @@ import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
-import net.minecraft.data.recipe.RecipeExporter;
-import net.minecraft.data.recipe.RecipeGenerator;
-import net.minecraft.item.Items;
-import net.minecraft.recipe.CampfireCookingRecipe;
-import net.minecraft.recipe.RecipeSerializer;
-import net.minecraft.recipe.book.RecipeCategory;
-import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.registry.tag.ItemTags;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CampfireCookingRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
@@ -19,111 +19,111 @@ import java.util.concurrent.CompletableFuture;
 public class TotallyLitRecipeProvider extends FabricRecipeProvider {
     public TotallyLitRecipeProvider(
             FabricDataOutput output,
-            CompletableFuture<RegistryWrapper.WrapperLookup> future
+            CompletableFuture<HolderLookup.Provider> future
     ) {
         super(output, future);
     }
 
     @Override
-    protected @NonNull RecipeGenerator getRecipeGenerator(
-            RegistryWrapper.@NonNull WrapperLookup lookup,
-            @NonNull RecipeExporter exporter
+    protected @NonNull RecipeProvider createRecipeProvider(
+            HolderLookup.@NonNull Provider lookup,
+            @NonNull RecipeOutput exporter
     ) {
-        return new RecipeGenerator(lookup, exporter) {
+        return new RecipeProvider(lookup, exporter) {
             @Override
-            public void generate() {
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_TORCH, 4)
+            public void buildRecipes() {
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_TORCH, 4)
                         .pattern("#")
                         .pattern("|")
-                        .input('#', ItemTags.COALS)
-                        .input('|', Items.STICK)
+                        .define('#', ItemTags.COALS)
+                        .define('|', Items.STICK)
                         .group("multi_bench")
-                        .criterion(hasItem(Items.COAL), conditionsFromItem(Items.COAL))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.COAL), has(Items.COAL))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_SOUL_TORCH, 4)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_SOUL_TORCH, 4)
                         .pattern("#")
                         .pattern("|")
                         .pattern("s")
-                        .input('#', ItemTags.COALS)
-                        .input('|', Items.STICK)
-                        .input('s', ItemTags.SOUL_FIRE_BASE_BLOCKS)
+                        .define('#', ItemTags.COALS)
+                        .define('|', Items.STICK)
+                        .define('s', ItemTags.SOUL_FIRE_BASE_BLOCKS)
                         .group("multi_bench")
-                        .criterion(hasItem(Items.SOUL_SAND), conditionsFromItem(Items.SOUL_SAND))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.SOUL_SAND), has(Items.SOUL_SAND))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_TORCH, 4)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_TORCH, 4)
                         .pattern("c")
                         .pattern("#")
                         .pattern("|")
-                        .input('c', ConventionalItemTags.COPPER_NUGGETS)
-                        .input('#', ItemTags.COALS)
-                        .input('|', Items.STICK)
+                        .define('c', ConventionalItemTags.COPPER_NUGGETS)
+                        .define('#', ItemTags.COALS)
+                        .define('|', Items.STICK)
                         .group("multi_bench")
-                        .criterion(hasItem(Items.COPPER_NUGGET), conditionsFromItem(Items.COPPER_NUGGET))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.COPPER_NUGGET), has(Items.COPPER_NUGGET))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_TORCH, 4)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_TORCH, 4)
                         .pattern("#")
                         .pattern("|")
-                        .input('#', ConventionalItemTags.GLOWSTONE_DUSTS)
-                        .input('|', Items.STICK)
+                        .define('#', ConventionalItemTags.GLOWSTONE_DUSTS)
+                        .define('|', Items.STICK)
                         .group("multi_bench")
-                        .criterion(hasItem(Items.GLOWSTONE_DUST), conditionsFromItem(Items.GLOWSTONE_DUST))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(Items.GLOWSTONE_DUST), has(Items.GLOWSTONE_DUST))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_LANTERN)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_LANTERN)
                         .pattern("nnn")
                         .pattern("ntn")
                         .pattern("nnn")
-                        .input('n', ConventionalItemTags.IRON_NUGGETS)
-                        .input('t', ItemRegistry.UNLIT_TORCH)
+                        .define('n', ConventionalItemTags.IRON_NUGGETS)
+                        .define('t', ItemRegistry.UNLIT_TORCH)
                         .group("multi_bench")
-                        .criterion(hasItem(ItemRegistry.UNLIT_TORCH), conditionsFromItem(ItemRegistry.UNLIT_TORCH))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemRegistry.UNLIT_TORCH), has(ItemRegistry.UNLIT_TORCH))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_SOUL_LANTERN)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_SOUL_LANTERN)
                         .pattern("nnn")
                         .pattern("ntn")
                         .pattern("nnn")
-                        .input('n', ConventionalItemTags.IRON_NUGGETS)
-                        .input('t', ItemRegistry.UNLIT_SOUL_TORCH)
+                        .define('n', ConventionalItemTags.IRON_NUGGETS)
+                        .define('t', ItemRegistry.UNLIT_SOUL_TORCH)
                         .group("multi_bench")
-                        .criterion(hasItem(ItemRegistry.UNLIT_SOUL_TORCH), conditionsFromItem(ItemRegistry.UNLIT_SOUL_TORCH))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemRegistry.UNLIT_SOUL_TORCH), has(ItemRegistry.UNLIT_SOUL_TORCH))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected())
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected())
                         .pattern("nnn")
                         .pattern("ntn")
                         .pattern("nnn")
-                        .input('n', ConventionalItemTags.COPPER_NUGGETS)
-                        .input('t', ItemRegistry.UNLIT_COPPER_TORCH)
+                        .define('n', ConventionalItemTags.COPPER_NUGGETS)
+                        .define('t', ItemRegistry.UNLIT_COPPER_TORCH)
                         .group("multi_bench")
-                        .criterion(hasItem(ItemRegistry.UNLIT_COPPER_TORCH), conditionsFromItem(ItemRegistry.UNLIT_COPPER_TORCH))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemRegistry.UNLIT_COPPER_TORCH), has(ItemRegistry.UNLIT_COPPER_TORCH))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_LANTERN)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.GLOWSTONE_LANTERN)
                         .pattern("nnn")
                         .pattern("ntn")
                         .pattern("nnn")
-                        .input('n', ConventionalItemTags.IRON_NUGGETS)
-                        .input('t', ItemRegistry.GLOWSTONE_TORCH)
+                        .define('n', ConventionalItemTags.IRON_NUGGETS)
+                        .define('t', ItemRegistry.GLOWSTONE_TORCH)
                         .group("multi_bench")
-                        .criterion(hasItem(ItemRegistry.GLOWSTONE_TORCH), conditionsFromItem(ItemRegistry.GLOWSTONE_TORCH))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemRegistry.GLOWSTONE_TORCH), has(ItemRegistry.GLOWSTONE_TORCH))
+                        .save(output);
 
-                createShaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_JACK_O_LANTERN)
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_JACK_O_LANTERN)
                         .pattern("p")
                         .pattern("t")
-                        .input('p', Items.CARVED_PUMPKIN)
-                        .input('t', ItemRegistry.UNLIT_TORCH)
+                        .define('p', Items.CARVED_PUMPKIN)
+                        .define('t', ItemRegistry.UNLIT_TORCH)
                         .group("multi_bench")
-                        .criterion(hasItem(ItemRegistry.UNLIT_TORCH), conditionsFromItem(ItemRegistry.UNLIT_TORCH))
-                        .offerTo(exporter);
+                        .unlockedBy(getHasName(ItemRegistry.UNLIT_TORCH), has(ItemRegistry.UNLIT_TORCH))
+                        .save(output);
 
-                offerFoodCookingRecipe(
+                simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING,
+                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_TORCH,
@@ -131,9 +131,9 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         0
                 );
 
-                offerFoodCookingRecipe(
+                simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING,
+                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_SOUL_TORCH,
@@ -141,9 +141,9 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         0
                 );
 
-                offerFoodCookingRecipe(
+                simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING,
+                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_COPPER_TORCH,

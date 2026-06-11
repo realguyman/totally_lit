@@ -1,35 +1,35 @@
 package io.github.realguyman.totally_lit.registry;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 
 public class TagRegistry {
-    private static <T> TagKey<T> add(RegistryKey<? extends Registry<T>> registryKey, String path) {
-        return TagKey.of(registryKey, Identifier.of(TotallyLit.MOD_ID, path));
+    private static <T> TagKey<T> add(ResourceKey<? extends Registry<T>> registryKey, String path) {
+        return TagKey.create(registryKey, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, path));
     }
     
     private static TagKey<Block> addBlock(String path) {
-        return add(RegistryKeys.BLOCK, path);
+        return add(Registries.BLOCK, path);
     }
 
     private static TagKey<Item> addItem(String path) {
-        return add(RegistryKeys.ITEM, path);
+        return add(Registries.ITEM, path);
     }
 
     private static TagKey<Fluid> addFluid(String path) {
-        return add(RegistryKeys.FLUID, path);
+        return add(Registries.FLUID, path);
     }
 
     private static TagKey<EntityType<?>> addEntityType(String path) {
-        return add(RegistryKeys.ENTITY_TYPE, path);
+        return add(Registries.ENTITY_TYPE, path);
     }
 
     public static final TagKey<Block> SOUL_FIRE_VARIANT_BLOCKS = addBlock("soul_fire_variants");

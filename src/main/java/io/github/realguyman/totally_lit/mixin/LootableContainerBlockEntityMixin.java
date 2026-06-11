@@ -1,9 +1,6 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.Block;
-import net.minecraft.block.entity.LootableContainerBlockEntity;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,20 +8,23 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.function.BiConsumer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 
-@Mixin(LootableContainerBlockEntity.class)
+@Mixin(RandomizableContainerBlockEntity.class)
 public abstract class LootableContainerBlockEntityMixin {
-    @Shadow public abstract void setStack(int slot, ItemStack stack);
+    @Shadow public abstract void setItem(int slot, ItemStack stack);
 
-    @Inject(at = @At("TAIL"), method = "setStack")
+    @Inject(at = @At("TAIL"), method = "setItem")
     private void replaceWithUnlitVariant(int slot, ItemStack stack, CallbackInfo ci) {
         if (!TotallyLit.CONFIG.replaceWithUnlitVariantsInContainers()) {
             return;
         }
 
         BiConsumer<Block, Block> extinguish = (lit, unlit) -> {
-            if (stack.isOf(lit.asItem())) {
-                setStack(slot, new ItemStack(unlit.asItem(), stack.getCount()));
+            if (stack.is(lit.asItem())) {
+                setItem(slot, new ItemStack(unlit.asItem(), stack.getCount()));
             }
         };
 

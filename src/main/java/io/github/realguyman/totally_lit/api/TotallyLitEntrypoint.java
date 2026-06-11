@@ -1,7 +1,7 @@
 package io.github.realguyman.totally_lit.api;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 public interface TotallyLitEntrypoint {
     /**

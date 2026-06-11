@@ -2,16 +2,16 @@ package io.github.realguyman.totally_lit.mixin.lantern;
 
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.registry.TagRegistry;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.random.Random;
-import net.minecraft.world.tick.WorldTickScheduler;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.LanternBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.ticks.LevelTicks;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -19,11 +19,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(AbstractBlock.class)
+@Mixin(BlockBehaviour.class)
 public abstract class AbstractBlockMixin {
-    @Shadow protected abstract void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, net.minecraft.util.math.random.Random random);
+    @Shadow protected abstract void tick(BlockState state, ServerLevel world, BlockPos pos, net.minecraft.util.RandomSource random);
 
-    @Inject(method = "hasRandomTicks", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
     private void canScheduleLantern(BlockState state, CallbackInfoReturnable<Boolean> cir) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
@@ -33,29 +33,29 @@ public abstract class AbstractBlockMixin {
     }
 
     @Inject(method = "randomTick", at = @At("HEAD"))
-    private void scheduleLantern(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    private void scheduleLantern(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
 
-        final boolean isRaining = world.hasRain(pos.up());
+        final boolean isRaining = world.isRainingAt(pos.above());
         final boolean isChanceInFavor = random.nextFloat() < TotallyLit.CONFIG.lanterns.extinguishInRainChance();
         final boolean canExtinguishOverTime = TotallyLit.CONFIG.lanterns.extinguishOverTime();
 
-        if ((isRaining && isChanceInFavor) || state.get(LanternBlock.WATERLOGGED)) {
-            this.scheduledTick(state, world, pos, random);
-        } else if (canExtinguishOverTime && !state.isIn(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
-            WorldTickScheduler<Block> scheduler = world.getBlockTickScheduler();
+        if ((isRaining && isChanceInFavor) || state.getValue(LanternBlock.WATERLOGGED)) {
+            this.tick(state, world, pos, random);
+        } else if (canExtinguishOverTime && !state.is(TagRegistry.SOUL_FIRE_VARIANT_BLOCKS)) {
+            LevelTicks<Block> scheduler = world.getBlockTicks();
             Block block = state.getBlock();
 
-            if (!scheduler.isQueued(pos, block) && !scheduler.isTicking(pos, block)) {
-                world.scheduleBlockTick(pos, block, TotallyLit.CONFIG.lanterns.burnDuration());
+            if (!scheduler.hasScheduledTick(pos, block) && !scheduler.willTickThisTick(pos, block)) {
+                world.scheduleTick(pos, block, TotallyLit.CONFIG.lanterns.burnDuration());
             }
         }
     }
 
-    @Inject(method = "scheduledTick", at = @At("HEAD"))
-    private void extinguishLantern(BlockState state, ServerWorld world, BlockPos pos, Random random, CallbackInfo ci) {
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void extinguishLantern(BlockState state, ServerLevel world, BlockPos pos, RandomSource random, CallbackInfo ci) {
         if (!TotallyLit.LANTERN_MAP.containsKey(state.getBlock())) {
             return;
         }
@@ -65,8 +65,8 @@ public abstract class AbstractBlockMixin {
         }
 
         TotallyLit.LANTERN_MAP.forEach((lit, unlit) -> {
-            if (state.isOf(lit) && world.setBlockState(pos, unlit.getStateWithProperties(state))) {
-                world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
+            if (state.is(lit) && world.setBlockAndUpdate(pos, unlit.withPropertiesOf(state))) {
+                world.playSound(null, pos, SoundEvents.FIRE_EXTINGUISH, SoundSource.BLOCKS, 0.125F, random.nextFloat() * 0.5F + 0.125F);
                 TotallyLit.CACHED_CARETAKER_BLOCKS.invalidate(pos);
             }
         });

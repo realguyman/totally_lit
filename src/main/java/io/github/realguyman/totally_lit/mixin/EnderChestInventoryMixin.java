@@ -1,27 +1,27 @@
 package io.github.realguyman.totally_lit.mixin;
 
 import io.github.realguyman.totally_lit.TotallyLit;
-import net.minecraft.block.Block;
-import net.minecraft.inventory.EnderChestInventory;
-import net.minecraft.inventory.SimpleInventory;
-import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 
 import java.util.function.BiConsumer;
+import net.minecraft.world.SimpleContainer;
+import net.minecraft.world.inventory.PlayerEnderChestContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
 
-@Mixin(EnderChestInventory.class)
-public abstract class EnderChestInventoryMixin extends SimpleInventory {
+@Mixin(PlayerEnderChestContainer.class)
+public abstract class EnderChestInventoryMixin extends SimpleContainer {
     @Override
-    public void setStack(int slot, ItemStack stack) {
-        super.setStack(slot, stack);
+    public void setItem(int slot, ItemStack stack) {
+        super.setItem(slot, stack);
 
         if (!TotallyLit.CONFIG.replaceWithUnlitVariantsInContainers()) {
             return;
         }
 
         BiConsumer<Block, Block> extinguish = (lit, unlit) -> {
-            if (stack.isOf(lit.asItem())) {
-                setStack(slot, new ItemStack(unlit.asItem(), stack.getCount()));
+            if (stack.is(lit.asItem())) {
+                setItem(slot, new ItemStack(unlit.asItem(), stack.getCount()));
             }
         };
 

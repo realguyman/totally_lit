@@ -5,17 +5,17 @@ import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Items;
-import net.minecraft.test.TestContext;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.GameMode;
+import net.minecraft.core.BlockPos;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.block.Blocks;
 
 public class TorchTestSuite {
     @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-    public void torchBlockDoesExtinguishOverTime(TestContext context) {
+    public void torchBlockDoesExtinguishOverTime(GameTestHelper context) {
         TotallyLit.CONFIG.torches.extinguishOverTime(true);
 
         TestUtil.blockDoesExtinguishOverTime(
@@ -26,7 +26,7 @@ public class TorchTestSuite {
     }
 
     @GameTest(maxTicks = TotallyLit.MAX_TICKS_TO_BURN_FOR)
-    public void copperTorchBlockDoesExtinguishOverTime(TestContext context) {
+    public void copperTorchBlockDoesExtinguishOverTime(GameTestHelper context) {
         TotallyLit.CONFIG.torches.extinguishOverTime(true);
 
         TestUtil.blockDoesExtinguishOverTime(
@@ -38,7 +38,7 @@ public class TorchTestSuite {
 
     @GameTest
     public void torchItemEntityDoesExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         TotallyLit.CONFIG.itemEntitiesExtinguishWhenSubmerged(true);
 
@@ -51,7 +51,7 @@ public class TorchTestSuite {
 
     @GameTest
     public void copperTorchItemEntityDoesExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         TotallyLit.CONFIG.itemEntitiesExtinguishWhenSubmerged(true);
 
@@ -64,107 +64,107 @@ public class TorchTestSuite {
 
     @GameTest
     public void torchItemDoesNotExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.setBlockState(pos, Blocks.WATER);
+        context.setBlock(pos, Blocks.WATER);
         context.spawnItem(Items.TORCH, pos);
-        context.expectEntityWithDataEnd(pos, EntityType.ITEM, entity -> entity.getStack().getItem(), Items.TORCH);
+        context.succeedWhenEntityData(pos, EntityType.ITEM, entity -> entity.getItem().getItem(), Items.TORCH);
     }
 
     @GameTest
     public void copperTorchItemDoesNotExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.setBlockState(pos, Blocks.WATER);
+        context.setBlock(pos, Blocks.WATER);
         context.spawnItem(Items.COPPER_TORCH, pos);
-        context.expectEntityWithDataEnd(pos, EntityType.ITEM, entity -> entity.getStack().getItem(), Items.COPPER_TORCH);
+        context.succeedWhenEntityData(pos, EntityType.ITEM, entity -> entity.getItem().getItem(), Items.COPPER_TORCH);
     }
 
     @GameTest(skyAccess = true)
-    public void torchBlockDoesExtinguishInRain(TestContext context) {
+    public void torchBlockDoesExtinguishInRain(GameTestHelper context) {
         TotallyLit.CONFIG.torches.extinguishOverTime(false);
         TotallyLit.CONFIG.torches.extinguishInRainChance(1.0F);
 
-        context.getWorld().setWeather(0, 20, true, false);
+        context.getLevel().setWeatherParameters(0, 20, true, false);
 
         var lit = Blocks.TORCH;
         var unlit = BlockRegistry.UNLIT_TORCH;
 
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.setBlockState(pos, lit.getDefaultState());
+        context.setBlock(pos, lit.defaultBlockState());
 
-        context.addInstantFinalTask(() -> {
-            context.forceRandomTick(pos);
-            context.expectBlock(unlit, pos);
+        context.succeedWhen(() -> {
+            context.randomTick(pos);
+            context.assertBlockPresent(unlit, pos);
         });
     }
 
     @GameTest(skyAccess = true)
-    public void copperTorchBlockDoesExtinguishInRain(TestContext context) {
+    public void copperTorchBlockDoesExtinguishInRain(GameTestHelper context) {
         TotallyLit.CONFIG.torches.extinguishOverTime(false);
         TotallyLit.CONFIG.torches.extinguishInRainChance(1.0F);
 
-        context.getWorld().setWeather(0, 20, true, false);
+        context.getLevel().setWeatherParameters(0, 20, true, false);
 
         var lit = Blocks.COPPER_TORCH;
         var unlit = BlockRegistry.UNLIT_COPPER_TORCH;
 
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.setBlockState(pos, lit.getDefaultState());
+        context.setBlock(pos, lit.defaultBlockState());
 
-        context.addInstantFinalTask(() -> {
-            context.forceRandomTick(pos);
-            context.expectBlock(unlit, pos);
+        context.succeedWhen(() -> {
+            context.randomTick(pos);
+            context.assertBlockPresent(unlit, pos);
         });
     }
 
     @GameTest
-    public void playerCanIgniteUnlitTorchOnGroundWithLitTorchInHand(TestContext context) {
+    public void playerCanIgniteUnlitTorchOnGroundWithLitTorchInHand(GameTestHelper context) {
         var pos = new BlockPos(1, 1, 1);
-        var player = context.createMockPlayer(GameMode.SURVIVAL);
+        var player = context.makeMockPlayer(GameType.SURVIVAL);
 
-        context.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
-        player.setStackInHand(Hand.MAIN_HAND, Items.TORCH.getDefaultStack());
+        context.setBlock(pos, BlockRegistry.UNLIT_TORCH.defaultBlockState());
+        player.setItemInHand(InteractionHand.MAIN_HAND, Items.TORCH.getDefaultInstance());
         context.useBlock(pos, player);
 
-        context.expectBlockAtEnd(Blocks.TORCH, pos);
+        context.succeedWhenBlockPresent(Blocks.TORCH, pos);
     }
 
     @GameTest
-    public void playerCanIgniteUnlitTorchOnGroundWithFlintAndSteelInHand(TestContext context) {
+    public void playerCanIgniteUnlitTorchOnGroundWithFlintAndSteelInHand(GameTestHelper context) {
         var pos = new BlockPos(1, 1, 1);
-        var player = context.createMockPlayer(GameMode.SURVIVAL);
+        var player = context.makeMockPlayer(GameType.SURVIVAL);
 
-        context.setBlockState(pos, BlockRegistry.UNLIT_TORCH.getDefaultState());
-        player.setStackInHand(Hand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultStack());
+        context.setBlock(pos, BlockRegistry.UNLIT_TORCH.defaultBlockState());
+        player.setItemInHand(InteractionHand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultInstance());
         context.useBlock(pos, player);
 
-        context.expectBlockAtEnd(Blocks.TORCH, pos);
+        context.succeedWhenBlockPresent(Blocks.TORCH, pos);
     }
 
     @GameTest
-    public void playerCanIgniteUnlitCopperTorchOnGroundWithLitCopperTorchInHand(TestContext context) {
+    public void playerCanIgniteUnlitCopperTorchOnGroundWithLitCopperTorchInHand(GameTestHelper context) {
         var pos = new BlockPos(1, 1, 1);
-        var player = context.createMockPlayer(GameMode.SURVIVAL);
+        var player = context.makeMockPlayer(GameType.SURVIVAL);
 
-        context.setBlockState(pos, BlockRegistry.UNLIT_COPPER_TORCH.getDefaultState());
-        player.setStackInHand(Hand.MAIN_HAND, Items.COPPER_TORCH.getDefaultStack());
+        context.setBlock(pos, BlockRegistry.UNLIT_COPPER_TORCH.defaultBlockState());
+        player.setItemInHand(InteractionHand.MAIN_HAND, Items.COPPER_TORCH.getDefaultInstance());
         context.useBlock(pos, player);
 
-        context.expectBlockAtEnd(Blocks.COPPER_TORCH, pos);
+        context.succeedWhenBlockPresent(Blocks.COPPER_TORCH, pos);
     }
 
     @GameTest
-    public void playerCanIgniteUnlitCopperTorchOnGroundWithFlintAndSteelInHand(TestContext context) {
+    public void playerCanIgniteUnlitCopperTorchOnGroundWithFlintAndSteelInHand(GameTestHelper context) {
         var pos = new BlockPos(1, 1, 1);
-        var player = context.createMockPlayer(GameMode.SURVIVAL);
+        var player = context.makeMockPlayer(GameType.SURVIVAL);
 
-        context.setBlockState(pos, BlockRegistry.UNLIT_COPPER_TORCH.getDefaultState());
-        player.setStackInHand(Hand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultStack());
+        context.setBlock(pos, BlockRegistry.UNLIT_COPPER_TORCH.defaultBlockState());
+        player.setItemInHand(InteractionHand.MAIN_HAND, Items.FLINT_AND_STEEL.getDefaultInstance());
         context.useBlock(pos, player);
 
-        context.expectBlockAtEnd(Blocks.COPPER_TORCH, pos);
+        context.succeedWhenBlockPresent(Blocks.COPPER_TORCH, pos);
     }
 }

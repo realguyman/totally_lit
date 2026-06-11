@@ -3,13 +3,13 @@ package io.github.realguyman.totally_lit.gametest;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
-import net.minecraft.item.Items;
-import net.minecraft.test.TestContext;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.item.Items;
 
 public class SoulTorchTestSuite {
     @GameTest
     public void soulTorchItemEntityDoesExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
                 context,

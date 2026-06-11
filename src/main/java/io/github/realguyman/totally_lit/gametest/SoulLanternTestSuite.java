@@ -4,14 +4,14 @@ import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
 import io.github.realguyman.totally_lit.util.TestUtil;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.Items;
-import net.minecraft.test.TestContext;
+import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public class SoulLanternTestSuite {
     @GameTest
     public void soulLanternItemEntityDoesExtinguishWhenSubmergedInWater(
-            TestContext context
+            GameTestHelper context
     ) {
         TestUtil.itemEntityDoesExtinguishWhenSubmergedInWater(
                 context,
@@ -22,7 +22,7 @@ public class SoulLanternTestSuite {
 
     @GameTest
     public void soulLanternWaterloggedBlockDoesExtinguishWhenRandomlyTicked(
-            TestContext context
+            GameTestHelper context
     ) {
         TestUtil.waterloggedBlockDoesExtinguishWhenRandomlyTicked(
                 context,

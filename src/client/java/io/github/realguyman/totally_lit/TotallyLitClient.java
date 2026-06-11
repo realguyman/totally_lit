@@ -5,9 +5,9 @@ import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.render.BlockRenderLayer;
-import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
+import net.minecraft.client.renderer.chunk.ChunkSectionLayer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 
 import static io.github.realguyman.totally_lit.registry.BlockRegistry.*;
 
@@ -18,15 +18,15 @@ public class TotallyLitClient implements ClientModInitializer {
     public void onInitializeClient() {
         FabricLoader.getInstance().getModContainer(MOD_ID).ifPresent(modContainer -> {
             ResourceLoader.registerBuiltinPack(
-                    Identifier.of(MOD_ID, "unlit_campfire"),
+                    Identifier.fromNamespaceAndPath(MOD_ID, "unlit_campfire"),
                     modContainer,
-                    Text.translatable("resourcePack.totally_lit.unlit_campfire.name"),
+                    Component.translatable("resourcePack.totally_lit.unlit_campfire.name"),
                     PackActivationType.DEFAULT_ENABLED
             );
         });
 
         BlockRenderLayerMap.putBlocks(
-                BlockRenderLayer.CUTOUT,
+                ChunkSectionLayer.CUTOUT,
                 GLOWSTONE_LANTERN,
                 GLOWSTONE_TORCH,
                 GLOWSTONE_WALL_TORCH,
@@ -41,7 +41,7 @@ public class TotallyLitClient implements ClientModInitializer {
         );
 
         UNLIT_COPPER_LANTERNS.forEach(block -> {
-            BlockRenderLayerMap.putBlock(block, BlockRenderLayer.CUTOUT);
+            BlockRenderLayerMap.putBlock(block, ChunkSectionLayer.CUTOUT);
         });
     }
 }
