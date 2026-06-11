@@ -1,5 +1,5 @@
 plugins {
-    id "net.fabricmc.fabric-loom-remap" version "${loom_version}"
+    id "net.fabricmc.fabric-loom" version "${loom_version}"
     id "com.modrinth.minotaur" version "2.+"
     id "maven-publish"
 }
@@ -18,22 +18,21 @@ repositories {
 dependencies {
     // Required dependencies
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
-    mappings loom.officialMojangMappings()
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-    annotationProcessor modImplementation("io.wispforest:owo-lib:${project.owo_lib_version}")
+    implementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
+    implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    annotationProcessor implementation("io.wispforest:owo-lib:${project.owo_lib_version}")
     implementation "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
     include "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
 
     // Local dependencies
-    modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
-    modLocalRuntime "maven.modrinth:sodium:${project.sodium_version}"
-    modLocalRuntime "maven.modrinth:lithium:${project.lithium_version}"
-    modLocalRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${project.lambdynamiclights_version}"
+    localRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
+    localRuntime "maven.modrinth:lithium:${project.lithium_version}"
+    localRuntime "dev.lambdaurora.lambdynamiclights:lambdynamiclights-runtime:${project.lambdynamiclights_version}"
 }
 
 fabricApi {
     configureDataGeneration {
+        createRunConfiguration = true
         client = true
     }
 
@@ -44,6 +43,7 @@ fabricApi {
 
 loom {
     splitEnvironmentSourceSets()
+    accessWidenerPath = file("src/main/resources/totally_lit.classtweaker")
 
     mods {
         "totally_lit" {
@@ -57,8 +57,8 @@ java {
     withSourcesJar()
     withJavadocJar()
 
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
 }
 
 processResources {
@@ -70,7 +70,7 @@ processResources {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    it.options.release = 21
+    it.options.release = 25
 }
 
 tasks.withType(Jar).configureEach {
@@ -86,8 +86,8 @@ modrinth {
 
     token = System.getenv("MODRINTH_TOKEN")
     projectId = "hbKDMT6l"
-    uploadFile = remapJar
-    additionalFiles = [remapSourcesJar, javadocJar]
+    uploadFile = jar
+    additionalFiles = [sourcesJar, javadocJar]
     loaders = ["fabric", "quilt"]
     syncBodyFrom = rootProject.file("README.md").text
     dependencies {

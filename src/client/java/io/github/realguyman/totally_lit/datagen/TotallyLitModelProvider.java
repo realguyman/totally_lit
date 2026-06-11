@@ -2,13 +2,13 @@ package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.minecraft.client.data.models.BlockModelGenerators;
 import net.minecraft.client.data.models.ItemModelGenerators;
 import org.jspecify.annotations.NonNull;
 
 public class TotallyLitModelProvider extends FabricModelProvider {
-    public TotallyLitModelProvider(FabricDataOutput output) {
+    public TotallyLitModelProvider(FabricPackOutput output) {
         super(output);
     }
 

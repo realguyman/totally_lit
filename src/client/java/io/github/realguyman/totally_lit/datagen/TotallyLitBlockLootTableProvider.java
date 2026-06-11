@@ -1,16 +1,16 @@
 package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
+import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootSubProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.level.block.Block;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TotallyLitBlockLootTableProvider extends FabricBlockLootTableProvider {
+public class TotallyLitBlockLootTableProvider extends FabricBlockLootSubProvider {
     public TotallyLitBlockLootTableProvider(
-            FabricDataOutput output,
+            FabricPackOutput output,
             CompletableFuture<HolderLookup.Provider> future
     ) {
         super(output, future);

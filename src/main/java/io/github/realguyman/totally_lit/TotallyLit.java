@@ -10,7 +10,7 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.player.BlockEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.registry.OxidizableBlocksRegistry;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.entrypoint.EntrypointContainer;
@@ -77,7 +77,7 @@ public class TotallyLit implements ModInitializer {
                                 new AABB(key).inflate(TotallyLit.CONFIG.caretakerCheckRadius()),
                                 EntitySelector.LIVING_ENTITY_STILL_ALIVE
                         ).stream()
-                        .filter(entity -> entity.getType().is(TagRegistry.CARETAKERS))
+                        .filter(entity -> entity.is(TagRegistry.CARETAKERS))
                         .toList()
                         .isEmpty()
         );
@@ -96,25 +96,25 @@ public class TotallyLit implements ModInitializer {
 
         ItemRegistry.register();
 
-        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(listener -> {
-            listener.addAfter(Items.JACK_O_LANTERN, ItemRegistry.UNLIT_JACK_O_LANTERN);
-            listener.addAfter(Items.TORCH, ItemRegistry.UNLIT_TORCH);
-            listener.addAfter(Items.SOUL_TORCH, ItemRegistry.UNLIT_SOUL_TORCH, ItemRegistry.GLOWSTONE_TORCH);
-            listener.addAfter(Items.COPPER_TORCH, ItemRegistry.UNLIT_COPPER_TORCH);
-            listener.addAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
-            listener.addAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
+        CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.FUNCTIONAL_BLOCKS).register(listener -> {
+            listener.insertAfter(Items.JACK_O_LANTERN, ItemRegistry.UNLIT_JACK_O_LANTERN);
+            listener.insertAfter(Items.TORCH, ItemRegistry.UNLIT_TORCH);
+            listener.insertAfter(Items.SOUL_TORCH, ItemRegistry.UNLIT_SOUL_TORCH, ItemRegistry.GLOWSTONE_TORCH);
+            listener.insertAfter(Items.COPPER_TORCH, ItemRegistry.UNLIT_COPPER_TORCH);
+            listener.insertAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
+            listener.insertAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
 
-            listener.addAfter(Items.COPPER_LANTERN.exposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.exposed());
-            listener.addAfter(Items.COPPER_LANTERN.oxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.oxidized());
-            listener.addAfter(Items.COPPER_LANTERN.weathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.weathered());
-            listener.addAfter(Items.COPPER_LANTERN.unaffected(), ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected());
-            listener.addAfter(Items.COPPER_LANTERN.waxedExposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
-            listener.addAfter(Items.COPPER_LANTERN.waxedOxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
-            listener.addAfter(Items.COPPER_LANTERN.waxedWeathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
-            listener.addAfter(Items.COPPER_LANTERN.waxed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxed());
+            listener.insertAfter(Items.COPPER_LANTERN.exposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.exposed());
+            listener.insertAfter(Items.COPPER_LANTERN.oxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.oxidized());
+            listener.insertAfter(Items.COPPER_LANTERN.weathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.weathered());
+            listener.insertAfter(Items.COPPER_LANTERN.unaffected(), ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected());
+            listener.insertAfter(Items.COPPER_LANTERN.waxedExposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
+            listener.insertAfter(Items.COPPER_LANTERN.waxedOxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
+            listener.insertAfter(Items.COPPER_LANTERN.waxedWeathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
+            listener.insertAfter(Items.COPPER_LANTERN.waxed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxed());
         });
 
-        OxidizableBlocksRegistry.registerCopperBlockSet(BlockRegistry.UNLIT_COPPER_LANTERNS);
+        OxidizableBlocksRegistry.registerWeatheringCopperBlocks(BlockRegistry.UNLIT_COPPER_LANTERNS);
 
         BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, LANTERN_MAP, TagRegistry.LANTERN_IGNITER_ITEMS);

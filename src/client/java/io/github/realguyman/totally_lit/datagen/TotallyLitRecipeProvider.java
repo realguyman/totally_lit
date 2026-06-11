@@ -1,7 +1,7 @@
 package io.github.realguyman.totally_lit.datagen;
 
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalItemTags;
 import net.minecraft.core.HolderLookup;
@@ -11,14 +11,13 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CampfireCookingRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import org.jspecify.annotations.NonNull;
 
 import java.util.concurrent.CompletableFuture;
 
 public class TotallyLitRecipeProvider extends FabricRecipeProvider {
     public TotallyLitRecipeProvider(
-            FabricDataOutput output,
+            FabricPackOutput output,
             CompletableFuture<HolderLookup.Provider> future
     ) {
         super(output, future);
@@ -123,7 +122,6 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
 
                 simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_TORCH,
@@ -133,7 +131,6 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
 
                 simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_SOUL_TORCH,
@@ -143,7 +140,6 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
 
                 simpleCookingRecipe(
                         "campfire_cooking",
-                        RecipeSerializer.CAMPFIRE_COOKING_RECIPE,
                         CampfireCookingRecipe::new,
                         20,
                         ItemRegistry.UNLIT_COPPER_TORCH,

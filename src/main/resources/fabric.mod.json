@@ -20,12 +20,13 @@
     "issues": "https://github.com/realguyman/totally_lit/issues"
   },
   "depends": {
-    "java": ">=21",
-    "minecraft": "1.21.11",
+    "java": ">=25",
+    "minecraft": "~26.1",
     "fabricloader": ">=0.19.0",
     "fabric-api": "*",
     "owo-lib": ">=0.13.0"
   },
+  "accessWidener": "totally_lit.classtweaker",
   "breaks": {
     "hardcore_torches": "*"
   },

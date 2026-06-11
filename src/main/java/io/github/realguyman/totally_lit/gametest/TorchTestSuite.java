@@ -87,7 +87,7 @@ public class TorchTestSuite {
         TotallyLit.CONFIG.torches.extinguishOverTime(false);
         TotallyLit.CONFIG.torches.extinguishInRainChance(1.0F);
 
-        context.getLevel().setWeatherParameters(0, 20, true, false);
+        context.getLevel().getWeatherData().setRaining(true);
 
         var lit = Blocks.TORCH;
         var unlit = BlockRegistry.UNLIT_TORCH;
@@ -106,7 +106,7 @@ public class TorchTestSuite {
         TotallyLit.CONFIG.torches.extinguishOverTime(false);
         TotallyLit.CONFIG.torches.extinguishInRainChance(1.0F);
 
-        context.getLevel().setWeatherParameters(0, 20, true, false);
+        context.getLevel().getWeatherData().setRaining(true);
 
         var lit = Blocks.COPPER_TORCH;
         var unlit = BlockRegistry.UNLIT_COPPER_TORCH;

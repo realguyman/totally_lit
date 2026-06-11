@@ -27,7 +27,7 @@ public class CaretakerTestSuite {
 
         context.setBlock(pos, Blocks.TORCH);
 
-        context.getLevel().setWeatherParameters(0, 20, true, false);
+        context.getLevel().getWeatherData().setRaining(true);
 
         context.spawn(EntityType.VILLAGER, pos);
 
