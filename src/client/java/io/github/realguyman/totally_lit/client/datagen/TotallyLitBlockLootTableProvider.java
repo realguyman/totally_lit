@@ -28,6 +28,8 @@ public class TotallyLitBlockLootTableProvider extends FabricBlockLootSubProvider
                 BlockRegistry.GLOWSTONE_TORCH,
                 BlockRegistry.GLOWSTONE_LANTERN
         );
+
+        BlockRegistry.UNLIT_COPPER_LANTERNS.forEach(this::dropSelf);
     }
 
     private void addDrops(Block... blocks) {
