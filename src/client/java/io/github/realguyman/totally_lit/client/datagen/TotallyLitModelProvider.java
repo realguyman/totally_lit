@@ -1,4 +1,4 @@
-package io.github.realguyman.totally_lit.datagen;
+package io.github.realguyman.totally_lit.client.datagen;
 
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;

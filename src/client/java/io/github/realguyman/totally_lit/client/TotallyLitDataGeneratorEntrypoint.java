@@ -1,6 +1,6 @@
-package io.github.realguyman.totally_lit;
+package io.github.realguyman.totally_lit.client;
 
-import io.github.realguyman.totally_lit.datagen.*;
+import io.github.realguyman.totally_lit.client.datagen.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
