@@ -1,7 +1,7 @@
 package io.github.realguyman.totally_lit;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import io.github.realguyman.totally_lit.api.TotallyLitEntrypoint;
 import io.github.realguyman.totally_lit.registry.BlockRegistry;
 import io.github.realguyman.totally_lit.registry.ItemRegistry;
@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 // TODO: Extinguish system: Add ability to extinguish light sources with water buckets in world
 // TODO: Ignition system: Fire arrows should ignite unlit blocks
@@ -64,23 +65,29 @@ public class TotallyLit implements ModInitializer {
     public static final Map<Block, Block> LANTERN_MAP = new HashMap<>();
     public static final Map<Block, Block> TORCH_MAP = new HashMap<>();
 
-    public static final Cache<BlockPos, Boolean> CACHED_CARETAKER_BLOCKS = Caffeine.newBuilder()
+    public static final Cache<BlockPos, Boolean> CACHED_CARETAKER_BLOCKS = CacheBuilder.newBuilder()
             .expireAfterWrite(Duration.ofMinutes(5))
             .maximumSize(16_384)
             .build();
 
     public static boolean isCaretakerPresent(BlockPos pos, ServerLevel world) {
-        return CACHED_CARETAKER_BLOCKS.get(
-                pos,
-                key -> !world.getEntitiesOfClass(
-                                Entity.class,
-                                new AABB(key).inflate(TotallyLit.CONFIG.caretakerCheckRadius()),
-                                EntitySelector.LIVING_ENTITY_STILL_ALIVE
-                        ).stream()
-                        .filter(entity -> entity.is(TagRegistry.CARETAKERS))
-                        .toList()
-                        .isEmpty()
-        );
+        try {
+            return CACHED_CARETAKER_BLOCKS.get(
+                    pos,
+                    () -> !world.getEntitiesOfClass(
+                                    Entity.class,
+                                    new AABB(pos).inflate(TotallyLit.CONFIG.caretakerCheckRadius()),
+                                    EntitySelector.LIVING_ENTITY_STILL_ALIVE
+                            ).stream()
+                            .filter(entity -> entity.is(TagRegistry.CARETAKERS))
+                            .toList()
+                            .isEmpty()
+            );
+        } catch (ExecutionException e) {
+            LOGGER.error("Failed to check if caretaker is present", e.getCause());
+        }
+
+        return false;
     }
 
     @Override
