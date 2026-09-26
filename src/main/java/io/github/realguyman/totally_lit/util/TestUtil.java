@@ -4,6 +4,7 @@ import io.github.realguyman.totally_lit.TotallyLit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.Block;
@@ -19,7 +20,7 @@ public final class TestUtil {
         BlockPos pos = new BlockPos(1, 1, 1);
         context.setBlock(pos, Blocks.WATER);
         context.spawnItem(lit, pos);
-        context.succeedWhenEntityData(pos, EntityType.ITEM, entity -> entity.getItem().getItem(), unlit);
+        context.succeedWhenEntityData(pos, EntityTypes.ITEM, entity -> entity.getItem().getItem(), unlit);
     }
 
     public static void blockDoesExtinguishOverTime(GameTestHelper context, Block lit, Block unlit) {

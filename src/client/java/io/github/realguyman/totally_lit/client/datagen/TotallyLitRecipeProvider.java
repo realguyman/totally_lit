@@ -91,7 +91,7 @@ public class TotallyLitRecipeProvider extends FabricRecipeProvider {
                         .unlockedBy(getHasName(ItemRegistry.UNLIT_SOUL_TORCH), has(ItemRegistry.UNLIT_SOUL_TORCH))
                         .save(output);
 
-                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected())
+                shaped(RecipeCategory.DECORATIONS, ItemRegistry.UNLIT_COPPER_LANTERN.weathering().unaffected())
                         .pattern("nnn")
                         .pattern("ntn")
                         .pattern("nnn")

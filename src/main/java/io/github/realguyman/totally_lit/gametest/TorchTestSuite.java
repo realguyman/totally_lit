@@ -8,7 +8,7 @@ import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.level.block.Blocks;
@@ -69,7 +69,7 @@ public class TorchTestSuite {
         BlockPos pos = new BlockPos(1, 1, 1);
         context.setBlock(pos, Blocks.WATER);
         context.spawnItem(Items.TORCH, pos);
-        context.succeedWhenEntityData(pos, EntityType.ITEM, entity -> entity.getItem().getItem(), Items.TORCH);
+        context.succeedWhenEntityData(pos, EntityTypes.ITEM, entity -> entity.getItem().getItem(), Items.TORCH);
     }
 
     @GameTest
@@ -79,7 +79,7 @@ public class TorchTestSuite {
         BlockPos pos = new BlockPos(1, 1, 1);
         context.setBlock(pos, Blocks.WATER);
         context.spawnItem(Items.COPPER_TORCH, pos);
-        context.succeedWhenEntityData(pos, EntityType.ITEM, entity -> entity.getItem().getItem(), Items.COPPER_TORCH);
+        context.succeedWhenEntityData(pos, EntityTypes.ITEM, entity -> entity.getItem().getItem(), Items.COPPER_TORCH);
     }
 
     @GameTest(skyAccess = true)

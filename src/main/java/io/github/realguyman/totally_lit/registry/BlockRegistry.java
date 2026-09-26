@@ -3,18 +3,13 @@ package io.github.realguyman.totally_lit.registry;
 import io.github.realguyman.totally_lit.TotallyLit;
 import io.github.realguyman.totally_lit.api.block.NoParticleTorchBlock;
 import io.github.realguyman.totally_lit.api.block.NoParticleWallTorchBlock;
+import io.github.realguyman.totally_lit.references.BlockIds;
+import io.github.realguyman.totally_lit.references.BlockItemIds;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
-
-import java.util.function.Function;
 
 public class BlockRegistry {
     public static final Block GLOWSTONE_TORCH;
@@ -29,14 +24,14 @@ public class BlockRegistry {
     public static final Block UNLIT_WALL_TORCH;
     public static final Block UNLIT_COPPER_TORCH;
     public static final Block UNLIT_COPPER_WALL_TORCH;
-    public static final WeatheringCopperBlocks UNLIT_COPPER_LANTERNS;
+    public static final WeatheringCopperCollection<Block> UNLIT_COPPER_LANTERN;
 
     static {
         GLOWSTONE_TORCH = add(
                 "glowstone_torch",
                 new NoParticleTorchBlock(
                         Properties.ofFullCopy(Blocks.TORCH)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "glowstone_torch")))
+                                .setId(BlockItemIds.GLOWSTONE_TORCH.block())
                 )
         );
 
@@ -46,7 +41,7 @@ public class BlockRegistry {
                         Properties.ofFullCopy(Blocks.TORCH)
                                 .overrideLootTable(GLOWSTONE_TORCH.getLootTable())
                                 .overrideDescription(GLOWSTONE_TORCH.getDescriptionId())
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "glowstone_wall_torch")))
+                                .setId(BlockIds.UNLIT_GLOWSTONE_WALL_TORCH)
                 )
         );
 
@@ -54,7 +49,7 @@ public class BlockRegistry {
                 "glowstone_lantern",
                 new LanternBlock(
                         Properties.ofFullCopy(Blocks.LANTERN)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "glowstone_lantern")))
+                                .setId(BlockItemIds.GLOWSTONE_LANTERN.block())
                 )
         );
 
@@ -63,7 +58,7 @@ public class BlockRegistry {
                 new CarvedPumpkinBlock(
                         Properties.ofFullCopy(Blocks.JACK_O_LANTERN)
                                 .lightLevel(state -> 0)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_jack_o_lantern")))
+                                .setId(BlockItemIds.UNLIT_JACK_O_LANTERN.block())
                 )
         );
 
@@ -72,7 +67,7 @@ public class BlockRegistry {
                 new LanternBlock(
                         Properties.ofFullCopy(Blocks.LANTERN)
                                 .lightLevel(state -> 0)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_lantern")))
+                                .setId(BlockItemIds.UNLIT_LANTERN.block())
                 )
         );
 
@@ -80,7 +75,7 @@ public class BlockRegistry {
                 "unlit_soul_lantern",
                 new LanternBlock(
                         Properties.ofFullCopy(UNLIT_LANTERN)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_soul_lantern")))
+                                .setId(BlockItemIds.UNLIT_SOUL_LANTERN.block())
                 )
         );
 
@@ -89,7 +84,7 @@ public class BlockRegistry {
                 new NoParticleTorchBlock(
                         Properties.ofFullCopy(Blocks.TORCH)
                                 .lightLevel(state -> 0)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_soul_torch")))
+                                .setId(BlockItemIds.UNLIT_SOUL_TORCH.block())
                 )
         );
 
@@ -100,7 +95,7 @@ public class BlockRegistry {
                                 .lightLevel(state -> 0)
                                 .overrideLootTable(UNLIT_SOUL_TORCH.getLootTable())
                                 .overrideDescription(UNLIT_SOUL_TORCH.getDescriptionId())
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_soul_wall_torch")))
+                                .setId(BlockIds.UNLIT_SOUL_WALL_TORCH)
                 )
         );
 
@@ -108,7 +103,7 @@ public class BlockRegistry {
                 new NoParticleTorchBlock(
                         Properties.ofFullCopy(Blocks.TORCH)
                                 .lightLevel(state -> 0)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_torch")))
+                                .setId(BlockItemIds.UNLIT_TORCH.block())
                 )
         );
 
@@ -118,7 +113,7 @@ public class BlockRegistry {
                                 .lightLevel(state -> 0)
                                 .overrideLootTable(UNLIT_TORCH.getLootTable())
                                 .overrideDescription(UNLIT_TORCH.getDescriptionId())
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_wall_torch")))
+                                .setId(BlockIds.UNLIT_WALL_TORCH)
                 )
         );
 
@@ -126,7 +121,7 @@ public class BlockRegistry {
                 new NoParticleTorchBlock(
                         Properties.ofFullCopy(Blocks.COPPER_TORCH)
                                 .lightLevel(state -> 0)
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_copper_torch")))
+                                .setId(BlockItemIds.UNLIT_COPPER_TORCH.block())
                 )
         );
 
@@ -136,42 +131,21 @@ public class BlockRegistry {
                                 .lightLevel(state -> 0)
                                 .overrideLootTable(UNLIT_COPPER_TORCH.getLootTable())
                                 .overrideDescription(UNLIT_COPPER_TORCH.getDescriptionId())
-                                .setId(ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, "unlit_copper_wall_torch")))
+                                .setId(BlockIds.UNLIT_COPPER_WALL_TORCH)
                 )
         );
 
-        UNLIT_COPPER_LANTERNS = WeatheringCopperBlocks.create(
-                "unlit_copper_lantern",
-                BlockRegistry::addCopperSet,
-                LanternBlock::new,
+        UNLIT_COPPER_LANTERN = WeatheringCopperCollection.registerBlocks(
+                BlockItemIds.UNLIT_COPPER_LANTERN,
+                Blocks::register,
+                (weatherState, properties) -> new LanternBlock(properties),
                 WeatheringLanternBlock::new,
-                oxidationLevel -> BlockBehaviour.Properties.of()
-                        .mapColor(MapColor.METAL)
-                        .forceSolidOn()
-                        .strength(3.5F)
-                        .sound(SoundType.LANTERN)
-                        .lightLevel(state -> 0)
-                        .noOcclusion()
-                        .pushReaction(PushReaction.DESTROY)
+                (weatherState) -> Properties.ofFullCopy(Blocks.COPPER_LANTERN.weathering().pick(weatherState))
+                        .lightLevel((blockState) -> 0)
         );
     }
 
     private static Block add(String path, Block block) {
         return Registry.register(BuiltInRegistries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, path), block);
-    }
-
-    private static Block addCopperSet(
-            String id,
-            Function<BlockBehaviour.Properties, Block> factory,
-            BlockBehaviour.Properties settings
-    ) {
-        Block block = factory.apply(
-                settings.setId(
-                        ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(TotallyLit.MOD_ID, id))
-                )
-        );
-
-
-        return add(id, block);
     }
 }

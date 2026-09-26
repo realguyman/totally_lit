@@ -19,13 +19,13 @@ public class TotallyLitVanillaMap implements TotallyLitEntrypoint {
         addTorch(Blocks.COPPER_TORCH, BlockRegistry.UNLIT_COPPER_TORCH);
         addTorch(Blocks.COPPER_WALL_TORCH, BlockRegistry.UNLIT_COPPER_WALL_TORCH);
 
-        addLantern(Blocks.COPPER_LANTERN.unaffected(), BlockRegistry.UNLIT_COPPER_LANTERNS.unaffected());
-        addLantern(Blocks.COPPER_LANTERN.oxidized(), BlockRegistry.UNLIT_COPPER_LANTERNS.oxidized());
-        addLantern(Blocks.COPPER_LANTERN.weathered(), BlockRegistry.UNLIT_COPPER_LANTERNS.weathered());
-        addLantern(Blocks.COPPER_LANTERN.exposed(), BlockRegistry.UNLIT_COPPER_LANTERNS.exposed());
-        addLantern(Blocks.COPPER_LANTERN.waxed(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxed());
-        addLantern(Blocks.COPPER_LANTERN.waxedOxidized(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
-        addLantern(Blocks.COPPER_LANTERN.waxedWeathered(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
-        addLantern(Blocks.COPPER_LANTERN.waxedExposed(), BlockRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
+        addLantern(Blocks.COPPER_LANTERN.weathering().unaffected(), BlockRegistry.UNLIT_COPPER_LANTERN.weathering().unaffected());
+        addLantern(Blocks.COPPER_LANTERN.weathering().oxidized(), BlockRegistry.UNLIT_COPPER_LANTERN.weathering().oxidized());
+        addLantern(Blocks.COPPER_LANTERN.weathering().weathered(), BlockRegistry.UNLIT_COPPER_LANTERN.weathering().weathered());
+        addLantern(Blocks.COPPER_LANTERN.weathering().exposed(), BlockRegistry.UNLIT_COPPER_LANTERN.weathering().exposed());
+        addLantern(Blocks.COPPER_LANTERN.waxed().unaffected(), BlockRegistry.UNLIT_COPPER_LANTERN.waxed().unaffected());
+        addLantern(Blocks.COPPER_LANTERN.waxed().oxidized(), BlockRegistry.UNLIT_COPPER_LANTERN.waxed().oxidized());
+        addLantern(Blocks.COPPER_LANTERN.waxed().weathered(), BlockRegistry.UNLIT_COPPER_LANTERN.waxed().weathered());
+        addLantern(Blocks.COPPER_LANTERN.waxed().exposed(), BlockRegistry.UNLIT_COPPER_LANTERN.waxed().exposed());
     }
 }

@@ -4,7 +4,7 @@ import io.github.realguyman.totally_lit.TotallyLit;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import net.minecraft.core.BlockPos;
 import net.minecraft.gametest.framework.GameTestHelper;
-import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EntityTypes;
 import net.minecraft.world.level.block.Blocks;
 
 public class CaretakerTestSuite {
@@ -13,7 +13,7 @@ public class CaretakerTestSuite {
         context.getLevel().tickRateManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
 
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.spawn(EntityType.VILLAGER, pos);
+        context.spawn(EntityTypes.VILLAGER, pos);
 
         context.setBlock(pos, Blocks.TORCH);
         context.randomTick(pos);
@@ -29,7 +29,7 @@ public class CaretakerTestSuite {
 
         context.getLevel().getWeatherData().setRaining(true);
 
-        context.spawn(EntityType.VILLAGER, pos);
+        context.spawn(EntityTypes.VILLAGER, pos);
 
         context.randomTick(pos);
 

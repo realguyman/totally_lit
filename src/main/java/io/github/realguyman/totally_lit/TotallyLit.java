@@ -111,17 +111,17 @@ public class TotallyLit implements ModInitializer {
             listener.insertAfter(Items.LANTERN, ItemRegistry.UNLIT_LANTERN);
             listener.insertAfter(Items.SOUL_LANTERN, ItemRegistry.UNLIT_SOUL_LANTERN, ItemRegistry.GLOWSTONE_LANTERN);
 
-            listener.insertAfter(Items.COPPER_LANTERN.exposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.exposed());
-            listener.insertAfter(Items.COPPER_LANTERN.oxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.oxidized());
-            listener.insertAfter(Items.COPPER_LANTERN.weathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.weathered());
-            listener.insertAfter(Items.COPPER_LANTERN.unaffected(), ItemRegistry.UNLIT_COPPER_LANTERNS.unaffected());
-            listener.insertAfter(Items.COPPER_LANTERN.waxedExposed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedExposed());
-            listener.insertAfter(Items.COPPER_LANTERN.waxedOxidized(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedOxidized());
-            listener.insertAfter(Items.COPPER_LANTERN.waxedWeathered(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxedWeathered());
-            listener.insertAfter(Items.COPPER_LANTERN.waxed(), ItemRegistry.UNLIT_COPPER_LANTERNS.waxed());
+            listener.insertAfter(Items.COPPER_LANTERN.weathering().exposed(), ItemRegistry.UNLIT_COPPER_LANTERN.weathering().exposed());
+            listener.insertAfter(Items.COPPER_LANTERN.weathering().oxidized(), ItemRegistry.UNLIT_COPPER_LANTERN.weathering().oxidized());
+            listener.insertAfter(Items.COPPER_LANTERN.weathering().weathered(), ItemRegistry.UNLIT_COPPER_LANTERN.weathering().weathered());
+            listener.insertAfter(Items.COPPER_LANTERN.weathering().unaffected(), ItemRegistry.UNLIT_COPPER_LANTERN.weathering().unaffected());
+            listener.insertAfter(Items.COPPER_LANTERN.waxed().exposed(), ItemRegistry.UNLIT_COPPER_LANTERN.waxed().exposed());
+            listener.insertAfter(Items.COPPER_LANTERN.waxed().oxidized(), ItemRegistry.UNLIT_COPPER_LANTERN.waxed().oxidized());
+            listener.insertAfter(Items.COPPER_LANTERN.waxed().weathered(), ItemRegistry.UNLIT_COPPER_LANTERN.waxed().weathered());
+            listener.insertAfter(Items.COPPER_LANTERN.waxed().unaffected(), ItemRegistry.UNLIT_COPPER_LANTERN.waxed().unaffected());
         });
 
-        OxidizableBlocksRegistry.registerWeatheringCopperBlocks(BlockRegistry.UNLIT_COPPER_LANTERNS);
+        OxidizableBlocksRegistry.registerWeatheringCopperBlocks(BlockRegistry.UNLIT_COPPER_LANTERN);
 
         BlockEvents.USE_ITEM_ON.register((stack, state, world, blockPos, player, hand, hitResult) -> {
             return igniteUnlitBlock(player, world, hand, hitResult, LANTERN_MAP, TagRegistry.LANTERN_IGNITER_ITEMS);

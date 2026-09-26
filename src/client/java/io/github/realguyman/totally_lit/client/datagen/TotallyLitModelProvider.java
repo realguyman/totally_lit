@@ -21,7 +21,7 @@ public class TotallyLitModelProvider extends FabricModelProvider {
         generator.createLantern(BlockRegistry.UNLIT_LANTERN);
         generator.createLantern(BlockRegistry.UNLIT_SOUL_LANTERN);
         generator.createLantern(BlockRegistry.GLOWSTONE_LANTERN);
-        BlockRegistry.UNLIT_COPPER_LANTERNS.waxedMapping().forEach(generator::createCopperLantern);
+        BlockRegistry.UNLIT_COPPER_LANTERN.zipUnwaxedWaxed(generator::createCopperLantern);
     }
 
     @Override

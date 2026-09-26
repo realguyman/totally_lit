@@ -27,11 +27,11 @@ public class LanternTestSuite {
         context.getLevel().tickRateManager().setTickRate(TotallyLit.MAX_TICKS_TO_BURN_FOR);
 
         BlockPos pos = new BlockPos(1, 1, 1);
-        context.setBlock(pos, Blocks.COPPER_LANTERN.unaffected());
+        context.setBlock(pos, Blocks.COPPER_LANTERN.weathering().unaffected());
         context.randomTick(pos);
 
         context.succeedWhen(() -> {
-            context.assertTrue(BlockRegistry.UNLIT_COPPER_LANTERNS.asList().contains(context.getBlockState(pos).getBlock()), "Was not one of the unwaxed unlit copper lanterns");
+            context.assertTrue(BlockRegistry.UNLIT_COPPER_LANTERN.asList().contains(context.getBlockState(pos).getBlock()), "Was not one of the unwaxed unlit copper lanterns");
         });
     }
 
@@ -39,8 +39,8 @@ public class LanternTestSuite {
     public void waxedCopperLanternBlockDoesExtinguishOverTime(GameTestHelper context) {
         TestUtil.blockDoesExtinguishOverTime(
                 context,
-                Blocks.COPPER_LANTERN.waxed(),
-                BlockRegistry.UNLIT_COPPER_LANTERNS.waxed()
+                Blocks.COPPER_LANTERN.waxed().unaffected(),
+                BlockRegistry.UNLIT_COPPER_LANTERN.waxed().unaffected()
         );
     }
 
